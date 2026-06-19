@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AnyCloud</string>
+    <string name="notification_channel_name">AnyCould</string>
+    <string name="notification_channel_id">10001</string>
 </resources>
