@@ -1,14 +1,16 @@
+
+# Project files
 *.iml
 .gradle
 /local.properties
 /.idea
 /build
 /captures
+/app/build
+/app/release
 
 # OSX
 .DS_Store
-
-
 
 .externalNativeBuild
 .cxx
