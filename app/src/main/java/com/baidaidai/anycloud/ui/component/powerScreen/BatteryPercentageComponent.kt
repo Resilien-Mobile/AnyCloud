@@ -1,22 +1,28 @@
 package com.baidaidai.anycloud.ui.component.powerScreen
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -26,6 +32,21 @@ fun BatteryPercentageComponent(
 ){
 
     val backgroundLayerFloatValue = batteryPercentage / 100.toFloat()
+
+    val liquidLayerSpacer = (-200 + 200 * ( 1 - backgroundLayerFloatValue )).dp
+
+    val infiniteState = rememberInfiniteTransition()
+    val rotationDegrees by infiniteState.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = 7000,
+                easing = LinearEasing
+            ),
+            repeatMode = RepeatMode.Restart
+        )
+    )
 
     Box(
         modifier = modifier
@@ -37,16 +58,26 @@ fun BatteryPercentageComponent(
             ),
         contentAlignment = Alignment.BottomCenter
     ) {
+
         // Background Layer
-        Column(
+        Box(
             modifier = Modifier
-                .background(color = Color(0xFFD5F5E3))
-                .fillMaxWidth()
-                .fillMaxHeight(backgroundLayerFloatValue),
-            content = {}
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.secondaryContainer)
         )
 
-        // Core Display Area
+        // Liquid Animation Layer
+        Box(
+            modifier = Modifier
+                .requiredSize(height = 400.dp, width = 400.dp)
+                .offset(y = (-100).dp)
+                .offset(y = liquidLayerSpacer)
+                .rotate(rotationDegrees)
+                .clip(RoundedCornerShape(170.dp))
+                .background(color = MaterialTheme.colorScheme.surface)
+        )
+
+        // Core Display Layer
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -54,11 +85,13 @@ fun BatteryPercentageComponent(
         ) {
             Text(
                 text = "Battery",
-                style = MaterialTheme.typography.titleLargeEmphasized
+                style = MaterialTheme.typography.titleLargeEmphasized,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
             Text(
                 text = "Charging",
-                style = MaterialTheme.typography.bodyMediumEmphasized
+                style = MaterialTheme.typography.bodyMediumEmphasized,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
 
         }
@@ -66,13 +99,13 @@ fun BatteryPercentageComponent(
         // Battery percentage Layer
         Box(
             modifier = Modifier
-                .offset(-25.dp,-35.dp)
+                .offset(-25.dp,-30.dp)
                 .fillMaxSize(),
             contentAlignment = Alignment.BottomEnd
         ) {
             Text(
                 text = batteryPercentage.toString(),
-                color = Color(0xFF00FF00),
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 style = MaterialTheme.typography.displayMedium
             )
         }

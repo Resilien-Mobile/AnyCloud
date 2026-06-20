@@ -1,6 +1,5 @@
 package com.baidaidai.anycloud.ui.component.powerScreen
 
-import android.health.connect.datatypes.units.Percentage
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
