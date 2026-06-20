@@ -1,3 +1,10 @@
 <resources>
+    <!-- Application Meta Infos  -->
     <string name="app_name">AnyCloud</string>
+    <string name="notification_channel_name">AnyCloud</string>
+    <string name="notification_channel_id">10001</string>
+
+    <!-- Application Notification Property  -->
+    <string name="power_cloud_notification_id">54321</string>
+
 </resources>
