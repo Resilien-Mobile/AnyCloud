@@ -52,6 +52,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
+    // Hilt
     testImplementation(libs.hilt.android.testing)
     kspTest(libs.hilt.compiler)
     kspAndroidTest(libs.hilt.compiler)
@@ -60,5 +61,11 @@ dependencies {
     implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
     ksp(libs.hilt.compiler)
 
+    // Room
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
+
+    // Material 3 Expressive
     implementation("androidx.compose.material3:material3:1.5.0-alpha22")
 }
