@@ -1,7 +1,8 @@
 package com.baidaidai.anycloud.data.notification.gateway
 
+import android.Manifest
 import android.content.Context
-import androidx.compose.ui.res.stringResource
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.baidaidai.anycloud.R
@@ -12,19 +13,30 @@ class NotificationGatewayImpl @Inject constructor(
     @ApplicationContext context: Context
 ) {
 
-//    private val notification = NotificationCompat.Builder(context, R.string.notification_channel_id)
-//        .setSmallIcon(R.drawable.ic_launcher_foreground)
-//        .setContentTitle("AnyCloud")
-//        .setContentText("Live update")
-//        .setStyle(NotificationCompat.BigTextStyle().bigText("Live update"))
-//
-//        // Request for promotion
-//        .setRequestPromotedOngoing(true)
-//        .setOngoing(true)
-//        .setPriority(NotificationCompat.PRIORITY_MAX)
-//
-//        .build()
-
+    private val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id))
     private val notificationManager = NotificationManagerCompat.from(context)
+
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+    fun pushOneLiveActivity(
+        notificationTitle: String,
+        notificationContent: String,
+        notificationID: Int = 10001
+    ){
+        val notification = notificationBuilder
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle(notificationTitle)
+            .setContentText(notificationContent)
+
+            // Request for promotion
+            .setStyle(NotificationCompat.BigTextStyle().bigText(notificationContent))
+            .setRequestPromotedOngoing(true)
+            .setOngoing(true)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+
+            .build()
+
+        notificationManager.notify(notificationID,notification)
+
+    }
 
 }
