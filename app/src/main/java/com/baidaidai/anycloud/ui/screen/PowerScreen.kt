@@ -69,6 +69,8 @@ fun PowerScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        EnablePowerCloudRow()
+        EnablePowerCloudRow {
+            powerScreenViewModel.enablePowerCloud()
+        }
     }
 }
