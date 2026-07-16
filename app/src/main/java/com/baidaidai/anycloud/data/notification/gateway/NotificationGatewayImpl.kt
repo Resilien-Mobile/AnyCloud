@@ -10,10 +10,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class NotificationGatewayImpl @Inject constructor(
-    @ApplicationContext context: Context
+    @ApplicationContext private val context: Context
 ) {
-
-    private val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id))
     private val notificationManager = NotificationManagerCompat.from(context)
 
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
@@ -22,6 +20,9 @@ class NotificationGatewayImpl @Inject constructor(
         notificationContent: String,
         notificationID: Int = 10001
     ){
+
+        val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.powercloud_liveupdate_notification_channel_id))
+
         val notification = notificationBuilder
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(notificationTitle)
@@ -33,6 +34,34 @@ class NotificationGatewayImpl @Inject constructor(
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_MAX)
 
+            .build()
+
+        notificationManager.notify(notificationID,notification)
+
+    }
+
+    /**
+     * This is NOT A LIVE UPDATE NOTIFICATION !
+     */
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+    fun pushOneOngoingNotification(
+        notificationTitle: String,
+        notificationContent: String,
+        notificationID: Int = 1001
+    ){
+
+        val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.anycloud_ongoing_notification_channel_id))
+
+        val notificationStyle = NotificationCompat.BigTextStyle().bigText(notificationContent)
+        val notification = notificationBuilder
+            .setSmallIcon(R.drawable.material_symbols_cloud)
+            .setContentTitle(notificationTitle)
+            .setContentText(notificationContent)
+
+            // Request for promotion
+            .setStyle(notificationStyle)
+            .setOngoing(true)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .build()
 
         notificationManager.notify(notificationID,notification)
