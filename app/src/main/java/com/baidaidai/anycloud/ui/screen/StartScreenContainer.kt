@@ -2,6 +2,7 @@ package com.baidaidai.anycloud.ui.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.LargeFlexibleTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumFlexibleTopAppBar
 import androidx.compose.material3.Scaffold
@@ -16,16 +17,25 @@ fun StartScreenContainer() {
         modifier = Modifier
             .fillMaxSize(),
         topBar = {
-            MediumFlexibleTopAppBar(
+            LargeFlexibleTopAppBar(
                 title = {
                     Text(
-                        text = "Power",
+                        text = "Any Cloud",
                         style = MaterialTheme.typography.displaySmall
+                    )
+                },
+                subtitle = {
+                    Text(
+                        text = ""
                     )
                 }
             )
         }
     ) { innerPadding ->
-        PowerScreen(innerPadding)
+        if (false){
+            PowerScreen(innerPadding)
+        }else{
+            HomeScreen(innerPadding)
+        }
     }
 }

@@ -1,78 +1,102 @@
 package com.baidaidai.anycloud.ui.screen
 
-import android.Manifest
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.annotation.RequiresPermission
-import androidx.compose.material3.*
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.input.clearText
+import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import com.baidaidai.anycloud.R
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenCenterLogo
+import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenNotificationList
+import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenSearchRow
+import com.baidaidai.anycloud.ui.vm.HomeScreenViewModel
 
 
-@RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
-@RequiresApi(Build.VERSION_CODES.BAKLAVA)
 @Composable
-fun HomeScreen(innerPadding: PaddingValues) {
+fun HomeScreen(
+    innerPadding: PaddingValues,
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
+) {
+    val inputContentState = rememberTextFieldState()
+    val density = LocalDensity.current
+    val notificationConfigList by homeScreenViewModel.notificationConfigList.collectAsState()
 
-    val context = LocalContext.current
+    val isImeVisible = WindowInsets.ime.getBottom(density) > 100 // Returned Pixel Value
 
-    val notification = NotificationCompat.Builder(context, stringResource(R.string.notification_channel_id))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentTitle("AnyCloud")
-        .setContentText("Live update")
-        .setStyle(NotificationCompat.BigTextStyle().bigText("Live update"))
+    val searchRowBottomPadding by animateDpAsState(
+        targetValue = if (isImeVisible) 0.dp else 18.dp
+    )
+    val searchRowVerticalPadding by animateDpAsState(
+        targetValue = if (isImeVisible) 4.dp else 34.dp
+    )
+    val logoTint by animateColorAsState(
+        targetValue = if (!isImeVisible && !notificationConfigList.isNotEmpty()) MaterialTheme.colorScheme.surfaceContainerHighest else MaterialTheme.colorScheme.surface
+    )
 
-        // Request for promotion
-        .setRequestPromotedOngoing(true)
-        .setOngoing(true)
-        .setPriority(NotificationCompat.PRIORITY_MAX)
-
-        .build()
-
-    val notificationManager = NotificationManagerCompat.from(context)
-
-    var promotableStatus: Boolean? by remember { mutableStateOf(null) }
-
-
-    Column(
+    Box(
         modifier = Modifier
-            .padding(innerPadding)
             .fillMaxSize()
+            .padding(innerPadding)
+            .padding(horizontal = 16.dp)
     ) {
-        Row(
+
+        HomeScreenCenterLogo(
+            tint = logoTint,
+            modifier = Modifier
+                .size(120.dp)
+                .align(Alignment.Center)
+        )
+
+        Column(
             modifier = Modifier
                 .fillMaxSize(),
-            horizontalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = {
-                    promotableStatus = notification.hasPromotableCharacteristics()
-                }
-            ){
-                Text("Promotable: $promotableStatus")
+            HomeScreenNotificationList(
+                notificationConfigList = notificationConfigList,
+                modifier = Modifier.weight(weight = 1f, fill = false)
+            ){ notificationConfig ->
+                homeScreenViewModel.deleteOneNotificationConfig(notificationConfig)
             }
-            Button(
-                onClick = {
-                    notificationManager.notify(10001,notification)
-                }
+            HomeScreenSearchRow(
+                state = inputContentState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = searchRowVerticalPadding,
+                        end = searchRowVerticalPadding,
+                        bottom = searchRowBottomPadding,
+                        top = 14.dp
+                    )
+                    .imePadding()
+                    .align(Alignment.CenterHorizontally)
             ){
-                Text("Try send")
+                homeScreenViewModel
+                    .createOneNotificationConfig(
+                        notificationContent = inputContentState.text.toString()
+                    )
+                inputContentState.clearText()
             }
         }
+
     }
 }
