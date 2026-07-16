@@ -43,6 +43,18 @@ class NotificationRepositoryImpl @Inject constructor(
         return notificationConfigFlow
     }
 
+    suspend fun getMaxNotificationIDBetween(
+        minNotificationID: Int,
+        maxNotificationID: Int
+    ): Int? {
+        val maxNotificationIDInDataBase = notificationDao.getMaxNotificationIDBetween(
+            minNotificationID = minNotificationID,
+            maxNotificationID = maxNotificationID
+        )
+
+        return maxNotificationIDInDataBase
+    }
+
     // Delete
     suspend fun deleteOneNotification(notificationConfig: NotificationConfig) {
         val notificationEntity = notificationConfig.toNotificationEntity()

@@ -26,17 +26,39 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        // Registration notification permission
-        val channelID = this.getString(R.string.notification_channel_id)
-        val name = this.getString(R.string.notification_channel_name)
-        val descriptionText = ""
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel(channelID ,name, importance).apply {
-            description = descriptionText
+        // Registration PowerCloud Live Update Notification Permission
+        val powerCloudChannelID = this.getString(R.string.powercloud_liveupdate_notification_channel_id)
+        val powerCloudName = this.getString(R.string.powercloud_liveupdate_notification_channel_name)
+        val powerCloudDescriptionText = "Enable PowerCloud LiveUpdate"
+        val powerCloudImportance = NotificationManager.IMPORTANCE_HIGH
+        val powerCloudLiveUpdateChannel = NotificationChannel(powerCloudChannelID ,powerCloudName, powerCloudImportance).apply {
+            description = powerCloudDescriptionText
         }
+
+        // Registration AnyCloud Ongoing Notification Permission
+        val anyCloudOngoingChannelID = this.getString(R.string.anycloud_ongoing_notification_channel_id)
+        val anyCloudOngoingName = this.getString(R.string.anycloud_ongoing_notification_channel_name)
+        val anyCloudOngoingDescriptionText = "Enable AnyCloud Ongoing Notification"
+        val anyCloudOngoingImportance = NotificationManager.IMPORTANCE_HIGH
+        val anyCloudOngoingChannel = NotificationChannel(anyCloudOngoingChannelID ,anyCloudOngoingName, anyCloudOngoingImportance).apply {
+            description = anyCloudOngoingDescriptionText
+        }
+
+        // Registration AnyCloud Live Update Notification Permission
+        val anyCloudLiveUpdateChannelID = this.getString(R.string.anycloud_liveupdate_notification_channel_id)
+        val anyCloudLiveUpdateName = this.getString(R.string.anycloud_liveupdate_notification_channel_name)
+        val anyCloudLiveUpdateDescriptionText = "Enable AnyCloud LiveUpdate Notification"
+        val anyCloudLiveUpdateImportance = NotificationManager.IMPORTANCE_HIGH
+        val anyCloudLiveUpdateChannel = NotificationChannel(anyCloudLiveUpdateChannelID ,anyCloudLiveUpdateName, anyCloudLiveUpdateImportance).apply {
+            description = anyCloudLiveUpdateDescriptionText
+        }
+
         // Register the channel with the system.
         val notificationManager: NotificationManager =
             this.getSystemService(NotificationManager::class.java) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
+
+        notificationManager.createNotificationChannel(powerCloudLiveUpdateChannel)
+        notificationManager.createNotificationChannel(anyCloudOngoingChannel)
+        notificationManager.createNotificationChannel(anyCloudLiveUpdateChannel)
     }
 }

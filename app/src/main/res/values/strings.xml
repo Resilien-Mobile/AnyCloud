@@ -1,8 +1,17 @@
 <resources>
     <!-- Application Meta Infos  -->
     <string name="app_name">AnyCloud</string>
-    <string name="notification_channel_name">AnyCloud</string>
-    <string name="notification_channel_id">10001</string>
+
+    <!-- Power Cloud Live Update Notification  -->
+    <string name="powercloud_liveupdate_notification_channel_name">PowerCloud LiveUpdate</string>
+    <string name="powercloud_liveupdate_notification_channel_id">10000</string>
+
+    <!-- Any Cloud Ongoing Notification  -->
+    <string name="anycloud_ongoing_notification_channel_name">AnyCloud Ongoing</string>
+    <string name="anycloud_ongoing_notification_channel_id">1000</string>
+    <!-- Any Cloud LiveUpdate Notification  -->
+    <string name="anycloud_liveupdate_notification_channel_name">AnyCloud LiveUpdate</string>
+    <string name="anycloud_liveupdate_notification_channel_id">6000</string>
 
     <!-- Application Notification Property  -->
     <string name="power_cloud_notification_id">54321</string>

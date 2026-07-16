@@ -26,6 +26,15 @@ interface NotificationDAO {
     @Query("SELECT * FROM NotificationEntity")
     fun getAllNotificationEntity(): Flow<List<NotificationEntity>>
 
+    @Query(
+        "SELECT MAX(notificationID) FROM NotificationEntity " +
+                "WHERE notificationID BETWEEN :minNotificationID AND :maxNotificationID"
+    )
+    suspend fun getMaxNotificationIDBetween(
+        minNotificationID: Int,
+        maxNotificationID: Int
+    ): Int?
+
     // Delete
     @Delete
     suspend fun deleteOneNotification(notificationEntity: NotificationEntity)
