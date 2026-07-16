@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.baidaidai.anycloud"
-        minSdk = 28
+        minSdk = 36
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.ui.tooling.preview)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
@@ -54,6 +55,7 @@ dependencies {
 
     // Hilt
     testImplementation(libs.hilt.android.testing)
+    debugImplementation(libs.androidx.ui.tooling)
     kspTest(libs.hilt.compiler)
     kspAndroidTest(libs.hilt.compiler)
     androidTestImplementation(libs.hilt.android.testing)
