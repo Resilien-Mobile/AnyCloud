@@ -31,13 +31,11 @@ class HomeScreenViewModel @Inject constructor(
     fun createOneNotificationConfig(
         notificationTitle: String = "Any Cloud",
         notificationContent: String,
-        notificationID: Int = 1001
     ) {
         viewModelScope.launch {
             addOneNotificationConfigUseCase(
                 notificationTitle = notificationTitle,
-                notificationContent = notificationContent,
-                notificationID = notificationID
+                notificationContent = notificationContent
             )
         }
     }
