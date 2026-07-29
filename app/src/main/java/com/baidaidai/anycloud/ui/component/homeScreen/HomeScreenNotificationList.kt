@@ -32,7 +32,8 @@ import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
 fun HomeScreenNotificationList(
     modifier: Modifier = Modifier,
     notificationConfigList: List<NotificationConfig>,
-    onDeleteNotification: (notificationConfig: NotificationConfig)-> Unit = {}
+    onDeleteNotification: (notificationConfig: NotificationConfig)-> Unit = {},
+    onObverseTaskStatus: (notificationConfig: NotificationConfig) -> Unit = {}
 ){
 
 
@@ -96,8 +97,8 @@ fun HomeScreenNotificationList(
                     leadingContent = { Icon(painterResource(R.drawable.material_symbols_cloud),null) },
                     trailingContent = {
                         Checkbox(
-                            checked = (index%2 ==0),
-                            onCheckedChange = {}
+                            checked = notificationConfig.isTaskFinished,
+                            onCheckedChange = { onObverseTaskStatus(notificationConfig) }
                         )
                     },
                     colors = listItemColors,

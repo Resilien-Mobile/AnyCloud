@@ -22,6 +22,18 @@ interface NotificationDAO {
     @Update
     suspend fun updateOneNotificationEntity(notificationEntity: NotificationEntity)
 
+    @Query(
+        """
+        UPDATE NotificationEntity
+        SET isTaskFinished = :isTaskFinished
+        WHERE unixTimeStamp = :unixTimeStamp
+        """
+    )
+    suspend fun updateOneNotificationTaskFinished(
+        unixTimeStamp: Long,
+        isTaskFinished: Boolean
+    )
+
     // Read
     @Query("SELECT * FROM NotificationEntity")
     fun getAllNotificationEntity(): Flow<List<NotificationEntity>>

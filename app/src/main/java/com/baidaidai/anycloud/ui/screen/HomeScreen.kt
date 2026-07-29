@@ -73,10 +73,14 @@ fun HomeScreen(
         ) {
             HomeScreenNotificationList(
                 notificationConfigList = notificationConfigList,
-                modifier = Modifier.weight(weight = 1f, fill = false)
-            ){ notificationConfig ->
-                homeScreenViewModel.deleteOneNotificationConfig(notificationConfig)
-            }
+                modifier = Modifier.weight(weight = 1f, fill = false),
+                onDeleteNotification = { notificationConfig ->
+                    homeScreenViewModel.deleteOneNotificationConfig(notificationConfig)
+                },
+                onObverseTaskStatus = { notificationConfig ->
+                    homeScreenViewModel.updateOneNotificationTaskFinished(notificationConfig, isTaskFinished = !notificationConfig.isTaskFinished)
+                }
+            )
             HomeScreenSearchRow(
                 state = inputContentState,
                 modifier = Modifier

@@ -8,7 +8,8 @@ fun NotificationEntity.toNotificationConfig(): NotificationConfig {
         unixTimeStamp = unixTimeStamp,
         notificationTitle = notificationTitle,
         notificationContent = notificationContent,
-        notificationID = notificationID
+        notificationID = notificationID,
+        isTaskFinished = isTaskFinished
     )
 }
 
@@ -17,6 +18,7 @@ fun NotificationConfig.toNotificationEntity(id: Long = 0L): NotificationEntity {
         unixTimeStamp = unixTimeStamp,
         notificationTitle = notificationTitle,
         notificationContent = notificationContent,
-        notificationID = notificationID
+        notificationID = notificationID,
+        isTaskFinished = isTaskFinished
     )
 }
