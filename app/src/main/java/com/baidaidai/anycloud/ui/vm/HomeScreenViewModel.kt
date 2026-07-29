@@ -2,8 +2,8 @@ package com.baidaidai.anycloud.ui.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.baidaidai.anycloud.application.notification.AddOneNotificationConfigUseCase
-import com.baidaidai.anycloud.application.notification.DeleteOneNotificationConfigUseCase
+import com.baidaidai.anycloud.application.notification.PushOneOngoingNotificationConfigUseCase
+import com.baidaidai.anycloud.application.notification.DeleteOneOngoingNotificationConfigUseCase
 import com.baidaidai.anycloud.application.notification.GetAllNotificationConfigUseCase
 import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val addOneNotificationConfigUseCase: AddOneNotificationConfigUseCase,
-    private val deleteOneNotificationConfigUseCase: DeleteOneNotificationConfigUseCase,
+    private val pushOneOngoingNotificationConfigUseCase: PushOneOngoingNotificationConfigUseCase,
+    private val deleteOneOngoingNotificationConfigUseCase: DeleteOneOngoingNotificationConfigUseCase,
     private val getAllNotificationConfigUseCase: GetAllNotificationConfigUseCase
 ) : ViewModel() {
 
@@ -33,7 +33,7 @@ class HomeScreenViewModel @Inject constructor(
         notificationContent: String,
     ) {
         viewModelScope.launch {
-            addOneNotificationConfigUseCase(
+            pushOneOngoingNotificationConfigUseCase(
                 notificationTitle = notificationTitle,
                 notificationContent = notificationContent
             )
@@ -45,7 +45,7 @@ class HomeScreenViewModel @Inject constructor(
         notificationConfig: NotificationConfig
     ) {
         viewModelScope.launch {
-            deleteOneNotificationConfigUseCase(notificationConfig)
+            deleteOneOngoingNotificationConfigUseCase(notificationConfig)
         }
     }
 
