@@ -31,6 +31,16 @@ class NotificationRepositoryImpl @Inject constructor(
         notificationDao.updateOneNotificationEntity(notificationEntity)
     }
 
+    suspend fun updateOneNotificationTaskFinished(
+        unixTimeStamp: Long,
+        isTaskFinished: Boolean
+    ) {
+        notificationDao.updateOneNotificationTaskFinished(
+            unixTimeStamp = unixTimeStamp,
+            isTaskFinished = isTaskFinished
+        )
+    }
+
     // Read
     fun getAllNotification(): Flow<List<NotificationConfig>> {
         val notificationEntityFlow = notificationDao.getAllNotificationEntity()

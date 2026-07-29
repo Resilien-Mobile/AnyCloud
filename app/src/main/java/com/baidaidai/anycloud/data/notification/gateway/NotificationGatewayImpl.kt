@@ -6,6 +6,7 @@ import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.baidaidai.anycloud.R
+import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -14,6 +15,7 @@ class NotificationGatewayImpl @Inject constructor(
 ) {
     private val notificationManager = NotificationManagerCompat.from(context)
 
+    // Push
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     fun pushOneLiveActivity(
         notificationTitle: String,
@@ -66,6 +68,13 @@ class NotificationGatewayImpl @Inject constructor(
 
         notificationManager.notify(notificationID,notification)
 
+    }
+
+    // Cancel
+    fun cancelOneOngoingNotification(
+        notificationConfig: NotificationConfig
+    ){
+        notificationManager.cancel(notificationConfig.notificationID)
     }
 
 }

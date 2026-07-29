@@ -7,7 +7,7 @@ import com.baidaidai.anycloud.data.notification.repository.NotificationRepositor
 import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
 import javax.inject.Inject
 
-class AddOneNotificationConfigUseCase @Inject constructor(
+class PushOneOngoingNotificationConfigUseCase @Inject constructor(
     private val notificationRepositoryImpl: NotificationRepositoryImpl,
     private val notificationGatewayImpl: NotificationGatewayImpl
 ) {

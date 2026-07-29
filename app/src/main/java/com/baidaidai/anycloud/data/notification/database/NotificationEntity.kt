@@ -10,5 +10,6 @@ data class NotificationEntity(
 
     val notificationTitle: String,
     val notificationContent: String,
-    val notificationID: Int
+    val notificationID: Int,
+    val isTaskFinished: Boolean = false
 )
