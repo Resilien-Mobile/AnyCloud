@@ -11,28 +11,48 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationDrawerItem
-import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.R
+import com.baidaidai.anycloud.domain.navigation.NavigationConfig
 import kotlinx.coroutines.launch
 
 @Composable
 fun NavigationDrawer(
     content:  @Composable (() -> Unit)
 ){
+
+    val navigationList = listOf(
+        NavigationConfig(
+            destinationName = "Any Cloud",
+            destinationIcon = R.drawable.material_symbols_cloud
+        ),
+        NavigationConfig(
+            destinationName = "Power",
+            destinationIcon = R.drawable.material_symbols_cable
+        ),
+        NavigationConfig(
+            destinationName = "Upload",
+            destinationIcon = R.drawable.material_symbols_arrow_upward
+        )
+    )
+    var selectedDestination by remember { mutableStateOf(navigationList[0]) }
+
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed
     )
-    val scope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
     ModalNavigationDrawer(
         drawerState = drawerState,
         gesturesEnabled = true,
@@ -60,28 +80,14 @@ fun NavigationDrawer(
                     .height(1.dp))
                 Spacer(Modifier.height(8.dp))
 
-                NavigationDrawerItem(
-                    selected = true,
-                    onClick = {
-                        scope.launch {
-                            drawerState.close()
-                        }
-                    },
-                    icon = {
-                        Icon(
-                            painter = painterResource(
-                                R.drawable.material_symbols_cloud
-                            ),
-                            contentDescription = null
-                        )
-                    },
-                    label = {
-                        Text("Any Cloud")
-                    },
-                    modifier = Modifier.padding(
-                        NavigationDrawerItemDefaults.ItemPadding
-                    )
-                )
+                NavigationDrawerItemList(
+                    selectedDestination = selectedDestination,
+                    navigationList = navigationList,
+                ){ navigationConfig ->
+                    coroutineScope.launch {
+                        selectedDestination = navigationConfig
+                    }
+                }
             }
         }
     ) {
