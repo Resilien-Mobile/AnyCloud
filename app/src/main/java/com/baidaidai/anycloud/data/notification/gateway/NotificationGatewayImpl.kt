@@ -26,7 +26,7 @@ class NotificationGatewayImpl @Inject constructor(
         val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.powercloud_liveupdate_notification_channel_id))
 
         val notification = notificationBuilder
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.material_symbols_cloud)
             .setContentTitle(notificationTitle)
             .setContentText(notificationContent)
 
