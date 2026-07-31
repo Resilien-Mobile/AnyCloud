@@ -18,33 +18,37 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.R
+import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.NavigationConfig
-import kotlinx.coroutines.launch
+import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
 
 @Composable
 fun NavigationDrawer(
+    onNavigationClick: (navigationConfig: NavigationConfig)-> Unit = {},
     content:  @Composable (() -> Unit)
 ){
 
     val navigationList = listOf(
         NavigationConfig(
             destinationName = "Any Cloud",
-            destinationIcon = R.drawable.material_symbols_cloud
+            destinationIcon = R.drawable.material_symbols_cloud,
+            destinationNavKey = HomeScreenNavKey
         ),
         NavigationConfig(
             destinationName = "Power",
-            destinationIcon = R.drawable.material_symbols_cable
+            destinationIcon = R.drawable.material_symbols_cable,
+            destinationNavKey = PowerCloudNavKey
         ),
         NavigationConfig(
             destinationName = "Upload",
-            destinationIcon = R.drawable.material_symbols_arrow_upward
+            destinationIcon = R.drawable.material_symbols_arrow_upward,
+            destinationNavKey = HomeScreenNavKey
         )
     )
     var selectedDestination by remember { mutableStateOf(navigationList[0]) }
@@ -52,7 +56,7 @@ fun NavigationDrawer(
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed
     )
-    val coroutineScope = rememberCoroutineScope()
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         gesturesEnabled = true,
@@ -84,9 +88,8 @@ fun NavigationDrawer(
                     selectedDestination = selectedDestination,
                     navigationList = navigationList,
                 ){ navigationConfig ->
-                    coroutineScope.launch {
-                        selectedDestination = navigationConfig
-                    }
+                    selectedDestination = navigationConfig
+                    onNavigationClick(navigationConfig)
                 }
             }
         }
@@ -98,7 +101,7 @@ fun NavigationDrawer(
 @PreviewLightDark
 @Composable
 private fun _preview_() {
-    NavigationDrawer {
+    NavigationDrawer() {
         Scaffold { innerPadding ->
             Box(
                 modifier = Modifier.padding(innerPadding)

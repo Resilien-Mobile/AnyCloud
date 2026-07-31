@@ -15,7 +15,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.R
+import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.NavigationConfig
+import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
 
 @Composable
 fun NavigationDrawerItemList(
@@ -53,15 +55,18 @@ private fun _preview_() {
     val navigationList = listOf(
         NavigationConfig(
             destinationName = "Any Cloud",
-            destinationIcon = R.drawable.material_symbols_cloud
+            destinationIcon = R.drawable.material_symbols_cloud,
+            destinationNavKey = HomeScreenNavKey
         ),
         NavigationConfig(
             destinationName = "Power",
-            destinationIcon = R.drawable.material_symbols_cable
+            destinationIcon = R.drawable.material_symbols_cable,
+            destinationNavKey = PowerCloudNavKey
         ),
         NavigationConfig(
             destinationName = "Upload",
-            destinationIcon = R.drawable.material_symbols_arrow_upward
+            destinationIcon = R.drawable.material_symbols_arrow_upward,
+            destinationNavKey = HomeScreenNavKey
         )
     )
 
