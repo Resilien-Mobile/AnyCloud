@@ -4,4 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.hilt.android) apply false
     alias(libs.plugins.ksp) apply false
+
+    // Navigation3 Kotlin Plugin
+    alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 }

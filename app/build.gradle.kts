@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+
+    // Navigation3 Kotlin Plugin
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -70,4 +73,12 @@ dependencies {
 
     // Material 3 Expressive
     implementation("androidx.compose.material3:material3:1.5.0-alpha22")
+
+    // Navigate 3
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.material3.adaptive.navigation3)
+    implementation(libs.kotlinx.serialization.core)
+
 }
