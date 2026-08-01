@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.application.notification
+package com.baidaidai.anycloud.application.notification.ongoing
 
 import com.baidaidai.anycloud.data.notification.gateway.NotificationGatewayImpl
 import com.baidaidai.anycloud.data.notification.repository.NotificationRepositoryImpl

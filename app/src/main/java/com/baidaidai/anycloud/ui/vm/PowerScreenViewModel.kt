@@ -11,7 +11,7 @@ import com.baidaidai.anycloud.application.energy.GetCurrentBatteryPercentageUseC
 import com.baidaidai.anycloud.application.energy.GetCurrentMilliampereUseCase
 import com.baidaidai.anycloud.application.energy.GetCurrentVoltageUseCase
 import com.baidaidai.anycloud.application.energy.GetCurrentWattUseCase
-import com.baidaidai.anycloud.application.notification.PushLiveActivityUseCase
+import com.baidaidai.anycloud.application.notification.liveupdate.PushOneLiveUpdateNotificationUseCase
 import com.baidaidai.anycloud.domain.energy.model.EnergyType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -32,7 +32,7 @@ class PowerScreenViewModel @Inject constructor(
     getCurrentMilliampereUseCase: GetCurrentMilliampereUseCase,
     getCurrentVoltageUseCase: GetCurrentVoltageUseCase,
     getCurrentWattUseCase: GetCurrentWattUseCase,
-    private val pushLiveActivityUseCase: PushLiveActivityUseCase
+    private val pushOneLiveUpdateNotificationUseCase: PushOneLiveUpdateNotificationUseCase
 ) : ViewModel() {
     val currentBatteryPercentage: StateFlow<Int> =
         getCurrentBatteryPercentageUseCase().stateIn(
@@ -81,7 +81,7 @@ class PowerScreenViewModel @Inject constructor(
 
         powerCloudJob = viewModelScope.launch {
             while (isActive) {
-                pushLiveActivityUseCase(
+                pushOneLiveUpdateNotificationUseCase(
                     notificationTitle = "Current Watt",
                     notificationContent = String.format("%.2f", currentWatt.value),
                     notificationID = powerCloudNotificationID

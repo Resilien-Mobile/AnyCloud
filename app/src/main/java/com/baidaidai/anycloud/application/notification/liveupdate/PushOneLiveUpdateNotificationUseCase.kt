@@ -1,11 +1,11 @@
-package com.baidaidai.anycloud.application.notification
+package com.baidaidai.anycloud.application.notification.liveupdate
 
 import android.Manifest
 import androidx.annotation.RequiresPermission
 import com.baidaidai.anycloud.data.notification.gateway.NotificationGatewayImpl
 import javax.inject.Inject
 
-class PushLiveActivityUseCase @Inject constructor(
+class PushOneLiveUpdateNotificationUseCase @Inject constructor(
     private val notificationGatewayImpl: NotificationGatewayImpl
 ) {
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
