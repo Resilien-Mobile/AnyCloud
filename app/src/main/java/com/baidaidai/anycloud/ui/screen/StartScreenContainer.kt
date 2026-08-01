@@ -13,7 +13,11 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
+import com.baidaidai.anycloud.domain.navigation.TaskCloudNavKey
+import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.component.navigation.NavigationDrawer
+import com.baidaidai.anycloud.ui.component.powerScreen.PowerScreenNecessaryComponents
+import com.baidaidai.anycloud.ui.component.taskScreen.TaskScreenNecessaryComponents
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -24,24 +28,18 @@ fun StartScreenContainer() {
 
     NavigationDrawer(
         onNavigationClick = { navigationConfig ->
+            navigation.removeLastOrNull()
             navigation.add(navigationConfig.destinationNavKey)
         }
     ){
         Scaffold(
             topBar = {
-                LargeFlexibleTopAppBar(
-                    title = {
-                        Text(
-                            text = "Any Cloud",
-                            style = MaterialTheme.typography.displaySmall
-                        )
-                    },
-                    subtitle = {
-                        Text(
-                            text = ""
-                        )
-                    }
-                )
+                when(currentDestination){
+                    is HomeScreenNavKey -> HomeScreenNecessaryComponents.HomeScreenTopAppBar()
+                    is TaskCloudNavKey -> TaskScreenNecessaryComponents.TaskScreenTopAppBar()
+                    is PowerCloudNavKey -> PowerScreenNecessaryComponents.PowerScreenTopAppBar()
+                    else -> HomeScreenNecessaryComponents.HomeScreenTopAppBar()
+                }
             }
         ) { innerPadding ->
 
@@ -55,6 +53,10 @@ fun StartScreenContainer() {
                 entryProvider = entryProvider{
                     entry<HomeScreenNavKey> {
                         HomeScreen(innerPadding)
+                    }
+
+                    entry<TaskCloudNavKey> {
+                        TaskScreen(innerPadding)
                     }
 
                     entry<PowerCloudNavKey> {

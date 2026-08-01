@@ -27,6 +27,7 @@ import com.baidaidai.anycloud.R
 import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.NavigationConfig
 import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
+import com.baidaidai.anycloud.domain.navigation.TaskCloudNavKey
 
 @Composable
 fun NavigationDrawer(
@@ -41,15 +42,20 @@ fun NavigationDrawer(
             destinationNavKey = HomeScreenNavKey
         ),
         NavigationConfig(
-            destinationName = "Power",
+            destinationName = "Task Cloud",
+            destinationIcon = R.drawable.material_symbols_task,
+            destinationNavKey = TaskCloudNavKey
+        ),
+        NavigationConfig(
+            destinationName = "Power Cloud",
             destinationIcon = R.drawable.material_symbols_cable,
             destinationNavKey = PowerCloudNavKey
         ),
         NavigationConfig(
-            destinationName = "Upload",
-            destinationIcon = R.drawable.material_symbols_arrow_upward,
-            destinationNavKey = HomeScreenNavKey
-        )
+            destinationName = "Setting",
+            destinationIcon = R.drawable.material_symbols_settings,
+            destinationNavKey = PowerCloudNavKey
+        ),
     )
     var selectedDestination by remember { mutableStateOf(navigationList[0]) }
 
@@ -61,7 +67,9 @@ fun NavigationDrawer(
         drawerState = drawerState,
         gesturesEnabled = true,
         drawerContent = {
-            ModalDrawerSheet {
+            ModalDrawerSheet(
+                drawerState = drawerState
+            ) {
 
                 ListItem(
                     leadingContent = {
