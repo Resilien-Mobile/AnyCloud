@@ -48,7 +48,7 @@ fun NavigationDrawer(
         ),
         NavigationConfig(
             destinationName = "Power Cloud",
-            destinationIcon = R.drawable.material_symbols_cable,
+            destinationIcon = R.drawable.material_symbols_bolt_boost,
             destinationNavKey = PowerCloudNavKey
         ),
         NavigationConfig(
