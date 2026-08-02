@@ -10,4 +10,7 @@ sealed interface AppNavKey : NavKey
 data object HomeScreenNavKey : AppNavKey
 
 @Serializable
+data object TaskCloudNavKey : AppNavKey
+
+@Serializable
 data object PowerCloudNavKey : AppNavKey

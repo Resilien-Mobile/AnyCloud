@@ -1,15 +1,15 @@
-package com.baidaidai.anycloud.application.notification
+package com.baidaidai.anycloud.application.notification.ongoing
 
 import android.Manifest
 import androidx.annotation.RequiresPermission
-import com.baidaidai.anycloud.data.notification.gateway.NotificationGatewayImpl
-import com.baidaidai.anycloud.data.notification.repository.NotificationRepositoryImpl
+import com.baidaidai.anycloud.data.notification.ongoing.gateway.OngoingNotificationGatewayImpl
+import com.baidaidai.anycloud.data.notification.ongoing.repository.OngoingNotificationRepositoryImpl
 import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
 import javax.inject.Inject
 
 class PushOneOngoingNotificationConfigUseCase @Inject constructor(
-    private val notificationRepositoryImpl: NotificationRepositoryImpl,
-    private val notificationGatewayImpl: NotificationGatewayImpl
+    private val ongoingNotificationRepositoryImpl: OngoingNotificationRepositoryImpl,
+    private val ongoingNotificationGatewayImpl: OngoingNotificationGatewayImpl
 ) {
     @Suppress("UNUSED_PARAMETER")
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
@@ -19,7 +19,11 @@ class PushOneOngoingNotificationConfigUseCase @Inject constructor(
         notificationID: Int = 1000
     ) {
         // Search max NotificationID in database, which between 1001..2000.
-        val maxNotificationIDInDataBase = notificationRepositoryImpl.getMaxNotificationIDBetween(minNotificationID = 1001, maxNotificationID = 2000)
+        val maxNotificationIDInDataBase = ongoingNotificationRepositoryImpl
+            .getMaxOngoingNotificationIDBetween(
+                minNotificationID = 1001,
+                maxNotificationID = 2000
+            )
         val nextNotificationID = if (maxNotificationIDInDataBase == null) 1001 else maxNotificationIDInDataBase + 1
 
         // Create Notification Config
@@ -32,10 +36,10 @@ class PushOneOngoingNotificationConfigUseCase @Inject constructor(
         )
 
         // Store Notification Config
-        notificationRepositoryImpl.addOneNotification(notificationConfig)
+        ongoingNotificationRepositoryImpl.addOneOngoingNotification(notificationConfig)
 
         // Push Notification by Config
-        notificationGatewayImpl.pushOneOngoingNotification(
+        ongoingNotificationGatewayImpl.pushOneOngoingNotification(
             notificationTitle = notificationTitle,
             notificationContent = notificationContent,
             notificationID = nextNotificationID

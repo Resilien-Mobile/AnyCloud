@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
         // Registration AnyCloud Live Update Notification Permission
         val anyCloudLiveUpdateChannelID = this.getString(R.string.anycloud_liveupdate_notification_channel_id)
         val anyCloudLiveUpdateName = this.getString(R.string.anycloud_liveupdate_notification_channel_name)
-        val anyCloudLiveUpdateDescriptionText = "Enable AnyCloud LiveUpdate Notification"
+        val anyCloudLiveUpdateDescriptionText = "Enable TaskCloud LiveUpdate Notification"
         val anyCloudLiveUpdateImportance = NotificationManager.IMPORTANCE_HIGH
         val anyCloudLiveUpdateChannel = NotificationChannel(anyCloudLiveUpdateChannelID ,anyCloudLiveUpdateName, anyCloudLiveUpdateImportance).apply {
             description = anyCloudLiveUpdateDescriptionText
