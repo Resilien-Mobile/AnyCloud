@@ -1,16 +1,16 @@
 package com.baidaidai.anycloud.application.notification.ongoing
 
-import com.baidaidai.anycloud.data.notification.repository.NotificationRepositoryImpl
+import com.baidaidai.anycloud.data.notification.ongoing.repository.OngoingNotificationRepositoryImpl
 import javax.inject.Inject
 
 class UpdateOneOngoingNotificationTaskFinishedUseCase @Inject constructor(
-    private val notificationRepositoryImpl: NotificationRepositoryImpl
+    private val ongoingNotificationRepositoryImpl: OngoingNotificationRepositoryImpl
 ) {
     suspend operator fun invoke(
         unixTimeStamp: Long,
         isTaskFinished: Boolean = false
     ) {
-        notificationRepositoryImpl.updateOneNotificationTaskFinished(
+        ongoingNotificationRepositoryImpl.updateOneOngoingNotificationTaskFinished(
             unixTimeStamp = unixTimeStamp,
             isTaskFinished = isTaskFinished
         )

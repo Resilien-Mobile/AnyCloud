@@ -1,9 +1,9 @@
-package com.baidaidai.anycloud.data.notification.mapper
+package com.baidaidai.anycloud.data.notification.ongoing.mapper
 
-import com.baidaidai.anycloud.data.notification.database.NotificationEntity
+import com.baidaidai.anycloud.data.notification.ongoing.database.OngoingNotificationEntity
 import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
 
-fun NotificationEntity.toNotificationConfig(): NotificationConfig {
+fun OngoingNotificationEntity.toNotificationConfig(): NotificationConfig {
     return NotificationConfig(
         unixTimeStamp = unixTimeStamp,
         notificationTitle = notificationTitle,
@@ -13,8 +13,8 @@ fun NotificationEntity.toNotificationConfig(): NotificationConfig {
     )
 }
 
-fun NotificationConfig.toNotificationEntity(id: Long = 0L): NotificationEntity {
-    return NotificationEntity(
+fun NotificationConfig.toOngoingNotificationEntity(id: Long = 0L): OngoingNotificationEntity {
+    return OngoingNotificationEntity(
         unixTimeStamp = unixTimeStamp,
         notificationTitle = notificationTitle,
         notificationContent = notificationContent,

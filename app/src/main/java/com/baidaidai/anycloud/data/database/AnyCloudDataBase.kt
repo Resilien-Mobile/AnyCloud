@@ -2,20 +2,19 @@ package com.baidaidai.anycloud.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.baidaidai.anycloud.data.notification.database.NotificationDAO
-import com.baidaidai.anycloud.data.notification.database.NotificationEntity
+import com.baidaidai.anycloud.data.notification.ongoing.database.OngoingNotificationDAO
+import com.baidaidai.anycloud.data.notification.ongoing.database.OngoingNotificationEntity
 
 @Database(
     entities = [
-        NotificationEntity::class
+        OngoingNotificationEntity::class
 
         // 其他表
     ],
     version = 1
 )
 abstract class AnyCloudDataBase: RoomDatabase() {
-    abstract fun notificationDao(): NotificationDAO
+    abstract fun ongoingNotificationDao(): OngoingNotificationDAO
 
     //其他DAO
 }

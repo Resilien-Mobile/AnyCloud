@@ -2,11 +2,11 @@ package com.baidaidai.anycloud.application.notification.liveupdate
 
 import android.Manifest
 import androidx.annotation.RequiresPermission
-import com.baidaidai.anycloud.data.notification.gateway.NotificationGatewayImpl
+import com.baidaidai.anycloud.data.notification.liveupdate.gateway.LiveUpdateNotificationGatewayImpl
 import javax.inject.Inject
 
-class PushOneLiveUpdateNotificationUseCase @Inject constructor(
-    private val notificationGatewayImpl: NotificationGatewayImpl
+class EnablePowerCloudNotificationUseCase @Inject constructor(
+    private val liveUpdateNotificationGatewayImpl: LiveUpdateNotificationGatewayImpl
 ) {
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     operator fun invoke(
@@ -14,7 +14,7 @@ class PushOneLiveUpdateNotificationUseCase @Inject constructor(
         notificationContent: String,
         notificationID: Int = 10001
     ) {
-        notificationGatewayImpl.pushOneLiveActivity(
+        liveUpdateNotificationGatewayImpl.pushOnePowerCloudLiveActivity(
             notificationTitle = notificationTitle,
             notificationContent = notificationContent,
             notificationID = notificationID
