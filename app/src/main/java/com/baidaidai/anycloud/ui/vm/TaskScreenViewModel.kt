@@ -2,10 +2,11 @@ package com.baidaidai.anycloud.ui.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.baidaidai.anycloud.application.notification.ongoing.DeleteOneOngoingNotificationConfigUseCase
-import com.baidaidai.anycloud.application.notification.ongoing.GetAllOngoingNotificationConfigUseCase
-import com.baidaidai.anycloud.application.notification.ongoing.PushOneOngoingNotificationConfigUseCase
-import com.baidaidai.anycloud.application.notification.ongoing.UpdateOneOngoingNotificationTaskFinishedUseCase
+import com.baidaidai.anycloud.application.notification.liveupdate.AddOneLiveUpdateNotificationUseCase
+import com.baidaidai.anycloud.application.notification.liveupdate.DeleteOneLiveUpdateNotificationUseCase
+import com.baidaidai.anycloud.application.notification.liveupdate.GetAllLiveUpdateNotificationUseCase
+import com.baidaidai.anycloud.application.notification.liveupdate.PushTaskCloudNotificationUseCase
+import com.baidaidai.anycloud.application.notification.liveupdate.UpdateOneLiveUpdateNotificationTaskFinishedUseCase
 import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,13 +16,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskScreenViewModel @Inject constructor(
-    private val pushOneOngoingNotificationConfigUseCase: PushOneOngoingNotificationConfigUseCase,
-    private val deleteOneOngoingNotificationConfigUseCase: DeleteOneOngoingNotificationConfigUseCase,
-    private val getAllOnGoingNotificationConfigUseCase: GetAllOngoingNotificationConfigUseCase,
-    private val updateOneOngoingNotificationTaskFinishedUseCase: UpdateOneOngoingNotificationTaskFinishedUseCase
+    private val addOneLiveUpdateNotificationUseCase: AddOneLiveUpdateNotificationUseCase,
+    private val deleteOneLiveUpdateNotificationUseCase: DeleteOneLiveUpdateNotificationUseCase,
+    private val getAllLiveUpdateNotificationUseCase: GetAllLiveUpdateNotificationUseCase,
+    private val updateOneLiveUpdateNotificationTaskFinishedUseCase: UpdateOneLiveUpdateNotificationTaskFinishedUseCase,
+    private val pushTaskCloudNotificationUseCase: PushTaskCloudNotificationUseCase
 ): ViewModel() {
 
-    val notificationConfigList = getAllOnGoingNotificationConfigUseCase().stateIn(
+    init {
+        initLiveUpdateNotification()
+    }
+
+    val notificationConfigList = getAllLiveUpdateNotificationUseCase().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = emptyList()
@@ -35,10 +41,11 @@ class TaskScreenViewModel @Inject constructor(
         notificationContent: String,
     ) {
         viewModelScope.launch {
-            pushOneOngoingNotificationConfigUseCase(
+            addOneLiveUpdateNotificationUseCase(
                 notificationTitle = notificationTitle,
                 notificationContent = notificationContent
             )
+            pushTaskCloudNotificationUseCase(notificationTitle = notificationTitle)
         }
     }
     // Update
@@ -47,12 +54,14 @@ class TaskScreenViewModel @Inject constructor(
         isTaskFinished: Boolean = false
     ) {
         val unixTimeStamp = notificationConfig.unixTimeStamp
+        val notificationTitle = notificationConfig.notificationTitle
 
         viewModelScope.launch {
-            updateOneOngoingNotificationTaskFinishedUseCase(
+            updateOneLiveUpdateNotificationTaskFinishedUseCase(
                 unixTimeStamp = unixTimeStamp,
                 isTaskFinished = isTaskFinished
             )
+            pushTaskCloudNotificationUseCase(notificationTitle = notificationTitle)
         }
     }
 
@@ -60,8 +69,19 @@ class TaskScreenViewModel @Inject constructor(
     fun deleteOneNotificationConfig(
         notificationConfig: NotificationConfig
     ) {
+        val notificationTitle = notificationConfig.notificationTitle
+
         viewModelScope.launch {
-            deleteOneOngoingNotificationConfigUseCase(notificationConfig)
+            deleteOneLiveUpdateNotificationUseCase(notificationConfig)
+            pushTaskCloudNotificationUseCase(notificationTitle = notificationTitle)
+        }
+    }
+
+    fun initLiveUpdateNotification(
+        notificationTitle: String = "Task Cloud"
+    ) {
+        viewModelScope.launch {
+            pushTaskCloudNotificationUseCase(notificationTitle = notificationTitle)
         }
     }
 }

@@ -10,7 +10,7 @@
     <string name="anycloud_ongoing_notification_channel_name">AnyCloud Ongoing</string>
     <string name="anycloud_ongoing_notification_channel_id">1000</string>
     <!-- Any Cloud LiveUpdate Notification  -->
-    <string name="anycloud_liveupdate_notification_channel_name">AnyCloud LiveUpdate</string>
+    <string name="anycloud_liveupdate_notification_channel_name">TaskCloud LiveUpdate</string>
     <string name="anycloud_liveupdate_notification_channel_id">6000</string>
 
     <!-- Application Notification Property  -->
