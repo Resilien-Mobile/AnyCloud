@@ -21,7 +21,6 @@ class PushTaskCloudNotificationUseCase @Inject constructor(
         val notificationConfigList = liveUpdateNotificationRepositoryImpl
             .getAllLiveUpdateNotification()
             .first()
-            .sortedBy { notificationConfig -> notificationConfig.unixTimeStamp }
 
         if (notificationConfigList.isEmpty()) {
             liveUpdateNotificationGatewayImpl.cancelOneBasicLiveActivity(notificationID)

@@ -23,7 +23,7 @@ class LiveUpdateNotificationRepositoryImpl @Inject constructor(
     ) {
         val liveUpdateNotificationEntity = notificationConfig.toLiveUpdateNotificationEntity()
 
-        liveUpdateNotificationDao.addOneLiveUpdateNotificationEntity(
+        liveUpdateNotificationDao.addOneLiveUpdateNotificationEntityWithWeight(
             liveUpdateNotificationEntity
         )
     }
@@ -49,6 +49,16 @@ class LiveUpdateNotificationRepositoryImpl @Inject constructor(
         )
     }
 
+    suspend fun updateOneLiveUpdateNotificationPosition(
+        unixTimeStamp: Long,
+        notificationWeight: Long
+    ) {
+        liveUpdateNotificationDao.updateNotificationWeightByUnixTimeStamp(
+            unixTimeStamp = unixTimeStamp,
+            notificationWeight = notificationWeight
+        )
+    }
+
     // Read
     fun getAllLiveUpdateNotification(): Flow<List<NotificationConfig>> {
         val liveUpdateNotificationEntityFlow =
@@ -61,6 +71,15 @@ class LiveUpdateNotificationRepositoryImpl @Inject constructor(
             }
 
         return notificationConfigFlow
+    }
+
+    suspend fun getAllLiveUpdateNotificationWeightExcept(
+        unixTimeStamp: Long
+    ): List<Long> {
+        val notificationWeightList = liveUpdateNotificationDao
+            .getAllNotificationWeightExceptUnixTimeStamp(unixTimeStamp)
+
+        return notificationWeightList
     }
 
     // Delete
