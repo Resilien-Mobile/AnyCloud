@@ -6,6 +6,7 @@ import com.baidaidai.anycloud.application.notification.liveupdate.AddOneLiveUpda
 import com.baidaidai.anycloud.application.notification.liveupdate.DeleteOneLiveUpdateNotificationUseCase
 import com.baidaidai.anycloud.application.notification.liveupdate.GetAllLiveUpdateNotificationUseCase
 import com.baidaidai.anycloud.application.notification.liveupdate.PushTaskCloudNotificationUseCase
+import com.baidaidai.anycloud.application.notification.liveupdate.UpdateOneLiveUpdateNotificationPositionUseCase
 import com.baidaidai.anycloud.application.notification.liveupdate.UpdateOneLiveUpdateNotificationTaskFinishedUseCase
 import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +21,8 @@ class TaskScreenViewModel @Inject constructor(
     private val deleteOneLiveUpdateNotificationUseCase: DeleteOneLiveUpdateNotificationUseCase,
     private val getAllLiveUpdateNotificationUseCase: GetAllLiveUpdateNotificationUseCase,
     private val updateOneLiveUpdateNotificationTaskFinishedUseCase: UpdateOneLiveUpdateNotificationTaskFinishedUseCase,
-    private val pushTaskCloudNotificationUseCase: PushTaskCloudNotificationUseCase
+    private val pushTaskCloudNotificationUseCase: PushTaskCloudNotificationUseCase,
+    private val updateOneLiveUpdateNotificationPositionUseCase: UpdateOneLiveUpdateNotificationPositionUseCase
 ): ViewModel() {
 
     init {
@@ -62,6 +64,20 @@ class TaskScreenViewModel @Inject constructor(
                 isTaskFinished = isTaskFinished
             )
             pushTaskCloudNotificationUseCase(notificationTitle = notificationTitle)
+        }
+    }
+
+    fun updateOneNotificationPosition(
+        notificationConfig: NotificationConfig,
+        insertionIndex: Int
+    ) {
+        val unixTimeStamp = notificationConfig.unixTimeStamp
+
+        viewModelScope.launch {
+            updateOneLiveUpdateNotificationPositionUseCase(
+                unixTimeStamp = unixTimeStamp,
+                insertionIndex = insertionIndex
+            )
         }
     }
 
