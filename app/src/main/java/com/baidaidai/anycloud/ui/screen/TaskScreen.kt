@@ -2,11 +2,10 @@ package com.baidaidai.anycloud.ui.screen
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.ime
@@ -38,7 +37,14 @@ fun TaskScreen(
     val density = LocalDensity.current
     val notificationConfigList by taskScreenViewModel.notificationConfigList.collectAsState()
 
-    val isImeVisible = WindowInsets.ime.getBottom(density) > 100 // Returned Pixel Value
+    val isImeVisible = WindowInsets
+        .ime
+        .getBottom(density) > 100 // Returned Pixel Value
+
+    val imeBottomPadding = WindowInsets
+        .ime
+        .asPaddingValues()  // Window inset to PaddingValues
+        .calculateBottomPadding() // Catch button padding values
 
     val searchRowBottomPadding by animateDpAsState(
         targetValue = if (isImeVisible) 0.dp else 18.dp
@@ -64,41 +70,43 @@ fun TaskScreen(
                 .align(Alignment.Center)
         )
 
-        Column(
+        HomeScreenNotificationList(
+            notificationConfigList = notificationConfigList,
+            contentPadding = PaddingValues(bottom = 80.dp + imeBottomPadding),
+            onDeleteNotification = { notificationConfig ->
+                taskScreenViewModel.deleteOneNotificationConfig(notificationConfig)
+            },
+            onObverseTaskStatus = { notificationConfig ->
+                taskScreenViewModel.updateOneNotificationTaskFinished(notificationConfig, isTaskFinished = !notificationConfig.isTaskFinished)
+            },
+            onNotificationDragEnd = { notificationConfig, insertionIndex ->
+                taskScreenViewModel.updateOneNotificationPosition(
+                    notificationConfig = notificationConfig,
+                    insertionIndex = insertionIndex
+                )
+            },
             modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            HomeScreenNotificationList(
-                notificationConfigList = notificationConfigList,
-                modifier = Modifier.weight(weight = 1f, fill = false),
-                onDeleteNotification = { notificationConfig ->
-                    taskScreenViewModel.deleteOneNotificationConfig(notificationConfig)
-                },
-                onObverseTaskStatus = { notificationConfig ->
-                    taskScreenViewModel.updateOneNotificationTaskFinished(notificationConfig, isTaskFinished = !notificationConfig.isTaskFinished)
-                }
-            )
-            HomeScreenSearchRow(
-                state = inputContentState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = searchRowVerticalPadding,
-                        end = searchRowVerticalPadding,
-                        bottom = searchRowBottomPadding,
-                        top = 14.dp
-                    )
-                    .imePadding()
-                    .align(Alignment.CenterHorizontally)
-            ){
-                taskScreenViewModel
-                    .createOneNotificationConfig(
-                        notificationContent = inputContentState.text.toString()
-                    )
-                inputContentState.clearText()
-            }
+                .fillMaxSize()
+        )
+
+        HomeScreenSearchRow(
+            state = inputContentState,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = searchRowVerticalPadding,
+                    end = searchRowVerticalPadding,
+                    bottom = searchRowBottomPadding,
+                    top = 14.dp
+                )
+                .imePadding()
+                .align(Alignment.BottomCenter)
+        ){
+            taskScreenViewModel
+                .createOneNotificationConfig(
+                    notificationContent = inputContentState.text.toString()
+                )
+            inputContentState.clearText()
         }
 
     }
