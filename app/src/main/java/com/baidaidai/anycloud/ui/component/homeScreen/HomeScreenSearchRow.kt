@@ -12,100 +12,50 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.R
+import com.baidaidai.anycloud.ui.theme.getIconButtonColors
+import com.baidaidai.anycloud.ui.theme.getTextFieldColors
 
 @Composable
 fun HomeScreenSearchRow(
     modifier: Modifier = Modifier,
     state: TextFieldState,
+    onSearchRowSizeChange: (maxHeight: Dp, maxWidth: Dp) -> Unit = { _, _ ->},
     onSendButtonClick: ()->Unit = {},
 ){
 
-    val iconButtonColors = IconButtonColors(
-        containerColor = MaterialTheme.colorScheme.primary,
-        contentColor = MaterialTheme.colorScheme.onPrimary,
-        disabledContainerColor = MaterialTheme.colorScheme.primary,
-        disabledContentColor = MaterialTheme.colorScheme.onPrimary
-    )
-
-    val textFieldContainerColor = MaterialTheme.colorScheme.surface
-    val textFieldContentColor = MaterialTheme.colorScheme.primary
-    val textFieldColors = TextFieldColors(
-        focusedTextColor = textFieldContentColor,
-        unfocusedTextColor = textFieldContentColor,
-        disabledTextColor = textFieldContentColor,
-        errorTextColor = textFieldContentColor,
-        focusedContainerColor = textFieldContainerColor,
-        unfocusedContainerColor = textFieldContainerColor,
-        disabledContainerColor = textFieldContainerColor,
-        errorContainerColor = textFieldContainerColor,
-        cursorColor = textFieldContentColor,
-        errorCursorColor = textFieldContentColor,
-        textSelectionColors = TextSelectionColors(
-            handleColor = textFieldContentColor,
-            backgroundColor = textFieldContentColor
-        ),
-        focusedIndicatorColor = textFieldContentColor,
-        unfocusedIndicatorColor = textFieldContentColor,
-        disabledIndicatorColor = textFieldContentColor,
-        errorIndicatorColor = textFieldContentColor,
-        focusedLeadingIconColor = textFieldContentColor,
-        unfocusedLeadingIconColor = textFieldContentColor,
-        disabledLeadingIconColor = textFieldContentColor,
-        errorLeadingIconColor = textFieldContentColor,
-        focusedTrailingIconColor = textFieldContentColor,
-        unfocusedTrailingIconColor = textFieldContentColor,
-        disabledTrailingIconColor = textFieldContentColor,
-        errorTrailingIconColor = textFieldContentColor,
-        focusedLabelColor = textFieldContentColor,
-        unfocusedLabelColor = textFieldContentColor,
-        disabledLabelColor = textFieldContentColor,
-        errorLabelColor = textFieldContentColor,
-        focusedPlaceholderColor = textFieldContentColor,
-        unfocusedPlaceholderColor = textFieldContentColor,
-        disabledPlaceholderColor = textFieldContentColor,
-        errorPlaceholderColor = textFieldContentColor,
-        focusedSupportingTextColor = textFieldContentColor,
-        unfocusedSupportingTextColor = textFieldContentColor,
-        disabledSupportingTextColor = textFieldContentColor,
-        errorSupportingTextColor = textFieldContentColor,
-        focusedPrefixColor = textFieldContentColor,
-        unfocusedPrefixColor = textFieldContentColor,
-        disabledPrefixColor = textFieldContentColor,
-        errorPrefixColor = textFieldContentColor,
-        focusedSuffixColor = textFieldContentColor,
-        unfocusedSuffixColor = textFieldContentColor,
-        disabledSuffixColor = textFieldContentColor,
-        errorSuffixColor = textFieldContentColor
-    )
+    val density = LocalDensity.current
 
     Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .height(IntrinsicSize.Min)
             .fillMaxWidth()
             .background(Color.Transparent)
-        ,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+            .onSizeChanged { size ->
+                val heightDp = with(density) { size.height.toDp() }
+                val widthDp = with(density) { size.width.toDp() }
+                onSearchRowSizeChange(heightDp, widthDp)
+            }
     ) {
+
         OutlinedTextField(
             state = state,
             placeholder = {
@@ -117,14 +67,15 @@ fun HomeScreenSearchRow(
             lineLimits = TextFieldLineLimits.SingleLine,
             shape = CircleShape,
             contentPadding = PaddingValues(horizontal = 24.dp),
-            colors = textFieldColors,
+            colors = getTextFieldColors(),
             modifier = Modifier
                 .weight(1f)
         )
+
         IconButton(
             shape = CircleShape,
             onClick = onSendButtonClick,
-            colors = iconButtonColors,
+            colors = getIconButtonColors(),
             modifier = Modifier
                 .fillMaxHeight()
                 .aspectRatio(1f)
@@ -134,6 +85,7 @@ fun HomeScreenSearchRow(
                 contentDescription = "",
             )
         }
+
     }
 
 }
