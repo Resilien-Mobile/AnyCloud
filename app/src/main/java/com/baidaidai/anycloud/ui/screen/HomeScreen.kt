@@ -2,15 +2,14 @@ package com.baidaidai.anycloud.ui.screen
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.input.clearText
@@ -40,6 +39,10 @@ fun HomeScreen(
     val notificationConfigList by homeScreenViewModel.notificationConfigList.collectAsState()
 
     val isImeVisible = WindowInsets.ime.getBottom(density) > 100 // Returned Pixel Value
+    val imeBottomPadding = WindowInsets
+        .ime
+        .asPaddingValues()
+        .calculateBottomPadding()
 
     val searchRowBottomPadding by animateDpAsState(
         targetValue = if (isImeVisible) 0.dp else 18.dp
@@ -65,42 +68,39 @@ fun HomeScreen(
                 .align(Alignment.Center)
         )
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            HomeScreenNotificationList(
-                notificationConfigList = notificationConfigList,
-                modifier = Modifier.weight(weight = 1f, fill = false),
-                onDeleteNotification = { notificationConfig ->
-                    homeScreenViewModel.deleteOneNotificationConfig(notificationConfig)
-                },
-                onObverseTaskStatus = { notificationConfig ->
-                    homeScreenViewModel.updateOneNotificationTaskFinished(notificationConfig, isTaskFinished = !notificationConfig.isTaskFinished)
-                }
-            )
-            HomeScreenSearchRow(
-                state = inputContentState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = searchRowVerticalPadding,
-                        end = searchRowVerticalPadding,
-                        bottom = searchRowBottomPadding,
-                        top = 14.dp
-                    )
-                    .imePadding()
-                    .align(Alignment.CenterHorizontally)
-            ){
-                homeScreenViewModel
-                    .createOneNotificationConfig(
-                        notificationContent = inputContentState.text.toString()
-                    )
-                inputContentState.clearText()
-            }
-        }
+        HomeScreenNotificationList(
+            notificationConfigList = notificationConfigList,
+            contentPadding = PaddingValues(bottom = 80.dp + imeBottomPadding),
+            onDeleteNotification = { notificationConfig ->
+                homeScreenViewModel.deleteOneNotificationConfig(notificationConfig)
+            },
+            onObverseTaskStatus = { notificationConfig ->
+                homeScreenViewModel.updateOneNotificationTaskFinished(
+                    notificationConfig,
+                    isTaskFinished = !notificationConfig.isTaskFinished
+                )
+            },
+            modifier = Modifier.fillMaxSize()
+        )
 
+        HomeScreenSearchRow(
+            state = inputContentState,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = searchRowVerticalPadding,
+                    end = searchRowVerticalPadding,
+                    bottom = searchRowBottomPadding,
+                    top = 14.dp
+                )
+                .imePadding()
+                .align(Alignment.BottomCenter)
+        ) {
+            homeScreenViewModel
+                .createOneNotificationConfig(
+                    notificationContent = inputContentState.text.toString()
+                )
+            inputContentState.clearText()
+        }
     }
 }
