@@ -126,6 +126,15 @@ fun TaskScreen(
             onSearchRowSizeChange = { maxHeight, _ ->
                 searchRowHeight = maxHeight
             },
+            onSendButtonClick = {
+                if (inputContentState.text.isNotEmpty()){
+                    taskScreenViewModel
+                        .createOneNotificationConfig(
+                            notificationContent = inputContentState.text.toString()
+                        )
+                    inputContentState.clearText()
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -135,13 +144,7 @@ fun TaskScreen(
                 )
                 .imePadding()
                 .align(Alignment.BottomCenter)
-        ){
-            taskScreenViewModel
-                .createOneNotificationConfig(
-                    notificationContent = inputContentState.text.toString()
-                )
-            inputContentState.clearText()
-        }
+        )
 
     }
 }

@@ -123,6 +123,14 @@ fun HomeScreen(
             onSearchRowSizeChange = { maxHeight, _ ->
                 searchRowHeight = maxHeight
             },
+            onSendButtonClick = {
+                if (inputContentState.text.isNotEmpty()){
+                    homeScreenViewModel.createOneNotificationConfig(
+                        notificationContent = inputContentState.text.toString()
+                    )
+                    inputContentState.clearText()
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -132,11 +140,6 @@ fun HomeScreen(
                 )
                 .imePadding()
                 .align(Alignment.BottomCenter)
-        ) {
-            homeScreenViewModel.createOneNotificationConfig(
-                notificationContent = inputContentState.text.toString()
-            )
-            inputContentState.clearText()
-        }
+        )
     }
 }
