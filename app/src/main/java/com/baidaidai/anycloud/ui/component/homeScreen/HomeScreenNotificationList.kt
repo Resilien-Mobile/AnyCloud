@@ -50,6 +50,7 @@ fun HomeScreenNotificationList(
     contentPadding: PaddingValues = PaddingValues(),
     onDeleteNotification: (notificationConfig: NotificationConfig)-> Unit = {},
     onObverseTaskStatus: (notificationConfig: NotificationConfig) -> Unit = {},
+    onNotificationDrag: () -> Unit = {},
     onNotificationDragEnd: (
         notificationConfig: NotificationConfig,
         insertionIndex: Int
@@ -174,6 +175,7 @@ fun HomeScreenNotificationList(
                                 onDrag = { change, dragAmount ->
                                     change.consume()
                                     dragOffset += dragAmount
+                                    onNotificationDrag()
                                 },
                                 onDragEnd = {
                                     val insertionIndex = calculateInsertionIndex(

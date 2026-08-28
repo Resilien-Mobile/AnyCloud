@@ -33,6 +33,8 @@ import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenCenterLogo
 import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenNotificationList
 import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenSearchRow
 import com.baidaidai.anycloud.ui.vm.TaskScreenViewModel
+import com.skydoves.cloudy.rememberSky
+import com.skydoves.cloudy.sky
 
 @Composable
 fun TaskScreen(
@@ -43,6 +45,7 @@ fun TaskScreen(
     val layoutDirection = LocalLayoutDirection.current
     val inputContentState = rememberTextFieldState()
     val notificationConfigList by taskScreenViewModel.notificationConfigList.collectAsState()
+    val sky = rememberSky()
 
     val isImeVisible = WindowInsets
         .ime
@@ -102,6 +105,10 @@ fun TaskScreen(
             onObverseTaskStatus = { notificationConfig ->
                 taskScreenViewModel.updateOneNotificationTaskFinished(notificationConfig, isTaskFinished = !notificationConfig.isTaskFinished)
             },
+            onNotificationDrag = {
+                // 当背景变化时，通知 Cloudy 重新采样
+                sky.invalidate(durationMillis = 500L)
+            },
             onNotificationDragEnd = { notificationConfig, insertionIndex ->
                 taskScreenViewModel.updateOneNotificationPosition(
                     notificationConfig = notificationConfig,
@@ -110,10 +117,12 @@ fun TaskScreen(
             },
             modifier = Modifier
                 .fillMaxSize()
+                .sky(sky)
         )
 
         HomeScreenSearchRow(
             state = inputContentState,
+            sky = sky,
             onSearchRowSizeChange = { maxHeight, _ ->
                 searchRowHeight = maxHeight
             },
