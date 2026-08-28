@@ -33,6 +33,8 @@ import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenCenterLogo
 import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenNotificationList
 import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenSearchRow
 import com.baidaidai.anycloud.ui.vm.HomeScreenViewModel
+import com.skydoves.cloudy.rememberSky
+import com.skydoves.cloudy.sky
 
 
 @Composable
@@ -44,6 +46,7 @@ fun HomeScreen(
     val layoutDirection = LocalLayoutDirection.current
     val inputContentState = rememberTextFieldState()
     val notificationConfigList by homeScreenViewModel.notificationConfigList.collectAsState()
+    val sky = rememberSky()
 
     val isImeVisible = WindowInsets
         .ime
@@ -106,11 +109,17 @@ fun HomeScreen(
                     isTaskFinished = !notificationConfig.isTaskFinished
                 )
             },
-            modifier = Modifier.fillMaxSize()
+            onNotificationDrag = {
+                sky.invalidate(durationMillis = 500L)
+            },
+            modifier = Modifier
+                .fillMaxSize()
+                .sky(sky)
         )
 
         HomeScreenSearchRow(
             state = inputContentState,
+            sky = sky,
             onSearchRowSizeChange = { maxHeight, _ ->
                 searchRowHeight = maxHeight
             },
