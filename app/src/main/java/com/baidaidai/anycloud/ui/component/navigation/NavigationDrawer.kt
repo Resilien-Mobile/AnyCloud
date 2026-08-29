@@ -7,12 +7,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,7 +17,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.R
@@ -71,19 +67,18 @@ fun NavigationDrawer(
                 drawerState = drawerState
             ) {
 
-                ListItem(
-                    leadingContent = {
-                        Icon(
-                            painter = painterResource(R.drawable.material_symbols_cloud),
-                            contentDescription = null
-                        )
-                    },
-                    headlineContent = {
-                        Text("Any Cloud")
-                    },
-                    supportingContent = {
-                        Text("v0.0.1")
+                val previewEffortList = List(366) { dayIndex ->
+                    when {
+                        dayIndex % 19 == 0 -> 12
+                        dayIndex % 7 == 0 -> 7
+                        dayIndex % 3 == 0 -> 3
+                        else -> 0
                     }
+                }
+
+                DailyTrackBoard(
+                    dailyEffortList = previewEffortList,
+                    modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(Modifier.height(8.dp))
