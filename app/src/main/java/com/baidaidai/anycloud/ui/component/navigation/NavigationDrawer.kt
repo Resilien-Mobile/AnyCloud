@@ -28,6 +28,7 @@ import com.baidaidai.anycloud.R
 import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.NavigationConfig
 import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
+import com.baidaidai.anycloud.domain.navigation.SettingScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.TaskCloudNavKey
 
 @Composable
@@ -55,7 +56,7 @@ fun NavigationDrawer(
         NavigationConfig(
             destinationName = "Setting",
             destinationIcon = R.drawable.material_symbols_settings,
-            destinationNavKey = PowerCloudNavKey
+            destinationNavKey = SettingScreenNavKey
         ),
     )
     var selectedDestination by remember { mutableStateOf(navigationList[0]) }

@@ -14,3 +14,6 @@ data object TaskCloudNavKey : AppNavKey
 
 @Serializable
 data object PowerCloudNavKey : AppNavKey
+
+@Serializable
+data object SettingScreenNavKey : AppNavKey
