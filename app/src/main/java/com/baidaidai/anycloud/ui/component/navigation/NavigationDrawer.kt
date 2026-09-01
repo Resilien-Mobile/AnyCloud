@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,12 +31,18 @@ import com.baidaidai.anycloud.domain.navigation.NavigationConfig
 import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
 import com.baidaidai.anycloud.domain.navigation.SettingScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.TaskCloudNavKey
+import com.baidaidai.anycloud.ui.vm.NavigationViewModel
 
 @Composable
 fun NavigationDrawer(
+    navigationViewModel: NavigationViewModel,
     onNavigationClick: (navigationConfig: NavigationConfig)-> Unit = {},
     content:  @Composable (() -> Unit)
 ){
+
+    val dailyTrackScoreList by navigationViewModel.dailyTrackScoreList.collectAsState()
+    val totalDayCount = navigationViewModel.totalDayCount.collectAsState().value.toString()
+    val totalPlanCount = navigationViewModel.totalPlanCount.collectAsState().value.toString()
 
     val navigationList = listOf(
         NavigationConfig(
@@ -73,15 +80,6 @@ fun NavigationDrawer(
                 drawerState = drawerState
             ) {
 
-                val previewEffortList = List(366) { dayIndex ->
-                    when {
-                        dayIndex % 19 == 0 -> 12
-                        dayIndex % 7 == 0 -> 7
-                        dayIndex % 3 == 0 -> 3
-                        else -> 0
-                    }
-                }
-
                 Text(
                     text = "AnyCloud",
                     style = MaterialTheme.typography.headlineMedium,
@@ -92,7 +90,7 @@ fun NavigationDrawer(
                 )
 
                 DailyTrackBoard(
-                    dailyEffortList = previewEffortList,
+                    dailyEffortList = dailyTrackScoreList,
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -106,7 +104,7 @@ fun NavigationDrawer(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "1145",
+                            text = totalDayCount,
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -117,7 +115,7 @@ fun NavigationDrawer(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "1419",
+                            text = totalPlanCount,
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -146,14 +144,14 @@ fun NavigationDrawer(
     }
 }
 
-@PreviewLightDark
-@Composable
-private fun _preview_() {
-    NavigationDrawer() {
-        Scaffold { innerPadding ->
-            Box(
-                modifier = Modifier.padding(innerPadding)
-            )
-        }
-    }
-}
+//@PreviewLightDark
+//@Composable
+//private fun _preview_() {
+//    NavigationDrawer() {
+//        Scaffold { innerPadding ->
+//            Box(
+//                modifier = Modifier.padding(innerPadding)
+//            )
+//        }
+//    }
+//}
