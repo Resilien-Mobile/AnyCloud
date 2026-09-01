@@ -1,0 +1,39 @@
+name: AnyCloud CI
+
+on:
+  pull_request:
+    branches: [main]   # PR 到 main 时跑
+  push:
+    branches: [main]   # main 有新提交时跑
+  workflow_dispatch:   # 可手动点 Run workflow
+
+jobs:
+  build-debug:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle   # 想关缓存可删掉
+
+      # 如果 gradlew 没执行权限，这步很有用
+      - name: Grant gradlew permission
+        run: chmod +x ./gradlew
+
+      # 组装 debug APK
+      - name: Build debug APK
+        run: ./gradlew assembleDebug
+
+      # 上传给 Actions 页面下载查看
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: app/build/outputs/apk/**/*.apk
+          if-no-files-found: error

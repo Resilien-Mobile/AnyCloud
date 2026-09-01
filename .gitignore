@@ -8,6 +8,7 @@
 /captures
 /app/build
 /app/release
+/app/github
 
 # OSX
 .DS_Store
