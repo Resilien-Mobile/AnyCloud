@@ -108,7 +108,7 @@ private fun calculateDailyTrackCellColor(
     colorDepth: DailyTrackCellColorDepth
 ): Color {
     return lerp(
-        start = MaterialTheme.colorScheme.surfaceContainerLow,
+        start = MaterialTheme.colorScheme.surfaceContainer,
         stop = MaterialTheme.colorScheme.primary,
         fraction = colorDepth.fraction
     )
