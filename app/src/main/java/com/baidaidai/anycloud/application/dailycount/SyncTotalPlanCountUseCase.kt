@@ -7,7 +7,7 @@ class SyncTotalPlanCountUseCase @Inject constructor(
     private val dailyCountRepositoryImpl: DailyCountRepositoryImpl
 ) {
     suspend operator fun invoke(
-        totalPlanCount: Long
+        totalPlanCount: Long = 1
     ) {
         dailyCountRepositoryImpl.syncTotalPlanCount(totalPlanCount)
     }

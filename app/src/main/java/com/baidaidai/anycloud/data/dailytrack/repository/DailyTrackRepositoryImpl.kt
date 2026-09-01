@@ -1,9 +1,8 @@
 package com.baidaidai.anycloud.data.dailytrack.repository
 
-import com.baidaidai.anycloud.data.dailytrack.mapper.toDailyTrackConfig
-import com.baidaidai.anycloud.data.dailytrack.mapper.toDailyTrackEntity
+import androidx.room.withTransaction
+import com.baidaidai.anycloud.data.dailytrack.database.DailyTrackEntity
 import com.baidaidai.anycloud.data.database.AnyCloudDataBase
-import com.baidaidai.anycloud.domain.dailytrack.DailyTrackConfig
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -19,11 +18,35 @@ class DailyTrackRepositoryImpl @Inject constructor(
 
     // Create
     suspend fun addDailyTrackRecord(
-        dailyTrackConfig: DailyTrackConfig
+        dateIndex: Int
     ) {
-        val dailyTrackEntity = dailyTrackConfig.toDailyTrackEntity()
+        require(dateIndex in 0..365) {
+            "dateIndex must be between 0 and 365"
+        }
 
-        dailyTrackDao.insertDailyTrack(dailyTrackEntity)
+        anyCloudDataBase.withTransaction {
+            val dailyTrackRecordExists = hasDailyTrackRecord(dateIndex)
+
+            if (dailyTrackRecordExists) {
+                dailyTrackDao.updateDailyTrackScore(dateIndex)
+            } else {
+                val newDailyTrackEntity = DailyTrackEntity(
+                    dateIndex = dateIndex,
+                    dateScore = 1
+                )
+
+                dailyTrackDao.insertDailyTrack(newDailyTrackEntity)
+            }
+        }
+    }
+
+    private suspend fun hasDailyTrackRecord(
+        dateIndex: Int
+    ): Boolean {
+        val dailyTrackEntity = dailyTrackDao.findDailyTrackByDateIndex(dateIndex)
+        val hasDailyTrackRecord = dailyTrackEntity != null
+
+        return hasDailyTrackRecord
     }
 
     // Update
@@ -31,19 +54,14 @@ class DailyTrackRepositoryImpl @Inject constructor(
     // Read
     fun observeDailyTracks(): Flow<List<Int>> {
         val dailyTrackEntityFlow = dailyTrackDao.observeDailyTracks()
-        val dailyTrackConfigFlow = dailyTrackEntityFlow.map { dailyTrackEntityList ->
-            dailyTrackEntityList.map { dailyTrackEntity ->
-                dailyTrackEntity.toDailyTrackConfig()
-            }
-        }
-        val dailyTrackScoreListFlow = dailyTrackConfigFlow.map { dailyTrackConfigList ->
+        val dailyTrackScoreListFlow = dailyTrackEntityFlow.map { dailyTrackEntityList ->
             val dailyTrackScoreList = MutableList(366) { 0 }
 
-            dailyTrackConfigList.forEach { dailyTrackConfig ->
-                if (dailyTrackConfig.dateIndex in dailyTrackScoreList.indices) {
-                    val dateScore = Math.toIntExact(dailyTrackConfig.dateScore)
+            dailyTrackEntityList.forEach { dailyTrackEntity ->
+                if (dailyTrackEntity.dateIndex in dailyTrackScoreList.indices) {
+                    val dateScore = Math.toIntExact(dailyTrackEntity.dateScore)
 
-                    dailyTrackScoreList[dailyTrackConfig.dateIndex] = dateScore
+                    dailyTrackScoreList[dailyTrackEntity.dateIndex] = dateScore
                 }
             }
 

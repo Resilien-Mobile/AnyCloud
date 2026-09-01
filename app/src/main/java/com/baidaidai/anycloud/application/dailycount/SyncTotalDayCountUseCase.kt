@@ -7,7 +7,7 @@ class SyncTotalDayCountUseCase @Inject constructor(
     private val dailyCountRepositoryImpl: DailyCountRepositoryImpl
 ) {
     suspend operator fun invoke(
-        totalDayCount: Long
+        totalDayCount: Long = 1
     ) {
         dailyCountRepositoryImpl.syncTotalDayCount(totalDayCount)
     }
