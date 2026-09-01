@@ -1,15 +1,17 @@
 package com.baidaidai.anycloud.application.dailytrack
 
 import com.baidaidai.anycloud.data.dailytrack.repository.DailyTrackRepositoryImpl
-import com.baidaidai.anycloud.domain.dailytrack.DailyTrackConfig
+import java.time.LocalDate
 import javax.inject.Inject
 
 class AddDailyTrackRecordUseCase @Inject constructor(
     private val dailyTrackRepositoryImpl: DailyTrackRepositoryImpl
 ) {
-    suspend operator fun invoke(
-        dailyTrackConfig: DailyTrackConfig
-    ) {
-        dailyTrackRepositoryImpl.addDailyTrackRecord(dailyTrackConfig)
+    suspend operator fun invoke() {
+        val dateIndex = LocalDate.now().dayOfYear - 1
+
+        dailyTrackRepositoryImpl.addDailyTrackRecord(
+            dateIndex = dateIndex
+        )
     }
 }

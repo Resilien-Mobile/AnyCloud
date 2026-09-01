@@ -19,13 +19,35 @@ interface DailyTrackDao {
     )
 
     // Update
+    @Query(
+        """
+        UPDATE DailyTrackEntity
+        SET dateScore = dateScore + 1
+        WHERE dateIndex = :dateIndex
+        """
+    )
+    suspend fun updateDailyTrackScore(
+        dateIndex: Int
+    )
 
     // Read
     @Query(
         """
         SELECT *
         FROM DailyTrackEntity
-        ORDER BY dateIndex ASC, dateUnixStamp ASC
+        WHERE dateIndex = :dateIndex
+        LIMIT 1
+        """
+    )
+    suspend fun findDailyTrackByDateIndex(
+        dateIndex: Int
+    ): DailyTrackEntity?
+
+    @Query(
+        """
+        SELECT *
+        FROM DailyTrackEntity
+        ORDER BY dateIndex ASC
         """
     )
     fun observeDailyTracks(): Flow<List<DailyTrackEntity>>
