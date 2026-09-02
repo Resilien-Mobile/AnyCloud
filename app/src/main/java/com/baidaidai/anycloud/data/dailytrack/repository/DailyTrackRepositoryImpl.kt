@@ -40,7 +40,10 @@ class DailyTrackRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun hasDailyTrackRecord(
+    // Update
+
+    // Read
+    suspend fun hasDailyTrackRecord(
         dateIndex: Int
     ): Boolean {
         val dailyTrackEntity = dailyTrackDao.findDailyTrackByDateIndex(dateIndex)
@@ -49,9 +52,6 @@ class DailyTrackRepositoryImpl @Inject constructor(
         return hasDailyTrackRecord
     }
 
-    // Update
-
-    // Read
     fun observeDailyTracks(): Flow<List<Int>> {
         val dailyTrackEntityFlow = dailyTrackDao.observeDailyTracks()
         val dailyTrackScoreListFlow = dailyTrackEntityFlow.map { dailyTrackEntityList ->

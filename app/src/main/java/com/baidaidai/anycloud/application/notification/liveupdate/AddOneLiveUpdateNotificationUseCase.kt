@@ -1,5 +1,6 @@
 package com.baidaidai.anycloud.application.notification.liveupdate
 
+import com.baidaidai.anycloud.application.dailycount.SyncTotalDayCountUseCase
 import com.baidaidai.anycloud.application.dailycount.SyncTotalPlanCountUseCase
 import com.baidaidai.anycloud.application.dailytrack.AddDailyTrackRecordUseCase
 import com.baidaidai.anycloud.data.notification.liveupdate.repository.LiveUpdateNotificationRepositoryImpl
@@ -9,6 +10,7 @@ import javax.inject.Inject
 class AddOneLiveUpdateNotificationUseCase @Inject constructor(
     private val liveUpdateNotificationRepositoryImpl: LiveUpdateNotificationRepositoryImpl,
     private val syncTotalPlanCountUseCase: SyncTotalPlanCountUseCase,
+    private val syncTotalDayCountUseCase: SyncTotalDayCountUseCase,
     private val addDailyTrackRecordUseCase: AddDailyTrackRecordUseCase
 ) {
 
@@ -27,6 +29,7 @@ class AddOneLiveUpdateNotificationUseCase @Inject constructor(
 
         liveUpdateNotificationRepositoryImpl.addOneLiveUpdateNotification(notificationConfig)
         syncTotalPlanCountUseCase()
+        syncTotalDayCountUseCase()
         addDailyTrackRecordUseCase()
     }
 
