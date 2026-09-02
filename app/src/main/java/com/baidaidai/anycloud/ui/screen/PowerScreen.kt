@@ -36,6 +36,7 @@ fun PowerScreen(
     val currentWatt by powerScreenViewModel.currentWatt.collectAsState()
     val currentAdapterType by powerScreenViewModel.currentAdapterType.collectAsState()
     val currentBatteryPercentage by powerScreenViewModel.currentBatteryPercentage.collectAsState()
+    val isPowerCloudEnabled by powerScreenViewModel.isPowerCloudEnabled.collectAsState()
 
     Column(
         modifier = Modifier
@@ -81,8 +82,14 @@ fun PowerScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        EnablePowerCloudRow {
-            powerScreenViewModel.enablePowerCloud()
-        }
+        EnablePowerCloudRow(
+            isPowerCloudEnabled = isPowerCloudEnabled,
+            onEnablePowerCloud = {
+                powerScreenViewModel.enablePowerCloud()
+            },
+            onDisablePowerCloud = {
+                powerScreenViewModel.disablePowerCloud()
+            }
+        )
     }
 }
