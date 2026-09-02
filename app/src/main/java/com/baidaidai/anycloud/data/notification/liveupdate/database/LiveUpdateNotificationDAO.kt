@@ -85,6 +85,15 @@ interface LiveUpdateNotificationDAO {
     )
     fun getAllLiveUpdateNotificationEntity(): Flow<List<LiveUpdateNotificationEntity>>
 
+    @Query(
+        """
+        SELECT COUNT(*)
+        FROM LiveUpdateNotificationEntity
+        WHERE isTaskFinished = 0
+        """
+    )
+    suspend fun getUnfinishedLiveUpdateNotificationCount(): Int
+
     @Query("SELECT MAX(notificationWeight) FROM LiveUpdateNotificationPositionEntity")
     suspend fun getMaxNotificationWeight(): Long?
 
