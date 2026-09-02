@@ -35,6 +35,7 @@ Market
 | `sync` | 两边状态同步 |
 | `resolve` | 根据上下文或候选项推导最终结果 |
 | `validate` | 判断输入是否合法 |
+| `has` | 判断指定对象、记录或状态是否存在，返回 `Boolean` |
 | `parse` | representation 转换为 structured model |
 | `create` | 创建新的 domain entity |
 | `add` | 加入已有集合或 registry |
