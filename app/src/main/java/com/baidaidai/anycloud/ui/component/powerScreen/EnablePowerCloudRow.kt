@@ -1,7 +1,6 @@
 package com.baidaidai.anycloud.ui.component.powerScreen
 
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -17,7 +16,9 @@ import com.baidaidai.anycloud.R
 
 @Composable
 fun EnablePowerCloudRow(
-    onTrailingButonClick: ()-> Unit
+    isPowerCloudEnabled: Boolean,
+    onEnablePowerCloud: () -> Unit,
+    onDisablePowerCloud: () -> Unit
 ){
     ListItem(
         modifier = Modifier
@@ -32,11 +33,16 @@ fun EnablePowerCloudRow(
             Text("Enable Power Cloud")
         },
         trailingContent = {
-            Button(
-                onClick = onTrailingButonClick
-            ) {
-                Text("3")
-            }
+            Switch(
+                checked = isPowerCloudEnabled,
+                onCheckedChange = { isEnabled ->
+                    if (isEnabled) {
+                        onEnablePowerCloud()
+                    } else {
+                        onDisablePowerCloud()
+                    }
+                }
+            )
         },
         colors = ListItemDefaults.colors().copy(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     )

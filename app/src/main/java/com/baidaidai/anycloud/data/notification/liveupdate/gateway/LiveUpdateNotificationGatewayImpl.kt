@@ -100,4 +100,10 @@ class LiveUpdateNotificationGatewayImpl @Inject constructor(
     ) {
         notificationManager.cancel(notificationID)
     }
+
+    fun disablePowerCloudNotification(
+        notificationId: Int = 10001
+    ) {
+        notificationManager.cancel(notificationId)
+    }
 }

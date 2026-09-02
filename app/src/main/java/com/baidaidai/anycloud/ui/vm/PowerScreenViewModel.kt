@@ -11,6 +11,7 @@ import com.baidaidai.anycloud.application.energy.GetCurrentBatteryPercentageUseC
 import com.baidaidai.anycloud.application.energy.GetCurrentMilliampereUseCase
 import com.baidaidai.anycloud.application.energy.GetCurrentVoltageUseCase
 import com.baidaidai.anycloud.application.energy.GetCurrentWattUseCase
+import com.baidaidai.anycloud.application.notification.liveupdate.DisablePowerCloudNotificationUseCase
 import com.baidaidai.anycloud.application.notification.liveupdate.EnablePowerCloudNotificationUseCase
 import com.baidaidai.anycloud.domain.energy.model.EnergyType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -32,7 +35,8 @@ class PowerScreenViewModel @Inject constructor(
     getCurrentMilliampereUseCase: GetCurrentMilliampereUseCase,
     getCurrentVoltageUseCase: GetCurrentVoltageUseCase,
     getCurrentWattUseCase: GetCurrentWattUseCase,
-    private val enablePowerCloudNotificationUseCase: EnablePowerCloudNotificationUseCase
+    private val enablePowerCloudNotificationUseCase: EnablePowerCloudNotificationUseCase,
+    private val disablePowerCloudNotificationUseCase: DisablePowerCloudNotificationUseCase
 ) : ViewModel() {
     val currentBatteryPercentage: StateFlow<Int> =
         getCurrentBatteryPercentageUseCase().stateIn(
@@ -70,6 +74,8 @@ class PowerScreenViewModel @Inject constructor(
         )
 
     private var powerCloudJob: Job? = null
+    private val _isPowerCloudEnabled = MutableStateFlow(false)
+    val isPowerCloudEnabled: StateFlow<Boolean> = _isPowerCloudEnabled.asStateFlow()
 
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     fun enablePowerCloud(){
@@ -79,6 +85,7 @@ class PowerScreenViewModel @Inject constructor(
             return
         }
 
+        _isPowerCloudEnabled.value = true
         powerCloudJob = viewModelScope.launch {
             while (isActive) {
                 enablePowerCloudNotificationUseCase(
@@ -89,6 +96,17 @@ class PowerScreenViewModel @Inject constructor(
                 delay(1_000L)
             }
         }
+    }
+
+    fun disablePowerCloud() {
+        val powerCloudNotificationID = context.getString(R.string.power_cloud_notification_id).toInt()
+
+        powerCloudJob?.cancel()
+        powerCloudJob = null
+        disablePowerCloudNotificationUseCase(
+            notificationId = powerCloudNotificationID
+        )
+        _isPowerCloudEnabled.value = false
     }
 
 }
