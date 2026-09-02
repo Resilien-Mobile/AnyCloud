@@ -2,6 +2,7 @@ package com.baidaidai.anycloud.application.notification.ongoing
 
 import android.Manifest
 import androidx.annotation.RequiresPermission
+import com.baidaidai.anycloud.application.dailycount.SyncTotalDayCountUseCase
 import com.baidaidai.anycloud.application.dailycount.SyncTotalPlanCountUseCase
 import com.baidaidai.anycloud.application.dailytrack.AddDailyTrackRecordUseCase
 import com.baidaidai.anycloud.data.notification.ongoing.gateway.OngoingNotificationGatewayImpl
@@ -13,6 +14,7 @@ class PushOneOngoingNotificationConfigUseCase @Inject constructor(
     private val ongoingNotificationRepositoryImpl: OngoingNotificationRepositoryImpl,
     private val ongoingNotificationGatewayImpl: OngoingNotificationGatewayImpl,
     private val syncTotalPlanCountUseCase: SyncTotalPlanCountUseCase,
+    private val syncTotalDayCountUseCase: SyncTotalDayCountUseCase,
     private val addDailyTrackRecordUseCase: AddDailyTrackRecordUseCase
 ) {
     @Suppress("UNUSED_PARAMETER")
@@ -44,6 +46,7 @@ class PushOneOngoingNotificationConfigUseCase @Inject constructor(
 
         // Sync Daily Count and Daily Track
         syncTotalPlanCountUseCase()
+        syncTotalDayCountUseCase()
         addDailyTrackRecordUseCase()
 
         // Push Notification by Config
