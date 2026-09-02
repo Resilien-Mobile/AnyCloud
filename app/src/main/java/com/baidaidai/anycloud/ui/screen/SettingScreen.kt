@@ -1,6 +1,5 @@
 package com.baidaidai.anycloud.ui.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,55 +7,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemColors
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.R
-import com.baidaidai.anycloud.ui.theme.AnyCloudTheme
+import com.baidaidai.anycloud.ui.theme.getListItemColors
+import com.baidaidai.anycloud.ui.vm.SettingScreenViewModel
 
 @Composable
 fun SettingScreen(
     innerPadding: PaddingValues,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    settingScreenViewModel: SettingScreenViewModel = hiltViewModel()
 ){
-
-    val listItemContainerColor = MaterialTheme.colorScheme.surfaceContainer
-    val listItemContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-    val listItemColors = ListItemColors(
-        containerColor = listItemContainerColor,
-        contentColor = listItemContentColor,
-        leadingContentColor = listItemContentColor,
-        trailingContentColor = listItemContentColor,
-        overlineContentColor = listItemContentColor,
-        supportingContentColor = listItemContentColor,
-        disabledContainerColor = listItemContainerColor,
-        disabledContentColor = listItemContentColor,
-        disabledLeadingContentColor = listItemContentColor,
-        disabledTrailingContentColor = listItemContentColor,
-        disabledOverlineContentColor = listItemContentColor,
-        disabledSupportingContentColor = listItemContentColor,
-        selectedContainerColor = listItemContainerColor,
-        selectedContentColor = listItemContentColor,
-        selectedLeadingContentColor = listItemContentColor,
-        selectedTrailingContentColor = listItemContentColor,
-        selectedOverlineContentColor = listItemContentColor,
-        selectedSupportingContentColor = listItemContentColor,
-        draggedContainerColor = listItemContainerColor,
-        draggedContentColor = listItemContentColor,
-        draggedLeadingContentColor = listItemContentColor,
-        draggedTrailingContentColor = listItemContentColor,
-        draggedOverlineContentColor = listItemContentColor,
-        draggedSupportingContentColor = listItemContentColor
-    )
-
+    val isOngoingStyleEnabled by settingScreenViewModel
+        .isOngoingStyleEnabled
+        .collectAsState()
 
     Column(modifier = modifier.fillMaxSize().padding(innerPadding).padding(horizontal = 16.dp)) {
 
@@ -70,8 +43,12 @@ fun SettingScreen(
             },
             trailingContent = {
                 Switch(
-                    checked = false,
-                    onCheckedChange = {}
+                    checked = isOngoingStyleEnabled,
+                    onCheckedChange = { isEnabled ->
+                        settingScreenViewModel.syncOngoingStyleEnabled(
+                            isEnabled = isEnabled
+                        )
+                    }
                 )
             },
             headlineContent = {
@@ -80,7 +57,7 @@ fun SettingScreen(
             supportingContent = {
                 Text("Avoid having the OEM display the App Name, but instead show the remaining task quantity")
             },
-            colors = listItemColors,
+            colors = getListItemColors(),
             modifier = Modifier.clip(RoundedCornerShape(16.dp))
         )
 
@@ -92,22 +69,5 @@ fun SettingScreen(
 
         // Permission Settings ( Shizuku & Notification )
 
-    }
-
-
-}
-
-@PreviewLightDark
-@Composable
-private fun _preview_() {
-    AnyCloudTheme {
-        Scaffold { contentPadding ->
-            SettingScreen(
-                innerPadding = contentPadding,
-                modifier = Modifier
-                    .background(color = MaterialTheme.colorScheme.surface)
-                    .padding(12.dp)
-            )
-        }
     }
 }
