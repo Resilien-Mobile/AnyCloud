@@ -73,6 +73,13 @@ class LiveUpdateNotificationRepositoryImpl @Inject constructor(
         return notificationConfigFlow
     }
 
+    suspend fun getUnfinishedLiveUpdateNotificationCount(): Int {
+        val unfinishedLiveUpdateNotificationCount = liveUpdateNotificationDao
+            .getUnfinishedLiveUpdateNotificationCount()
+
+        return unfinishedLiveUpdateNotificationCount
+    }
+
     suspend fun getAllLiveUpdateNotificationWeightExcept(
         unixTimeStamp: Long
     ): List<Long> {
