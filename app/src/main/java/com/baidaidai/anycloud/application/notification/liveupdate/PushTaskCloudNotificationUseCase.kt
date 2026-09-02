@@ -2,6 +2,7 @@ package com.baidaidai.anycloud.application.notification.liveupdate
 
 import android.Manifest
 import androidx.annotation.RequiresPermission
+import com.baidaidai.anycloud.application.setting.ObserveOngoingStyleEnabledUseCase
 import com.baidaidai.anycloud.data.notification.liveupdate.gateway.LiveUpdateNotificationGatewayImpl
 import com.baidaidai.anycloud.data.notification.liveupdate.repository.LiveUpdateNotificationRepositoryImpl
 import com.baidaidai.anycloud.domain.notification.model.LiveUpdateProgressConfig
@@ -11,13 +12,25 @@ import javax.inject.Inject
 
 class PushTaskCloudNotificationUseCase @Inject constructor(
     private val liveUpdateNotificationRepositoryImpl: LiveUpdateNotificationRepositoryImpl,
-    private val liveUpdateNotificationGatewayImpl: LiveUpdateNotificationGatewayImpl
+    private val liveUpdateNotificationGatewayImpl: LiveUpdateNotificationGatewayImpl,
+    private val observeOngoingStyleEnabledUseCase: ObserveOngoingStyleEnabledUseCase
 ) {
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     suspend operator fun invoke(
         notificationTitle: String = "AnyCloud",
         notificationID: Int = 6001
     ) {
+
+        val isOngoingStyleEnabled = observeOngoingStyleEnabledUseCase().first()
+        val resolvedNotificationTitle = if (isOngoingStyleEnabled) {
+            val unfinishedNotificationCount = liveUpdateNotificationRepositoryImpl
+                .getUnfinishedLiveUpdateNotificationCount()
+
+            "$unfinishedNotificationCount Tasks"
+        } else {
+            notificationTitle
+        }
+
         val notificationConfigList = liveUpdateNotificationRepositoryImpl
             .getAllLiveUpdateNotification()
             .first()
@@ -36,7 +49,7 @@ class PushTaskCloudNotificationUseCase @Inject constructor(
             ?: "All Done 🎉"
 
         liveUpdateNotificationGatewayImpl.pushOneBasicLiveActivity(
-            notificationTitle = notificationTitle,
+            notificationTitle = resolvedNotificationTitle,
             notificationContent = notificationContent,
             notificationID = notificationID,
             progressConfig = progressConfig
