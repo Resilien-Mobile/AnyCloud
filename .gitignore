@@ -10,8 +10,12 @@
 /app/release
 /app/github
 
+# LLM
+/skills
+
 # OSX
 .DS_Store
+TODO.md
 
 .externalNativeBuild
 .cxx
