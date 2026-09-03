@@ -9,6 +9,7 @@
 /app/build
 /app/release
 /app/github
+/.kotlin
 
 # LLM
 /skills
