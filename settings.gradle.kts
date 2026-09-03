@@ -23,4 +23,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AnyCloud"
+include(":ui")
+include(":domain")
+include(":application")
+include(":data")
 include(":app")

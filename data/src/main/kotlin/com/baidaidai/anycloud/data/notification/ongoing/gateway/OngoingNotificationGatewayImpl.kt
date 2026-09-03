@@ -1,0 +1,50 @@
+package com.baidaidai.anycloud.data.notification.ongoing.gateway
+
+import android.Manifest
+import android.content.Context
+import androidx.annotation.RequiresPermission
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.baidaidai.anycloud.data.R
+import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+
+class OngoingNotificationGatewayImpl @Inject constructor(
+    @ApplicationContext private val context: Context
+) {
+    private val notificationManager = NotificationManagerCompat.from(context)
+
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+    fun pushOneOngoingNotification(
+        notificationTitle: String,
+        notificationContent: String,
+        notificationID: Int = 1001
+    ){
+
+        val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.anycloud_ongoing_notification_channel_id))
+
+        val notificationStyle = NotificationCompat.BigTextStyle().bigText(notificationContent)
+        val notification = notificationBuilder
+            .setSmallIcon(R.drawable.material_symbols_cloud)
+            .setContentTitle(notificationTitle)
+            .setContentText(notificationContent)
+
+            // Request for promotion
+            .setStyle(notificationStyle)
+            .setOngoing(true)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .build()
+
+        notificationManager.notify(notificationID,notification)
+
+    }
+
+    // Cancel
+    fun cancelOneOngoingNotification(
+        notificationConfig: NotificationConfig
+    ){
+        notificationManager.cancel(notificationConfig.notificationID)
+    }
+
+}
