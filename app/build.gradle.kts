@@ -42,13 +42,16 @@ android {
             signingConfig = signingConfigs.getByName("github")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     buildFeatures {
         compose = true
     }
+
 }
 
 dependencies {
@@ -60,7 +63,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.ui.tooling.preview)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
@@ -76,25 +78,10 @@ dependencies {
     kspAndroidTest(libs.hilt.compiler)
     androidTestImplementation(libs.hilt.android.testing)
     implementation(libs.hilt.android)
-    implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
     ksp(libs.hilt.compiler)
 
-    // Room
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-    implementation(libs.room.ktx)
 
-    // Material 3 Expressive
-    implementation("androidx.compose.material3:material3:1.5.0-alpha22")
-
-    // Navigate 3
-    implementation(libs.androidx.navigation3.ui)
-    implementation(libs.androidx.navigation3.runtime)
-    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
-    implementation(libs.androidx.material3.adaptive.navigation3)
-    implementation(libs.kotlinx.serialization.core)
-
-    // Cloudy
-    implementation(libs.compose.cloudy)
+    // Locally
+    implementation(project(":ui"))
 
 }
