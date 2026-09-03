@@ -3,11 +3,9 @@ package com.baidaidai.anycloud.data.notification.ongoing.gateway
 import android.Manifest
 import android.content.Context
 import androidx.annotation.RequiresPermission
-import androidx.compose.material3.Icon
-import androidx.compose.ui.res.painterResource
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.baidaidai.anycloud.R
+import com.baidaidai.anycloud.data.R
 import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
