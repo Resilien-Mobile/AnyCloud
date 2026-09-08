@@ -18,6 +18,7 @@ import androidx.compose.foundation.text.input.clearText
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,6 +57,10 @@ fun HomeScreen(
         .ime
         .asPaddingValues()  // Window inset to PaddingValues
         .calculateBottomPadding() // Catch button padding values
+
+    LaunchedEffect(isImeVisible) {
+        sky.invalidate()
+    }
 
     val searchRowBottomPadding by animateDpAsState(
         targetValue = if (isImeVisible){
@@ -130,6 +135,7 @@ fun HomeScreen(
                     )
                     inputContentState.clearText()
                 }
+                sky.invalidate()
             },
             modifier = Modifier
                 .fillMaxWidth()
