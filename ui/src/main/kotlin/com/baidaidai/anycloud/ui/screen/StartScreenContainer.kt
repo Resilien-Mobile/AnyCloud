@@ -16,6 +16,7 @@ import com.baidaidai.anycloud.domain.navigation.TaskCloudNavKey
 import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.component.navigation.NavigationDrawer
 import com.baidaidai.anycloud.ui.component.powerScreen.PowerScreenNecessaryComponents
+import com.baidaidai.anycloud.ui.component.settingScreen.SettingScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.component.taskScreen.TaskScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.viewmodel.NavigationViewModel
 
@@ -24,7 +25,7 @@ import com.baidaidai.anycloud.ui.viewmodel.NavigationViewModel
 fun StartScreenContainer() {
 
     val navigation = rememberNavBackStack(HomeScreenNavKey)
-    val currentDestination = navigation.last() ?: HomeScreenNavKey
+    val currentDestination = navigation.last()
 
     val navigationViewModel = hiltViewModel<NavigationViewModel>()
 
@@ -41,6 +42,7 @@ fun StartScreenContainer() {
                     is HomeScreenNavKey -> HomeScreenNecessaryComponents.HomeScreenTopAppBar()
                     is TaskCloudNavKey -> TaskScreenNecessaryComponents.TaskScreenTopAppBar()
                     is PowerCloudNavKey -> PowerScreenNecessaryComponents.PowerScreenTopAppBar()
+                    is SettingScreenNavKey -> SettingScreenNecessaryComponents.SettingScreenTopAppBar()
                     else -> HomeScreenNecessaryComponents.HomeScreenTopAppBar()
                 }
             }
