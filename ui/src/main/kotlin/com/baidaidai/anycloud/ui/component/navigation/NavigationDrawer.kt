@@ -1,12 +1,14 @@
 package com.baidaidai.anycloud.ui.component.navigation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -41,7 +43,7 @@ fun NavigationDrawer(
     val totalDayCount = navigationViewModel.totalDayCount.collectAsState().value.toString()
     val totalPlanCount = navigationViewModel.totalPlanCount.collectAsState().value.toString()
 
-    val navigationList = listOf(
+    val thingsNavigationList = listOf(
         NavigationConfig(
             destinationName = "Any Cloud",
             destinationIcon = R.drawable.material_symbols_cloud,
@@ -63,7 +65,14 @@ fun NavigationDrawer(
             destinationNavKey = SettingScreenNavKey
         ),
     )
-    var selectedDestination by remember { mutableStateOf(navigationList[0]) }
+    val intelligentNavigationList = listOf(
+        NavigationConfig(
+            destinationName = "ClipBoard Pilot",
+            destinationIcon = R.drawable.material_symbols_assistant_navigation,
+            destinationNavKey = HomeScreenNavKey
+        ),
+    )
+    var selectedDestination by remember { mutableStateOf(thingsNavigationList[0]) }
 
     ModalNavigationDrawer(
         drawerState = navigationDrawerState,
@@ -73,6 +82,7 @@ fun NavigationDrawer(
                 drawerState = navigationDrawerState
             ) {
 
+                // 软件标题
                 Text(
                     text = "AnyCloud",
                     style = MaterialTheme.typography.headlineMedium,
@@ -82,11 +92,14 @@ fun NavigationDrawer(
                         .padding(top = 16.dp)
                 )
 
+                // 显示 “努力值” 积累榜单
                 DailyTrackBoard(
                     dailyEffortList = dailyTrackScoreList,
                     modifier = Modifier.fillMaxWidth()
                 )
 
+                // Behind DailyTrackBoard
+                // 显示运行 n 天，n 次规划
                 Row(
                     horizontalArrangement = Arrangement.SpaceAround,
                     modifier = Modifier
@@ -121,15 +134,67 @@ fun NavigationDrawer(
                 HorizontalDivider(modifier = Modifier
                     .fillMaxWidth()
                     .height(1.dp))
-                Spacer(Modifier.height(8.dp))
 
-                NavigationDrawerItemList(
-                    selectedDestination = selectedDestination,
-                    navigationList = navigationList,
-                ){ navigationConfig ->
-                    selectedDestination = navigationConfig
-                    onNavigationClick(navigationConfig)
+                // Navigation Area
+                LazyColumn(
+                    contentPadding = PaddingValues(
+                        top = 8.dp
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ) {
+
+                    // Things Navigation Area
+                    item {
+                        Text(
+                            text = "Things",
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier
+                                .padding(6.dp)
+                                .padding(horizontal = 12.dp)
+                        )
+                    }
+
+                    item {
+                        NavigationDrawerItemList(
+                            selectedDestination = selectedDestination,
+                            navigationList = thingsNavigationList,
+                        ){ navigationConfig ->
+                            selectedDestination = navigationConfig
+                            onNavigationClick(navigationConfig)
+                        }
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+
+                    // Intelligent Navigation Area
+                    item {
+                        Text(
+                            text = "Intelligent",
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier
+                                .padding(6.dp)
+                                .padding(horizontal = 12.dp)
+                        )
+                    }
+
+                    item {
+                        NavigationDrawerItemList(
+                            selectedDestination = selectedDestination,
+                            navigationList = intelligentNavigationList,
+                        ){ navigationConfig ->
+                            selectedDestination = navigationConfig
+                            onNavigationClick(navigationConfig)
+                        }
+                    }
+
                 }
+
             }
         }
     ) {
