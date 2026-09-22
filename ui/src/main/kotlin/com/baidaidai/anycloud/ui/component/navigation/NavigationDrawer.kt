@@ -7,13 +7,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,6 +32,7 @@ import com.baidaidai.anycloud.ui.viewmodel.NavigationViewModel
 @Composable
 fun NavigationDrawer(
     navigationViewModel: NavigationViewModel,
+    navigationDrawerState: DrawerState,
     onNavigationClick: (navigationConfig: NavigationConfig)-> Unit = {},
     content:  @Composable (() -> Unit)
 ){
@@ -65,16 +65,12 @@ fun NavigationDrawer(
     )
     var selectedDestination by remember { mutableStateOf(navigationList[0]) }
 
-    val drawerState = rememberDrawerState(
-        initialValue = DrawerValue.Closed
-    )
-
     ModalNavigationDrawer(
-        drawerState = drawerState,
+        drawerState = navigationDrawerState,
         gesturesEnabled = true,
         drawerContent = {
             ModalDrawerSheet(
-                drawerState = drawerState
+                drawerState = navigationDrawerState
             ) {
 
                 Text(
