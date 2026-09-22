@@ -80,6 +80,16 @@ fun getIconButtonColors(): IconButtonColors  {
 }
 
 @Composable
+fun getTopAppBarIconButtonColors(): IconButtonColors {
+    return IconButtonColors(
+        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        disabledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+        disabledContentColor = MaterialTheme.colorScheme.onSurface
+    )
+}
+
+@Composable
 fun getListItemColors(): ListItemColors {
 
     return ListItemColors(
