@@ -38,5 +38,8 @@ dependencies {
     // Locally
     implementation(project(":domain"))
 
+    // Test
+    testImplementation("io.mockk:mockk:1.14.11")
+
 
 }
