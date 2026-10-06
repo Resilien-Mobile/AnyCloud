@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.viewmodel
+package com.baidaidai.anycloud.ui.viewmodel.navigation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

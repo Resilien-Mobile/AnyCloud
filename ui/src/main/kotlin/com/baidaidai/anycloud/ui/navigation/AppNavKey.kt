@@ -17,3 +17,9 @@ data object PowerCloudNavKey : AppNavKey
 
 @Serializable
 data object SettingScreenNavKey : AppNavKey
+
+@Serializable
+data object ClipBoardPilotNavKey : AppNavKey
+@Serializable
+data object PolicyManagerHomeNavKey: AppNavKey
+
