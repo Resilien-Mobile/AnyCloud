@@ -1,53 +1,110 @@
 package com.baidaidai.anycloud.ui.screen.intelligent
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.ModalBottomSheetProperties
-import androidx.compose.material3.SheetValue
-import androidx.compose.material3.rememberBottomSheetState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicy
-import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.PolicyBottomSheetContent
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.baidaidai.anycloud.ui.R
+import com.baidaidai.anycloud.ui.component.common.VerticalSpacer
+import com.baidaidai.anycloud.ui.theme.getExpressiveListItemShape
+import com.baidaidai.anycloud.ui.theme.getListItemColors
+import com.baidaidai.anycloud.ui.viewmodel.intelligent.PolicyManagerScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun PolicyManagerScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues,
-    clipboardPolicyList: List<ClipboardPolicy>
+    policyManagerScreenViewModel: PolicyManagerScreenViewModel = hiltViewModel()
 ) {
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(
+    // Values
+    val clipboardPolicyList by policyManagerScreenViewModel.clipboardPolicyList.collectAsState()
+
+    if (clipboardPolicyList.isEmpty()) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .padding(contentPadding)
+                .fillMaxSize()
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.material_symbols_folder_open),
+                modifier = Modifier.size(64.dp),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.6f)
+            )
+            Text(
+                text = "No Policies",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.6f)
+            )
+        }
+    }else{
+        LazyColumn(
+            contentPadding = PaddingValues(
+                top = 16.dp,
                 start = 16.dp,
                 end = 16.dp,
-                top = contentPadding.calculateTopPadding()
-            )
-            .padding(top = 16.dp)
+                bottom = contentPadding.calculateBottomPadding()
+            ),
+            modifier = modifier
+                .fillMaxSize()
+                .padding(
+                    top = contentPadding.calculateTopPadding()
+                )
 
-    ) {
+        ) {
+            clipboardPolicyList.forEachIndexed { index, clipboardPolicy ->
+                item{
+                    ListItem(
+                        headlineContent = {
+                            Text(
+                                text = clipboardPolicy.policyContent
+                            )
+                        },
+                        supportingContent = {
+                            Text(
+                                text = clipboardPolicy.policyType.name
+                            )
+                        },
+                        colors = getListItemColors(),
+                        modifier = Modifier
+                            .clip(
+                                shape = getExpressiveListItemShape(
+                                    index = index,
+                                    list = clipboardPolicyList
+                                )
+                            )
+                    )
+                }
 
-//        if (clipboardPolicyList.isEmpty()){
-//            TODO("Empty Placeholder")
-//        }else{
-//            clipboardPolicyList.forEach { clipboardPolicy ->
-//                TODO("ListItem List $clipboardPolicy")
-//            }
-//        }
-
+                if (index != clipboardPolicyList.lastIndex){
+                    item{
+                        VerticalSpacer(height = 2.dp)
+                    }
+                }
+            }
+        }
     }
 
 }
