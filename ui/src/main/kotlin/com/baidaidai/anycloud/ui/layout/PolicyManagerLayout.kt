@@ -19,16 +19,21 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicy
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.ui.R
 import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.PolicyBottomSheetContent
+import com.baidaidai.anycloud.ui.component.intelligent.policyManagerScreen.PolicyManagerScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.screen.intelligent.PolicyManagerScreen
 import com.baidaidai.anycloud.ui.theme.AnyCloudTheme
+import com.baidaidai.anycloud.ui.viewmodel.intelligent.PolicyManagerScreenViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun PolicyManagerLayout() {
+
+    // ViewModel
+    val policyManagerScreenViewModel = hiltViewModel<PolicyManagerScreenViewModel>()
 
     // States
     val bottomSheetState = rememberBottomSheetState(
@@ -44,7 +49,6 @@ fun PolicyManagerLayout() {
     val coroutineScope = rememberCoroutineScope()
 
     // Values
-    val fakeList = listOf(ClipboardPolicy(1L, policyContent = "", policyGroup = "Test"))
 
     // Launched
     LaunchedEffect(isImeVisible, isBottomSheetVisible) {
@@ -72,11 +76,7 @@ fun PolicyManagerLayout() {
                 }
             },
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text("Policy Manager")
-                    }
-                )
+                PolicyManagerScreenNecessaryComponents.PolicyManagerScreenTopAppBar {  }
             }
         ) { contentPadding ->
 
@@ -94,14 +94,26 @@ fun PolicyManagerLayout() {
                     modifier = Modifier.imePadding()
                 ) {
                     PolicyBottomSheetContent(
-                        contentPaddingValues = contentPadding
+                        contentPaddingValues = contentPadding,
+                        onDismiss = {
+                            coroutineScope.launch {
+                                bottomSheetState.hide()
+                            }
+                        },
+                        onConfirm = { clipboardPolicy ->
+                            policyManagerScreenViewModel.createClipboardPolicy(
+                                clipboardPolicy = clipboardPolicy
+                            )
+                            coroutineScope.launch {
+                                bottomSheetState.hide()
+                            }
+                        }
                     )
                 }
             }
 
             PolicyManagerScreen(
-                contentPadding = contentPadding,
-                clipboardPolicyList = fakeList,
+                contentPadding = contentPadding
             )
 
         }
