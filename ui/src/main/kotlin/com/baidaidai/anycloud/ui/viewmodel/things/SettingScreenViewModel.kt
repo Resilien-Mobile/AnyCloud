@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.viewmodel
+package com.baidaidai.anycloud.ui.viewmodel.things
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

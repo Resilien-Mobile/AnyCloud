@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.component.homeScreen
+package com.baidaidai.anycloud.ui.component.things.homeScreen
 
 import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.snap

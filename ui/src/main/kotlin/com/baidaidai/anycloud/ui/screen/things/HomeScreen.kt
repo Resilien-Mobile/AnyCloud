@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.screen
+package com.baidaidai.anycloud.ui.screen.things
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -30,22 +30,23 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenCenterLogo
-import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenNotificationList
-import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenSearchRow
-import com.baidaidai.anycloud.ui.viewmodel.TaskScreenViewModel
+import com.baidaidai.anycloud.ui.component.things.homeScreen.HomeScreenCenterLogo
+import com.baidaidai.anycloud.ui.component.things.homeScreen.HomeScreenNotificationList
+import com.baidaidai.anycloud.ui.component.things.homeScreen.HomeScreenSearchRow
+import com.baidaidai.anycloud.ui.viewmodel.things.HomeScreenViewModel
 import com.skydoves.cloudy.rememberSky
 import com.skydoves.cloudy.sky
 
+
 @Composable
-fun TaskScreen(
+fun HomeScreen(
     innerPadding: PaddingValues,
-    taskScreenViewModel: TaskScreenViewModel = hiltViewModel()
-){
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
+) {
     val density = LocalDensity.current
     val layoutDirection = LocalLayoutDirection.current
     val inputContentState = rememberTextFieldState()
-    val notificationConfigList by taskScreenViewModel.notificationConfigList.collectAsState()
+    val notificationConfigList by homeScreenViewModel.notificationConfigList.collectAsState()
     val sky = rememberSky()
 
     val isImeVisible = WindowInsets
@@ -105,20 +106,16 @@ fun TaskScreen(
                 bottom = searchRowHeight + imeBottomPadding + searchRowBottomPadding + 20.dp
             ),
             onDeleteNotification = { notificationConfig ->
-                taskScreenViewModel.deleteOneNotificationConfig(notificationConfig)
+                homeScreenViewModel.deleteOneNotificationConfig(notificationConfig)
             },
             onObverseTaskStatus = { notificationConfig ->
-                taskScreenViewModel.updateOneNotificationTaskFinished(notificationConfig, isTaskFinished = !notificationConfig.isTaskFinished)
+                homeScreenViewModel.updateOneNotificationTaskFinished(
+                    notificationConfig,
+                    isTaskFinished = !notificationConfig.isTaskFinished
+                )
             },
             onNotificationDrag = {
-                // 当背景变化时，通知 Cloudy 重新采样
                 sky.invalidate(durationMillis = 500L)
-            },
-            onNotificationDragEnd = { notificationConfig, insertionIndex ->
-                taskScreenViewModel.updateOneNotificationPosition(
-                    notificationConfig = notificationConfig,
-                    insertionIndex = insertionIndex
-                )
             },
             modifier = Modifier
                 .fillMaxSize()
@@ -133,10 +130,9 @@ fun TaskScreen(
             },
             onSendButtonClick = {
                 if (inputContentState.text.isNotEmpty()){
-                    taskScreenViewModel
-                        .createOneNotificationConfig(
-                            notificationContent = inputContentState.text.toString()
-                        )
+                    homeScreenViewModel.createOneNotificationConfig(
+                        notificationContent = inputContentState.text.toString()
+                    )
                     inputContentState.clearText()
                 }
                 sky.invalidate()
@@ -151,6 +147,5 @@ fun TaskScreen(
                 .imePadding()
                 .align(Alignment.BottomCenter)
         )
-
     }
 }

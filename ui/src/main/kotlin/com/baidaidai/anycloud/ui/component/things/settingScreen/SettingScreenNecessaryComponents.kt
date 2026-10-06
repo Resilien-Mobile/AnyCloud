@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.component.powerScreen
+package com.baidaidai.anycloud.ui.component.things.settingScreen
 
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -11,11 +11,11 @@ import androidx.compose.ui.res.painterResource
 import com.baidaidai.anycloud.ui.R
 import com.baidaidai.anycloud.ui.theme.getTopAppBarIconButtonColors
 
-object PowerScreenNecessaryComponents {
+object SettingScreenNecessaryComponents {
 
     @OptIn(ExperimentalMaterial3ExpressiveApi::class)
     @Composable
-    fun PowerScreenTopAppBar(
+    fun SettingScreenTopAppBar(
         onNavigationButtonClick: () -> Unit = {}
     ){
         LargeFlexibleTopAppBar(
@@ -32,7 +32,7 @@ object PowerScreenNecessaryComponents {
             },
             title = {
                 Text(
-                    text = "Power Cloud",
+                    text = "Setting",
                     style = MaterialTheme.typography.displaySmall
                 )
             },

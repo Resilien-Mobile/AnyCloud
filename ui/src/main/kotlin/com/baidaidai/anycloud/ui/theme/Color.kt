@@ -70,7 +70,7 @@ fun getTextFieldColors(): TextFieldColors {
 }
 
 @Composable
-fun getIconButtonColors(): IconButtonColors  {
+fun getPrimaryIconButtonColors(): IconButtonColors  {
     return IconButtonColors(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,

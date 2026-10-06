@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.screen
+package com.baidaidai.anycloud.ui.screen.things
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.ui.R
 import com.baidaidai.anycloud.ui.theme.getListItemColors
-import com.baidaidai.anycloud.ui.viewmodel.SettingScreenViewModel
+import com.baidaidai.anycloud.ui.viewmodel.things.SettingScreenViewModel
 
 @Composable
 fun SettingScreen(

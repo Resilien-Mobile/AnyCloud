@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.component.homeScreen
+package com.baidaidai.anycloud.ui.component.things.homeScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

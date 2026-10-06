@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.component.powerScreen
+package com.baidaidai.anycloud.ui.component.things.powerScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.screen
+package com.baidaidai.anycloud.ui.screen.things
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,9 +22,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.ui.R
-import com.baidaidai.anycloud.ui.component.powerScreen.EnablePowerCloudRow
-import com.baidaidai.anycloud.ui.component.powerScreen.EnergyGlanceRow
-import com.baidaidai.anycloud.ui.viewmodel.PowerScreenViewModel
+import com.baidaidai.anycloud.ui.component.things.powerScreen.EnablePowerCloudRow
+import com.baidaidai.anycloud.ui.component.things.powerScreen.EnergyGlanceRow
+import com.baidaidai.anycloud.ui.viewmodel.things.PowerScreenViewModel
 
 @Composable
 fun PowerScreen(

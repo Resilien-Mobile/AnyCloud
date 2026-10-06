@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.component.homeScreen
+package com.baidaidai.anycloud.ui.component.things.homeScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.ui.R
-import com.baidaidai.anycloud.ui.theme.getIconButtonColors
+import com.baidaidai.anycloud.ui.theme.getPrimaryIconButtonColors
 import com.baidaidai.anycloud.ui.theme.getTextFieldColors
 import com.skydoves.cloudy.Sky
 import com.skydoves.cloudy.cloudy
@@ -101,7 +101,7 @@ fun HomeScreenSearchRow(
         IconButton(
             shape = CircleShape,
             onClick = onSendButtonClick,
-            colors = getIconButtonColors(),
+            colors = getPrimaryIconButtonColors(),
             modifier = Modifier
                 .fillMaxHeight()
                 .aspectRatio(1f)

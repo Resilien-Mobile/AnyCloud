@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.viewmodel
+package com.baidaidai.anycloud.ui.viewmodel.things
 
 import android.Manifest
 import android.content.Context

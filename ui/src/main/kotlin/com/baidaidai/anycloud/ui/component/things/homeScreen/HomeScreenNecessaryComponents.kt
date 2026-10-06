@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.component.homeScreen
+package com.baidaidai.anycloud.ui.component.things.homeScreen
 
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
