@@ -11,6 +11,10 @@ android {
     defaultConfig {
         minSdk = 36
     }
+
+    buildFeatures {
+        aidl = true
+    }
 }
 
 dependencies {
@@ -34,6 +38,10 @@ dependencies {
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
+
+    // Shizuku
+    implementation("dev.rikka.shizuku:api:13.1.5")
+    implementation("dev.rikka.shizuku:provider:13.1.5")
 
     // Locally
     implementation(project(":domain"))

@@ -24,12 +24,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.ui.R
+import com.baidaidai.anycloud.domain.navigation.ClipBoardPilotNavKey
 import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.NavigationConfig
 import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
 import com.baidaidai.anycloud.domain.navigation.SettingScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.TaskCloudNavKey
-import com.baidaidai.anycloud.ui.viewmodel.NavigationViewModel
+import com.baidaidai.anycloud.ui.viewmodel.navigation.NavigationViewModel
 
 @Composable
 fun NavigationDrawer(
@@ -69,7 +70,7 @@ fun NavigationDrawer(
         NavigationConfig(
             destinationName = "ClipBoard Pilot",
             destinationIcon = R.drawable.material_symbols_assistant_navigation,
-            destinationNavKey = HomeScreenNavKey
+            destinationNavKey = ClipBoardPilotNavKey
         ),
     )
     var selectedDestination by remember { mutableStateOf(thingsNavigationList[0]) }

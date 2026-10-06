@@ -12,16 +12,23 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import com.baidaidai.anycloud.domain.navigation.ClipBoardPilotNavKey
 import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
 import com.baidaidai.anycloud.domain.navigation.SettingScreenNavKey
 import com.baidaidai.anycloud.domain.navigation.TaskCloudNavKey
-import com.baidaidai.anycloud.ui.component.homeScreen.HomeScreenNecessaryComponents
+import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.ClipBoardPilotScreenNecessaryComponents
+import com.baidaidai.anycloud.ui.component.things.homeScreen.HomeScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.component.navigation.NavigationDrawer
-import com.baidaidai.anycloud.ui.component.powerScreen.PowerScreenNecessaryComponents
-import com.baidaidai.anycloud.ui.component.settingScreen.SettingScreenNecessaryComponents
-import com.baidaidai.anycloud.ui.component.taskScreen.TaskScreenNecessaryComponents
-import com.baidaidai.anycloud.ui.viewmodel.NavigationViewModel
+import com.baidaidai.anycloud.ui.component.things.powerScreen.PowerScreenNecessaryComponents
+import com.baidaidai.anycloud.ui.component.things.settingScreen.SettingScreenNecessaryComponents
+import com.baidaidai.anycloud.ui.component.things.taskScreen.TaskScreenNecessaryComponents
+import com.baidaidai.anycloud.ui.screen.intelligent.ClipBoardPilotScreen
+import com.baidaidai.anycloud.ui.screen.things.HomeScreen
+import com.baidaidai.anycloud.ui.screen.things.PowerScreen
+import com.baidaidai.anycloud.ui.screen.things.SettingScreen
+import com.baidaidai.anycloud.ui.screen.things.TaskScreen
+import com.baidaidai.anycloud.ui.viewmodel.navigation.NavigationViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -71,6 +78,9 @@ fun StartScreenContainer() {
                     is SettingScreenNavKey -> SettingScreenNecessaryComponents.SettingScreenTopAppBar(
                         onNavigationButtonClick = onNavigationButtonClick
                     )
+                    is ClipBoardPilotNavKey -> ClipBoardPilotScreenNecessaryComponents.ClipBoardPilotScreenTopAppBar(
+                        onNavigationButtonClick = onNavigationButtonClick
+                    )
                     else -> HomeScreenNecessaryComponents.HomeScreenTopAppBar(
                         onNavigationButtonClick = onNavigationButtonClick
                     )
@@ -100,6 +110,10 @@ fun StartScreenContainer() {
 
                     entry<SettingScreenNavKey> {
                         SettingScreen(innerPadding)
+                    }
+
+                    entry<ClipBoardPilotNavKey> {
+                        ClipBoardPilotScreen(innerPadding)
                     }
                 }
             )
