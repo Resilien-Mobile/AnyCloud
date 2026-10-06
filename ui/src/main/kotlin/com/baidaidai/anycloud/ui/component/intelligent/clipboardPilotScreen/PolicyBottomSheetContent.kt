@@ -127,7 +127,7 @@ fun PolicyBottomSheetContent(
                 enabled = canConfirm,
                 onClick = {
                     val clipboardPolicy = ClipboardPolicy(
-                        unixTimeStamp = System.currentTimeMillis(),
+                        unixTimeStamp = 0L,
                         policyType = selectedPolicyType,
                         policyContent = policyContentState.text.toString(),
                         policyGroup = selectedPolicyGroup
