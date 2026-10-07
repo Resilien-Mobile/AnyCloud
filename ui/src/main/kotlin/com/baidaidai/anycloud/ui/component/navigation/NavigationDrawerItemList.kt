@@ -15,9 +15,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.ui.R
-import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
-import com.baidaidai.anycloud.domain.navigation.NavigationConfig
-import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
+import com.baidaidai.anycloud.ui.navigation.things.HomeScreenNavKey
+import com.baidaidai.anycloud.ui.navigation.NavigationConfig
+import com.baidaidai.anycloud.ui.navigation.things.PowerCloudNavKey
 
 @Composable
 fun NavigationDrawerItemList(

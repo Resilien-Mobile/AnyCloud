@@ -12,11 +12,11 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import com.baidaidai.anycloud.domain.navigation.ClipBoardPilotNavKey
-import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
-import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
-import com.baidaidai.anycloud.domain.navigation.SettingScreenNavKey
-import com.baidaidai.anycloud.domain.navigation.TaskCloudNavKey
+import com.baidaidai.anycloud.ui.navigation.things.ClipBoardPilotNavKey
+import com.baidaidai.anycloud.ui.navigation.things.HomeScreenNavKey
+import com.baidaidai.anycloud.ui.navigation.things.PowerCloudNavKey
+import com.baidaidai.anycloud.ui.navigation.things.SettingScreenNavKey
+import com.baidaidai.anycloud.ui.navigation.things.TaskCloudNavKey
 import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.ClipBoardPilotScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.component.things.homeScreen.HomeScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.component.navigation.NavigationDrawer

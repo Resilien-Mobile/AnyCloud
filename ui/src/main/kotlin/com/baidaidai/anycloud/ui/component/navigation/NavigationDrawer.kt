@@ -24,12 +24,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.ui.R
-import com.baidaidai.anycloud.domain.navigation.ClipBoardPilotNavKey
-import com.baidaidai.anycloud.domain.navigation.HomeScreenNavKey
-import com.baidaidai.anycloud.domain.navigation.NavigationConfig
-import com.baidaidai.anycloud.domain.navigation.PowerCloudNavKey
-import com.baidaidai.anycloud.domain.navigation.SettingScreenNavKey
-import com.baidaidai.anycloud.domain.navigation.TaskCloudNavKey
+import com.baidaidai.anycloud.ui.navigation.things.ClipBoardPilotNavKey
+import com.baidaidai.anycloud.ui.navigation.things.HomeScreenNavKey
+import com.baidaidai.anycloud.ui.navigation.NavigationConfig
+import com.baidaidai.anycloud.ui.navigation.things.PowerCloudNavKey
+import com.baidaidai.anycloud.ui.navigation.things.SettingScreenNavKey
+import com.baidaidai.anycloud.ui.navigation.things.TaskCloudNavKey
 import com.baidaidai.anycloud.ui.viewmodel.navigation.NavigationViewModel
 
 @Composable

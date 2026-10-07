@@ -9,12 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumFlexibleTopAppBar
+import androidx.compose.material3.LargeFlexibleTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,10 +28,11 @@ object PolicyManagerScreenNecessaryComponents {
     @OptIn(ExperimentalMaterial3ExpressiveApi::class)
     @Composable
     fun PolicyManagerScreenTopAppBar(
+        titleContent: @Composable (()-> Unit)?,
         onSwitchClick: ()-> Unit = {},
         onNavigationButtonClick: () -> Unit = {}
     ) {
-        MediumFlexibleTopAppBar(
+        LargeFlexibleTopAppBar(
             navigationIcon = {
                 IconButton(
                     onClick = onNavigationButtonClick,
@@ -54,10 +53,9 @@ object PolicyManagerScreenNecessaryComponents {
                         .height(intrinsicSize = IntrinsicSize.Min)
                         .padding(end = 8.dp)
                 ) {
-                    Text(
-                        text = "Policy Manager",
-                        style = MaterialTheme.typography.displaySmall
-                    )
+
+                    titleContent?.invoke()
+
                     IconButton(
                         colors = getPrimaryIconButtonColors(),
                         onClick = onSwitchClick,

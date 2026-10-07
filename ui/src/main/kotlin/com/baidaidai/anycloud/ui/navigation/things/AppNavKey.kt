@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.domain.navigation
+package com.baidaidai.anycloud.ui.navigation.things
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
@@ -20,6 +20,4 @@ data object SettingScreenNavKey : AppNavKey
 
 @Serializable
 data object ClipBoardPilotNavKey : AppNavKey
-@Serializable
-data object PolicyManagerHomeNavKey: AppNavKey
 
