@@ -16,7 +16,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -36,6 +41,7 @@ fun PolicyManagerLayout() {
     val policyManagerScreenViewModel = hiltViewModel<PolicyManagerScreenViewModel>()
 
     // States
+    var shouldShowBottomSheet by remember { mutableStateOf(false) }
     val bottomSheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
         enabledValues = setOf(
@@ -43,16 +49,24 @@ fun PolicyManagerLayout() {
             SheetValue.Expanded
         )
     )
-    val isBottomSheetVisible = bottomSheetState.isVisible
     val isImeVisible = WindowInsets.isImeVisible
 
     val coroutineScope = rememberCoroutineScope()
+    fun hideBottomSheet() {
+        coroutineScope.launch {
+            bottomSheetState.hide()
+        }.invokeOnCompletion {
+            if (!bottomSheetState.isVisible) {
+                shouldShowBottomSheet = false
+            }
+        }
+    }
 
     // Values
 
     // Launched
-    LaunchedEffect(isImeVisible, isBottomSheetVisible) {
-        if (!isBottomSheetVisible) return@LaunchedEffect
+    LaunchedEffect(isImeVisible, shouldShowBottomSheet) {
+        if (!shouldShowBottomSheet) return@LaunchedEffect
 
         if (isImeVisible) {
             bottomSheetState.expand()
@@ -64,9 +78,7 @@ fun PolicyManagerLayout() {
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = {
-                        coroutineScope.launch {
-                            bottomSheetState.expand()
-                        }
+                        shouldShowBottomSheet = true
                     }
                 ) {
                     Icon(
@@ -80,16 +92,14 @@ fun PolicyManagerLayout() {
             }
         ) { contentPadding ->
 
-            if(bottomSheetState.isVisible){
+            if (shouldShowBottomSheet) {
                 ModalBottomSheet(
                     sheetState = bottomSheetState,
                     properties = ModalBottomSheetProperties(
                         shouldDismissOnBackPress = !isImeVisible
                     ),
                     onDismissRequest = {
-                        coroutineScope.launch {
-                            bottomSheetState.hide()
-                        }
+                        hideBottomSheet()
                     },
                     modifier = Modifier.imePadding()
                 ) {
