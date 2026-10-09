@@ -87,5 +87,6 @@ dependencies {
 
     // Locally
     implementation(project(":ui"))
+    implementation(project(":application"))
 
 }

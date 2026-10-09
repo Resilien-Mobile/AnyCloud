@@ -20,5 +20,8 @@ dependencies {
     implementation("androidx.annotation:annotation:1.10.0")
     implementation(libs.kotlinx.coroutines.core)
 
+    // Url detector
+    implementation("io.github.url-detector:url-detector:0.1.24")
+
     testImplementation(libs.junit)
 }

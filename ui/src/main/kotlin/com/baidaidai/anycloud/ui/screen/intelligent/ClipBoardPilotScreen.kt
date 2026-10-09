@@ -16,6 +16,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.domain.shizuku.ShizukuStatus
 import com.baidaidai.anycloud.ui.PolicyManagerActivity
 import com.baidaidai.anycloud.ui.ShizukuActivity
+import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.ClipboardListeningRow
 import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.ClipboardLog
 import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.PolicyManagerCard
 import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.ShizukuStatusDashBoard
@@ -28,6 +29,13 @@ fun ClipBoardPilotScreen(
 ) {
 
     val shizukuStatus by clipBoardPilotScreenViewModel.shizukuStatus.collectAsState()
+    val isClipboardListeningEnabled by clipBoardPilotScreenViewModel
+        .isClipboardListeningEnabled
+        .collectAsState()
+
+    val clipboardLogList by clipBoardPilotScreenViewModel
+        .clipboardLogList
+        .collectAsState()
 
     val context = LocalContext.current
 
@@ -38,21 +46,23 @@ fun ClipBoardPilotScreen(
                 horizontal = 16.dp
             )
     ) {
-        ShizukuStatusDashBoard(
-            shizukuStatus = shizukuStatus,
-            onClick = {
-                if (shizukuStatus != ShizukuStatus.AUTHORIZED) {
-                    context.startActivity(
-                        Intent(
-                            context,
-                            ShizukuActivity::class.java
+        if (shizukuStatus != ShizukuStatus.AUTHORIZED) {
+            ShizukuStatusDashBoard(
+                shizukuStatus = shizukuStatus,
+                onClick = {
+                    if (shizukuStatus != ShizukuStatus.AUTHORIZED) {
+                        context.startActivity(
+                            Intent(
+                                context,
+                                ShizukuActivity::class.java
+                            )
                         )
-                    )
+                    }
                 }
-            }
-        )
+            )
 
-        Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
+        }
 
         PolicyManagerCard(
             onClick = {
@@ -67,7 +77,27 @@ fun ClipBoardPilotScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        ClipboardLog()
+        if (shizukuStatus == ShizukuStatus.AUTHORIZED) {
+            ClipboardListeningRow(
+                isClipboardListening = isClipboardListeningEnabled,
+                onStartClipboardListening = {
+                    clipBoardPilotScreenViewModel.syncClipboardListeningEnabled(
+                        isEnabled = true
+                    )
+                },
+                onStopClipboardListening = {
+                    clipBoardPilotScreenViewModel.syncClipboardListeningEnabled(
+                        isEnabled = false
+                    )
+                }
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+
+        ClipboardLog(
+            clipboardLogList = clipboardLogList
+        )
 
         Spacer(modifier = Modifier.height(15.dp))
     }

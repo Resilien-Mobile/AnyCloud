@@ -47,7 +47,7 @@ class ShizukuUserServiceGatewayImpl @Inject constructor(
         )
             .processNameSuffix("shizuku")
             .tag("anycloud_shizuku_user_service")
-            .version(1)
+            .version(3)
             .daemon(true)
 
         val isBindStarted = runCatching {

@@ -18,9 +18,16 @@ class SettingRepositoryImpl @Inject constructor(
         Context.MODE_PRIVATE
     )
     private val ongoingStyleEnabledKey = "is_ongoing_style_enabled"
+    private val clipboardListeningEnabledKey = "is_clipboard_listening_enabled"
     private val isOngoingStyleEnabledFlow = MutableStateFlow(
         sharedPreferences.getBoolean(
             ongoingStyleEnabledKey,
+            false
+        )
+    )
+    private val isClipboardListeningEnabledFlow = MutableStateFlow(
+        sharedPreferences.getBoolean(
+            clipboardListeningEnabledKey,
             false
         )
     )
@@ -31,6 +38,12 @@ class SettingRepositoryImpl @Inject constructor(
         return ongoingStyleEnabledFlow
     }
 
+    fun observeClipboardListeningEnabled(): Flow<Boolean> {
+        val clipboardListeningEnabledFlow = isClipboardListeningEnabledFlow.asStateFlow()
+
+        return clipboardListeningEnabledFlow
+    }
+
     fun syncOngoingStyleEnabled(
         isEnabled: Boolean
     ) {
@@ -38,6 +51,16 @@ class SettingRepositoryImpl @Inject constructor(
 
         sharedPreferences.edit {
             putBoolean(ongoingStyleEnabledKey, isEnabled)
+        }
+    }
+
+    fun syncClipboardListeningEnabled(
+        isEnabled: Boolean
+    ) {
+        isClipboardListeningEnabledFlow.value = isEnabled
+
+        sharedPreferences.edit {
+            putBoolean(clipboardListeningEnabledKey, isEnabled)
         }
     }
 }
