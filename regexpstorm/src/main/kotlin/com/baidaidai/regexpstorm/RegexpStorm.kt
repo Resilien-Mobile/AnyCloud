@@ -11,7 +11,7 @@ class RegexpStorm(
 
     fun resolveDomainSuffix(): Result<String, RegexpError> =
         runCatching {
-            "(?:^|\\.)${Pattern.quote(template)}$"
+            Pattern.quote(template)
         }
         .mapError { throwable ->
             RegexpError(
@@ -23,7 +23,7 @@ class RegexpStorm(
 
     fun resolveDomain():Result<String, RegexpError> =
         runCatching {
-            "^${Pattern.quote(template)}$"
+            Pattern.quote(template)
         }
         .mapError { throwable ->
             RegexpError(
