@@ -4,5 +4,6 @@ data class ClipboardPolicy(
     val unixTimeStamp: Long,
     val policyType: PolicyType = PolicyType.DOMAIN,
     val policyContent: String,
-    val policyGroup: String?
+    val policyGroup: Long,
+    val targetPackageName: String
 )

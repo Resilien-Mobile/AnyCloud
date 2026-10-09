@@ -78,11 +78,6 @@ fun PolicyManagerLayout() {
 
     // Values
     val clipboardGroupList by policyGroupScreenViewModel.clipboardGroupList.collectAsState()
-    val policyGroupNameList = clipboardGroupList
-        .map { clipboardGroup ->
-            clipboardGroup.groupName
-        }
-        .distinct() // 不会长久存在，因为即使主键不同，后续只要存在相同名称的Group自动顶掉替换
 
     // Launched
     LaunchedEffect(isImeVisible, shouldShowBottomSheet) {
@@ -163,7 +158,7 @@ fun PolicyManagerLayout() {
                         is PolicyManagerKey -> {
                             PolicyBottomSheetContent(
                                 contentPaddingValues = contentPadding,
-                                policyGroupList = policyGroupNameList,
+                                policyGroupList = clipboardGroupList,
                                 onDismiss = {
                                     hideBottomSheet()
                                 },

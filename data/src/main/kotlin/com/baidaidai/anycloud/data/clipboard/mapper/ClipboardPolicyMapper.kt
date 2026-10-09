@@ -20,7 +20,8 @@ object ClipboardPolicyMapper {
             unixTimeStamp = unixTimeStamp,
             policyType = resolvePolicyType,
             policyContent = policyContent,
-            policyGroup = policyGroup
+            policyGroup = policyGroup,
+            targetPackageName = targetPackageName
         )
 
         return clipboardPolicy
@@ -31,7 +32,8 @@ object ClipboardPolicyMapper {
             unixTimeStamp = unixTimeStamp,
             policyType = policyType.name,
             policyContent = policyContent,
-            policyGroup = policyGroup
+            policyGroup = policyGroup,
+            targetPackageName = targetPackageName
         )
 
         return policyEntity

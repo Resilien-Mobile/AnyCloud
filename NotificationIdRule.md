@@ -31,6 +31,15 @@
 
 总而言之，1000..9999是为 **Promoted Notification** 也就是最基础的 流体云/灵动岛 通知服务的 **语义索引**
 
+#### from 1000 to 2000
+
+    1000( Promoted Ongoing Notificaiton - Basic, Only Content , Not Live Update )
+
+1000 到 2000 的，基于用户删除和 Max(min,2000) 进行插入并持久化  
+当用户删除某条 AnyCloud 时，会自动腾出可用空间以进行插入
+
+当高于2001时，会丢失精度，但永远无法达到999条
+
 ----
 ### Above 10000
 作为 Power Cloud 字段进行后续规划

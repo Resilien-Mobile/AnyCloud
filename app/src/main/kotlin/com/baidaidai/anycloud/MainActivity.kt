@@ -83,6 +83,15 @@ class MainActivity : ComponentActivity() {
             description = anyCloudLiveUpdateDescriptionText
         }
 
+        // Registration Pilot Notification Permission
+        val pilotNotificationChannelID = "100"
+        val pilotNotificationName = "Pilot"
+        val pilotNotificationDescriptionText = "Enable Pilot Notification"
+        val pilotNotificationImportance = NotificationManager.IMPORTANCE_HIGH
+        val pilotNotificationChannel = NotificationChannel(pilotNotificationChannelID, pilotNotificationName, pilotNotificationImportance).apply {
+            description = pilotNotificationDescriptionText
+        }
+
         // Register the channel with the system.
         val notificationManager: NotificationManager =
             this.getSystemService(NotificationManager::class.java) as NotificationManager
@@ -90,5 +99,6 @@ class MainActivity : ComponentActivity() {
         notificationManager.createNotificationChannel(powerCloudLiveUpdateChannel)
         notificationManager.createNotificationChannel(anyCloudOngoingChannel)
         notificationManager.createNotificationChannel(anyCloudLiveUpdateChannel)
+        notificationManager.createNotificationChannel(pilotNotificationChannel)
     }
 }

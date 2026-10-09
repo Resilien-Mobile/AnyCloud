@@ -1,6 +1,7 @@
 package com.baidaidai.anycloud.application.clipboard
 
 import android.util.Log
+import com.baidaidai.anycloud.data.notification.pilot.gateway.PilotNotificationGatewayImpl
 import com.baidaidai.anycloud.domain.clipboard.ClipboardLog
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicy
 import com.baidaidai.anycloud.domain.clipboard.PolicyType
@@ -13,7 +14,8 @@ import javax.inject.Singleton
 @Singleton
 class ParseClipboardUseCase @Inject constructor(
     private val observeClipboardPoliciesUseCase: ObserveClipboardPoliciesUseCase,
-    private val createClipboardLogUseCase: CreateClipboardLogUseCase
+    private val createClipboardLogUseCase: CreateClipboardLogUseCase,
+    private val pilotNotificationGatewayImpl: PilotNotificationGatewayImpl
 ) {
 
     private val logTag = "ParseClipboardUseCase"
@@ -34,6 +36,9 @@ class ParseClipboardUseCase @Inject constructor(
 
             if (isClipboardPolicyMatched) {
                 isClipboardMatched = true
+                pilotNotificationGatewayImpl.pushPilotNotification(
+                    clipboardPolicy = clipboardPolicy
+                )
             }
         }
 
