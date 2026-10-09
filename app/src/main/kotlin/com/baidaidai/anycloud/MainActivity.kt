@@ -7,13 +7,43 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.baidaidai.anycloud.application.clipboard.ObserveClipboardContentUseCase
+import com.baidaidai.anycloud.application.clipboard.ParseClipboardUseCase
+import com.baidaidai.anycloud.application.setting.SyncClipboardListeningEnabledUseCase
 import com.baidaidai.anycloud.ui.screen.StartScreenContainer
 import com.baidaidai.anycloud.ui.theme.AnyCloudTheme
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltAndroidApp
-class AnyCloudApplication : Application()
+class AnyCloudApplication : Application() {
+
+    @Inject
+    lateinit var observeClipboardContentUseCase: ObserveClipboardContentUseCase
+    @Inject
+    lateinit var parseClipboardUseCase: ParseClipboardUseCase
+    @Inject
+    lateinit var syncClipboardListeningEnabledUseCase: SyncClipboardListeningEnabledUseCase
+
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    override fun onCreate() {
+        super.onCreate()
+
+        applicationScope.launch {
+            syncClipboardListeningEnabledUseCase()
+            observeClipboardContentUseCase().collectLatest { clipboardContent ->
+                parseClipboardUseCase(clipboardContent)
+            }
+        }
+    }
+}
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
