@@ -9,5 +9,6 @@ data class PolicyEntity(
     val unixTimeStamp: Long,
     val policyType: String,
     val policyContent: String,
-    val policyGroup: String?
+    val policyGroup: Long,
+    val targetPackageName: String
 )
