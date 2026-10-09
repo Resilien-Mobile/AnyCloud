@@ -4,6 +4,8 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.baidaidai.anycloud.data.clipboard.database.GroupDao
 import com.baidaidai.anycloud.data.clipboard.database.GroupEntity
+import com.baidaidai.anycloud.data.clipboard.database.LogDao
+import com.baidaidai.anycloud.data.clipboard.database.LogEntity
 import com.baidaidai.anycloud.data.clipboard.database.PolicyDao
 import com.baidaidai.anycloud.data.clipboard.database.PolicyEntity
 import com.baidaidai.anycloud.data.dailycount.database.DailyCountDao
@@ -24,7 +26,8 @@ import com.baidaidai.anycloud.data.notification.ongoing.database.OngoingNotifica
         DailyTrackEntity::class,
         DailyCountEntity::class,
         PolicyEntity::class,
-        GroupEntity::class
+        GroupEntity::class,
+        LogEntity::class
 
         // 其他表
     ],
@@ -37,6 +40,7 @@ abstract class AnyCloudDataBase: RoomDatabase() {
     abstract fun dailyCountDao(): DailyCountDao
     abstract fun policyDao(): PolicyDao
     abstract fun groupDao(): GroupDao
+    abstract fun logDao(): LogDao
 
     //其他DAO
 }
