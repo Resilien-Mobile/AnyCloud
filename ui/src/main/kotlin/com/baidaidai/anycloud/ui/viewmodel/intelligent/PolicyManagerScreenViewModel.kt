@@ -2,6 +2,7 @@ package com.baidaidai.anycloud.ui.viewmodel.intelligent
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.baidaidai.anycloud.application.clipboard.DeleteClipboardPolicyUseCase
 import com.baidaidai.anycloud.application.clipboard.CreateClipboardPolicyUseCase
 import com.baidaidai.anycloud.application.clipboard.ObserveClipboardPoliciesUseCase
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicy
@@ -14,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PolicyManagerScreenViewModel @Inject constructor(
     private val createClipboardPolicyUseCase: CreateClipboardPolicyUseCase,
+    private val deleteClipboardPolicyUseCase: DeleteClipboardPolicyUseCase,
     observeClipboardPoliciesUseCase: ObserveClipboardPoliciesUseCase
 ) : ViewModel() {
 
@@ -29,6 +31,14 @@ class PolicyManagerScreenViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             createClipboardPolicyUseCase(clipboardPolicy)
+        }
+    }
+
+    fun deleteClipboardPolicy(
+        clipboardPolicy: ClipboardPolicy
+    ) {
+        viewModelScope.launch {
+            deleteClipboardPolicyUseCase(clipboardPolicy)
         }
     }
 }

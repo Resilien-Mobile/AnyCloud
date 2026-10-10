@@ -43,4 +43,11 @@ class ClipboardGroupRepositoryImpl @Inject constructor(
     }
 
     // Delete
+    suspend fun deleteClipboardGroup(
+        clipboardGroup: ClipboardGroup
+    ) {
+        val groupEntity = clipboardGroup.toGroupEntity()
+
+        groupDao.deleteGroupEntity(groupEntity)
+    }
 }
