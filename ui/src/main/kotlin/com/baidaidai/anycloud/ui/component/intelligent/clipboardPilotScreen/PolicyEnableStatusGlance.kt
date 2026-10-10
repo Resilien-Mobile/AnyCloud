@@ -34,7 +34,7 @@ fun PolicyEnableStatusGlance(
             .padding(top = 18.dp)
     ) {
         PolicyEnableStatusGlanceSlot(
-            label = "已应用策略",
+            label = "策略组数",
             value = enabledPolicyCount,
             modifier = Modifier.weight(1f)
         )
@@ -56,7 +56,7 @@ fun PolicyEnableStatusGlance(
         )
 
         PolicyEnableStatusGlanceSlot(
-            label = "使用内置策略",
+            label = "内置策略",
             value = builtInPolicyEnabledCount,
             modifier = Modifier.weight(1f)
         )
