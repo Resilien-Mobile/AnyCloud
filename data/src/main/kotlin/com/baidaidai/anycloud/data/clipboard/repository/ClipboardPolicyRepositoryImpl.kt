@@ -49,4 +49,11 @@ class ClipboardPolicyRepositoryImpl @Inject constructor(
     }
 
     // Delete
+    suspend fun deleteClipboardPolicy(
+        clipboardPolicy: ClipboardPolicy
+    ) {
+        val policyEntity = clipboardPolicy.toPolicyEntity()
+
+        policyDao.deletePolicyEntity(policyEntity)
+    }
 }

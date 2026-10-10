@@ -1,6 +1,7 @@
 package com.baidaidai.anycloud.data.clipboard.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -25,4 +26,8 @@ interface GroupDao {
     fun observeGroupEntities(): Flow<List<GroupEntity>>
 
     // Delete
+    @Delete
+    suspend fun deleteGroupEntity(
+        groupEntity: GroupEntity
+    )
 }
