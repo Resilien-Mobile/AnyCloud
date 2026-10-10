@@ -18,6 +18,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun PolicyManagerCard(
     modifier: Modifier = Modifier,
+    enabledPolicyCount: Int = 0,
+    totalPolicyCount: Int = 0,
+    builtInPolicyEnabledCount: Int = 0,
     onClick: () -> Unit = {},
 ) {
     Column(
@@ -35,7 +38,11 @@ fun PolicyManagerCard(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        PolicyEnableStatusGlance()
+        PolicyEnableStatusGlance(
+            enabledPolicyCount = enabledPolicyCount,
+            totalPolicyCount = totalPolicyCount,
+            builtInPolicyEnabledCount = builtInPolicyEnabledCount
+        )
     }
 }
 
