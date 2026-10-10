@@ -10,7 +10,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -71,27 +74,42 @@ fun PolicyGroupScreen(
 
         ) {
             clipboardGroupList.forEachIndexed { index, clipboardGroup ->
-                item{
-                    ListItem(
-                        headlineContent = {
-                            Text(
-                                text = clipboardGroup.groupName
-                            )
-                        },
-                        supportingContent = {
-                            Text(
-                                text = clipboardGroup.targetPackageName
-                            )
-                        },
-                        colors = getListItemColors(),
-                        modifier = Modifier
-                            .clip(
-                                shape = getExpressiveListItemShape(
-                                    index = index,
-                                    list = clipboardGroupList
+                item(key = clipboardGroup.unixTimeStamp) {
+                    val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
+
+                    SwipeToDismissBox(
+                        state = swipeToDismissBoxState,
+                        backgroundContent = {},
+                        enableDismissFromStartToEnd = false,
+                        onDismiss = { swipeToDismissBoxValue ->
+                            if (swipeToDismissBoxValue == SwipeToDismissBoxValue.EndToStart) {
+                                policyGroupScreenViewModel.deleteClipboardGroup(
+                                    clipboardGroup = clipboardGroup
                                 )
-                            )
-                    )
+                            }
+                        }
+                    ) {
+                        ListItem(
+                            headlineContent = {
+                                Text(
+                                    text = clipboardGroup.groupName
+                                )
+                            },
+                            supportingContent = {
+                                Text(
+                                    text = clipboardGroup.targetPackageName
+                                )
+                            },
+                            colors = getListItemColors(),
+                            modifier = Modifier
+                                .clip(
+                                    shape = getExpressiveListItemShape(
+                                        index = index,
+                                        list = clipboardGroupList
+                                    )
+                                )
+                        )
+                    }
                 }
 
                 if (index != clipboardGroupList.lastIndex){
