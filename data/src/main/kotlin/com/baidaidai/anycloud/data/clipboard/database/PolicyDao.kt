@@ -24,5 +24,8 @@ interface PolicyDao {
     @Query("SELECT * FROM PolicyEntity")
     fun observePolicyEntities(): Flow<List<PolicyEntity>>
 
+    @Query("SELECT COUNT(*) FROM PolicyEntity")
+    fun observeTotalPolicyCount(): Flow<Int>
+
     // Delete
 }

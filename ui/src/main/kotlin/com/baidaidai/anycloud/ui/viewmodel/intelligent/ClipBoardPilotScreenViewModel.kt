@@ -2,7 +2,9 @@ package com.baidaidai.anycloud.ui.viewmodel.intelligent
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.baidaidai.anycloud.application.clipboard.ObserveClipboardGroupsUseCase
 import com.baidaidai.anycloud.application.clipboard.ObserveClipboardLogsUseCase
+import com.baidaidai.anycloud.application.clipboard.ObserveTotalClipboardPolicyCountUseCase
 import com.baidaidai.anycloud.application.setting.ObserveClipboardListeningEnabledUseCase
 import com.baidaidai.anycloud.application.setting.SyncClipboardListeningEnabledUseCase
 import com.baidaidai.anycloud.application.shizuku.ObserveShizukuStatusUseCase
@@ -22,7 +24,9 @@ private val placeholderClipboardLogList: List<ClipboardLog?> = List(50) { null }
 class ClipBoardPilotScreenViewModel @Inject constructor(
     observeShizukuStatusUseCase: ObserveShizukuStatusUseCase,
     observeClipboardListeningEnabledUseCase: ObserveClipboardListeningEnabledUseCase,
+    observeClipboardGroupsUseCase: ObserveClipboardGroupsUseCase,
     observeClipboardLogsUseCase: ObserveClipboardLogsUseCase,
+    observeTotalClipboardPolicyCountUseCase: ObserveTotalClipboardPolicyCountUseCase,
     private val syncClipboardListeningEnabledUseCase: SyncClipboardListeningEnabledUseCase
 ) : ViewModel() {
 
@@ -37,6 +41,24 @@ class ClipBoardPilotScreenViewModel @Inject constructor(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = false
+        )
+
+    val clipboardGroupCount: StateFlow<Int> =
+        observeClipboardGroupsUseCase()
+            .map { clipboardGroupList ->
+                clipboardGroupList.size
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = 0
+            )
+
+    val totalClipboardPolicyCount: StateFlow<Int> =
+        observeTotalClipboardPolicyCountUseCase().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = 0
         )
 
     val clipboardLogList: StateFlow<List<ClipboardLog?>> =

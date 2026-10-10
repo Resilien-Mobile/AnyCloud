@@ -33,6 +33,14 @@ fun ClipBoardPilotScreen(
         .isClipboardListeningEnabled
         .collectAsState()
 
+    val clipboardGroupCount by clipBoardPilotScreenViewModel
+        .clipboardGroupCount
+        .collectAsState()
+
+    val totalClipboardPolicyCount by clipBoardPilotScreenViewModel
+        .totalClipboardPolicyCount
+        .collectAsState()
+
     val clipboardLogList by clipBoardPilotScreenViewModel
         .clipboardLogList
         .collectAsState()
@@ -65,6 +73,8 @@ fun ClipBoardPilotScreen(
         }
 
         PolicyManagerCard(
+            enabledPolicyCount = clipboardGroupCount,
+            totalPolicyCount = totalClipboardPolicyCount,
             onClick = {
                 context.startActivity(
                     Intent(

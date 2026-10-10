@@ -42,5 +42,11 @@ class ClipboardPolicyRepositoryImpl @Inject constructor(
         return clipboardPolicyFlow
     }
 
+    fun observeTotalPolicyCount(): Flow<Int> {
+        val totalPolicyCountFlow = policyDao.observeTotalPolicyCount()
+
+        return totalPolicyCountFlow
+    }
+
     // Delete
 }
