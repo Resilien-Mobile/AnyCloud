@@ -18,6 +18,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 还原 release JKS 证书到项目根目录
+      - name: Restore release keystore
+        shell: bash
+        run: |
+          echo "${RELEASE_KEYSTORE_BASE64}" | base64 --decode > release.jks
+        env:
+          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+
+      # 验证 release JKS 证书 MD5，校验失败则终止 runner
+      - name: Verify release keystore MD5
+        shell: bash
+        run: |
+          expected_md5="959184b1d6e2fbdb72fb2ee33f9eb78b"
+          actual_md5="$(md5sum release.jks | awk '{ print $1 }')"
+
+          if [ "${actual_md5}" != "${expected_md5}" ]; then
+            echo "::error::证书错误"
+            exit 1
+          fi
+
       - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
