@@ -1,0 +1,183 @@
+<resources>
+    <!-- Shared / System -->
+
+    <!-- Application Metadata -->
+    <string name="app_name">AnyCloud</string>
+
+    <!-- Notification Channels -->
+    <string name="powercloud_liveupdate_notification_channel_name">PowerCloud 实时更新</string>
+    <string name="powercloud_liveupdate_notification_channel_id">10000</string>
+    <string name="anycloud_ongoing_notification_channel_name">AnyCloud 持续通知</string>
+    <string name="anycloud_ongoing_notification_channel_id">1000</string>
+    <string name="anycloud_liveupdate_notification_channel_name">TaskCloud 实时更新</string>
+    <string name="anycloud_liveupdate_notification_channel_id">6000</string>
+
+    <!-- Notification Properties -->
+    <string name="power_cloud_notification_id">54321</string>
+
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_title">AnyCloud</string>
+    <string name="navigation_drawer_any_cloud">Any Cloud</string>
+    <string name="navigation_drawer_task_cloud">Task Cloud</string>
+    <string name="navigation_drawer_power_cloud">Power Cloud</string>
+    <string name="navigation_drawer_setting">设置</string>
+    <string name="navigation_drawer_clipboard_pilot">ClipBoard Pilot</string>
+    <string name="navigation_drawer_power">电源</string>
+    <string name="navigation_drawer_upload">上传</string>
+    <string name="navigation_drawer_total_day_unit">天</string>
+    <string name="navigation_drawer_total_plan_unit">次规划</string>
+    <string name="navigation_drawer_things_section_title">事项</string>
+    <string name="navigation_drawer_intelligent_section_title">智能</string>
+
+    <!-- Home Screen -->
+
+    <!-- Top App Bar -->
+    <string name="home_screen_top_app_bar_menu_content_description">菜单</string>
+    <string name="home_screen_top_app_bar_title">Any Cloud</string>
+
+    <!-- Search Row -->
+    <string name="home_screen_search_row_placeholder">今天要做什么？</string>
+
+    <!-- Center Logo -->
+    <string name="home_screen_center_logo_content_description">AnyCloud 的徽标</string>
+
+    <!-- Notification -->
+    <string name="home_screen_notification_default_title">Any Cloud</string>
+
+    <!-- Task Screen -->
+
+    <!-- Top App Bar -->
+    <string name="task_screen_top_app_bar_menu_content_description">菜单</string>
+    <string name="task_screen_top_app_bar_title">Task Cloud</string>
+
+    <!-- Notification -->
+    <string name="task_screen_notification_default_title">Task Cloud</string>
+
+    <!-- Power Screen -->
+
+    <!-- Top App Bar -->
+    <string name="power_screen_top_app_bar_menu_content_description">菜单</string>
+    <string name="power_screen_top_app_bar_title">Power Cloud</string>
+
+    <!-- Energy Glance -->
+    <string name="power_screen_energy_glance_adapter_title">适配器</string>
+    <string name="power_screen_energy_glance_power_type_content_description">电源类型</string>
+    <string name="power_screen_energy_glance_watt_title">瓦特</string>
+
+    <!-- Power Cloud Row -->
+    <string name="power_screen_power_cloud_row_content_description">云模式</string>
+    <string name="power_screen_power_cloud_row_title">启用 Power Cloud</string>
+
+    <!-- Battery -->
+    <string name="power_screen_battery_title">电池</string>
+    <string name="power_screen_battery_charging_status">充电中</string>
+
+    <!-- Notification -->
+    <string name="power_screen_notification_current_watt_title">当前功率</string>
+
+    <!-- Setting Screen -->
+
+    <!-- Top App Bar -->
+    <string name="setting_screen_top_app_bar_menu_content_description">菜单</string>
+    <string name="setting_screen_top_app_bar_title">设置</string>
+
+    <!-- Cloud Display Setting -->
+    <string name="setting_screen_cloud_display_setting_title">切换持续通知样式</string>
+    <string name="setting_screen_cloud_display_setting_description">避免 OEM 显示应用名称，而是显示剩余任务数量</string>
+
+    <!-- Clipboard Pilot Screen -->
+
+    <!-- Top App Bar -->
+    <string name="clipboard_pilot_screen_top_app_bar_menu_content_description">菜单</string>
+    <string name="clipboard_pilot_screen_top_app_bar_switch_content_description">切换到策略组</string>
+    <string name="clipboard_pilot_screen_top_app_bar_title">ClipBoard Pilot</string>
+
+    <!-- Clipboard Listening Row -->
+    <string name="clipboard_pilot_screen_clipboard_listening_content_description">剪贴板监听</string>
+    <string name="clipboard_pilot_screen_clipboard_listening_title">启用剪贴板监听</string>
+
+    <!-- Policy Status -->
+    <string name="clipboard_pilot_screen_policy_status_enabled_groups">已启用策略组数</string>
+    <string name="clipboard_pilot_screen_policy_status_total_policies">策略总数</string>
+    <string name="clipboard_pilot_screen_policy_status_built_in_policies">内置策略</string>
+
+    <!-- Shizuku Status -->
+    <string name="clipboard_pilot_screen_shizuku_status_unauthorized_title">Shizuku 未授权</string>
+    <string name="clipboard_pilot_screen_shizuku_status_unavailable_title">Shizuku 不可用</string>
+    <string name="clipboard_pilot_screen_shizuku_status_authorized_title">Shizuku 已连接</string>
+    <string name="clipboard_pilot_screen_shizuku_status_unauthorized_description">请检查 Shizuku 的授权状态。</string>
+    <string name="clipboard_pilot_screen_shizuku_status_unavailable_description">请检查是否已安装并运行 Shizuku。</string>
+    <string name="clipboard_pilot_screen_shizuku_status_authorized_description">Shizuku 状态正常。</string>
+
+    <!-- Clipboard Log -->
+    <string name="clipboard_pilot_screen_clipboard_log_unknown_host">未知主机</string>
+    <string name="clipboard_pilot_screen_clipboard_log_matched">已匹配</string>
+    <string name="clipboard_pilot_screen_clipboard_log_not_matched">未匹配</string>
+
+    <!-- Policy Manager Entry -->
+    <string name="clipboard_pilot_screen_policy_manager_title">策略管理</string>
+    <string name="clipboard_pilot_screen_policy_manager_description">配置 Pilot 规则与默认规则集</string>
+
+    <!-- Policy Manager Screen -->
+
+    <!-- Top App Bar -->
+    <string name="policy_manager_screen_edit_content_description">编辑</string>
+    <string name="policy_manager_screen_policy_group_title">策略组</string>
+    <string name="policy_manager_screen_policy_manager_title">策略管理</string>
+
+    <!-- Empty State -->
+    <string name="policy_manager_screen_no_policies">暂无策略</string>
+    <string name="policy_manager_screen_no_groups">暂无策略组</string>
+
+    <!-- Policy Bottom Sheet -->
+    <string name="clipboard_pilot_policy_bottom_sheet_title">策略</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_policy_type_label">分流规则</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_policy_group_label">分流策略</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_no_group">无</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_content_title">内容</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_content_label">匹配正文</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_cancel_button">取消</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_confirm_button">确认</string>
+
+    <!-- Group Bottom Sheet -->
+    <string name="clipboard_pilot_group_bottom_sheet_title">分组</string>
+    <string name="clipboard_pilot_group_bottom_sheet_name_label">组名</string>
+    <string name="clipboard_pilot_group_bottom_sheet_name_placeholder">默认</string>
+    <string name="clipboard_pilot_group_bottom_sheet_package_name_label">目标包名</string>
+    <string name="clipboard_pilot_group_bottom_sheet_cancel_button">取消</string>
+    <string name="clipboard_pilot_group_bottom_sheet_confirm_button">确认</string>
+
+    <!-- Shizuku Screen -->
+
+    <!-- Top App Bar -->
+    <string name="shizuku_screen_top_app_bar_title">Shizuku</string>
+
+    <!-- Error Dialog -->
+    <string name="shizuku_screen_error_dialog_confirm_button">确定</string>
+    <string name="shizuku_screen_error_dialog_warning_content_description">对话框警告图标</string>
+    <string name="shizuku_screen_error_permission_not_granted">Shizuku 未获得授权</string>
+    <string name="shizuku_screen_error_permission_not_granted_cause">请检查 Shizuku 的安装、运行和授权状态。</string>
+    <string name="shizuku_screen_error_user_service_not_started">Shizuku 用户服务未启动</string>
+    <string name="shizuku_screen_error_user_service_not_started_cause">请检查 Shizuku 的安装、运行和授权状态。</string>
+    <string name="shizuku_screen_error_unknown">未知的 Shizuku 错误</string>
+
+    <!-- Completion Bottom Sheet -->
+    <string name="shizuku_screen_completion_title">Shizuku 已就绪</string>
+    <string name="shizuku_screen_completion_returning">%1$d 秒后返回 AnyCloud。</string>
+    <string name="shizuku_screen_completion_close_button">关闭</string>
+    <string name="shizuku_screen_completion_return_button">返回</string>
+
+    <!-- Action Card -->
+    <string name="shizuku_screen_action_card_step_1">第 1 步</string>
+    <string name="shizuku_screen_action_card_step_2">第 2 步</string>
+    <string name="shizuku_screen_action_card_authorize_title">授权 Shizuku</string>
+    <string name="shizuku_screen_action_card_authorize_description">授予 AnyCloud 使用 Shizuku 的权限，然后启动用户服务。</string>
+    <string name="shizuku_screen_action_card_start_service_title">启动用户服务</string>
+    <string name="shizuku_screen_action_card_start_service_description">启动为 ClipBoard Pilot 提供支持的 Shizuku 用户服务。</string>
+    <string name="shizuku_screen_action_card_start_content_description">开始</string>
+
+    <!-- Overview Card -->
+    <string name="shizuku_screen_overview_card_title">Shizuku ADB</string>
+    <string name="shizuku_screen_overview_card_icon_content_description">Shizuku</string>
+    <string name="shizuku_screen_overview_card_description">使用 Shizuku 准备 ClipBoard Pilot 服务。</string>
+</resources>

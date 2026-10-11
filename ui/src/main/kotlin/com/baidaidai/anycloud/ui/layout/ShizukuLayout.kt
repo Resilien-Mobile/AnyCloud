@@ -10,6 +10,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
+import com.baidaidai.anycloud.ui.R
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.ui.component.intelligent.shizukuAdbScreen.ShizukuAdbScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.screen.intelligent.ShizukuAdbScreen
@@ -34,7 +36,7 @@ fun ShizukuLayout() {
             topBar = {
                 TopAppBar(
                     title = {
-                        Text("Shizuku")
+                        Text(stringResource(R.string.shizuku_screen_top_app_bar_title))
                     }
                 )
             }

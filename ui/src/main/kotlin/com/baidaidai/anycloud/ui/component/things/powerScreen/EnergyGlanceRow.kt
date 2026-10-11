@@ -11,8 +11,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.baidaidai.anycloud.ui.R
 
 @Composable
 fun EnergyGlanceRow(
@@ -59,8 +61,8 @@ fun EnergyGlanceRow(
 private fun _preview_(){
     EnergyGlanceRow(
         batteryPercentage = 70,
-        firstTileHeadlineContent = "Adapter Type",
-        secondTileHeadlineContent = "Current Watt",
+        firstTileHeadlineContent = stringResource(R.string.power_screen_energy_glance_adapter_title),
+        secondTileHeadlineContent = stringResource(R.string.power_screen_energy_glance_watt_title),
 
         secondTileContent = {
             Row(

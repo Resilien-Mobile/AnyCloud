@@ -89,7 +89,7 @@ class PowerScreenViewModel @Inject constructor(
         powerCloudJob = viewModelScope.launch {
             while (isActive) {
                 enablePowerCloudNotificationUseCase(
-                    notificationTitle = "Current Watt",
+                    notificationTitle = context.getString(R.string.power_screen_notification_current_watt_title),
                     notificationContent = String.format("%.2f", currentWatt.value),
                     notificationID = powerCloudNotificationID
                 )

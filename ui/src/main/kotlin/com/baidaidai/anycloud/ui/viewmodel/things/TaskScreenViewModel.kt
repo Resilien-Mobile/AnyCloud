@@ -1,5 +1,6 @@
 package com.baidaidai.anycloud.ui.viewmodel.things
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.baidaidai.anycloud.application.notification.liveupdate.AddOneLiveUpdateNotificationUseCase
@@ -9,7 +10,9 @@ import com.baidaidai.anycloud.application.notification.liveupdate.PushTaskCloudN
 import com.baidaidai.anycloud.application.notification.liveupdate.UpdateOneLiveUpdateNotificationPositionUseCase
 import com.baidaidai.anycloud.application.notification.liveupdate.UpdateOneLiveUpdateNotificationTaskFinishedUseCase
 import com.baidaidai.anycloud.domain.notification.model.NotificationConfig
+import com.baidaidai.anycloud.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -17,6 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskScreenViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val addOneLiveUpdateNotificationUseCase: AddOneLiveUpdateNotificationUseCase,
     private val deleteOneLiveUpdateNotificationUseCase: DeleteOneLiveUpdateNotificationUseCase,
     private val getAllLiveUpdateNotificationUseCase: GetAllLiveUpdateNotificationUseCase,
@@ -39,7 +43,7 @@ class TaskScreenViewModel @Inject constructor(
 
     // Create
     fun createOneNotificationConfig(
-        notificationTitle: String = "Task Cloud",
+        notificationTitle: String = context.getString(R.string.task_screen_notification_default_title),
         notificationContent: String,
     ) {
         viewModelScope.launch {
@@ -94,7 +98,7 @@ class TaskScreenViewModel @Inject constructor(
     }
 
     fun initLiveUpdateNotification(
-        notificationTitle: String = "Task Cloud"
+        notificationTitle: String = context.getString(R.string.task_screen_notification_default_title)
     ) {
         viewModelScope.launch {
             pushTaskCloudNotificationUseCase(notificationTitle = notificationTitle)

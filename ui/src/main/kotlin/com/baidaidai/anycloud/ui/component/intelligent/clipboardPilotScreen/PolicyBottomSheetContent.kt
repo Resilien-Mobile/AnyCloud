@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.domain.clipboard.ClipboardGroup
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicy
 import com.baidaidai.anycloud.domain.clipboard.PolicyType
+import com.baidaidai.anycloud.ui.R
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun PolicyBottomSheetContent(
@@ -41,6 +43,7 @@ fun PolicyBottomSheetContent(
     val policyContentState = rememberTextFieldState()
 
     val canConfirm = policyContentState.text.isNotBlank() && selectedPolicyGroup != null
+    val noGroupText = stringResource(R.string.clipboard_pilot_policy_bottom_sheet_no_group)
 
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -54,13 +57,13 @@ fun PolicyBottomSheetContent(
             )
     ) {
         Text(
-            text = "Policy",
+            text = stringResource(R.string.clipboard_pilot_policy_bottom_sheet_title),
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary,
         )
 
         SelectableTextField(
-            label = "分流规则",
+            label = stringResource(R.string.clipboard_pilot_policy_bottom_sheet_policy_type_label),
             selectedOption = selectedPolicyType,
             optionList = PolicyType.entries,
             optionText = { policyType ->
@@ -72,11 +75,11 @@ fun PolicyBottomSheetContent(
         )
 
         SelectableTextField(
-            label = "分流策略",
+            label = stringResource(R.string.clipboard_pilot_policy_bottom_sheet_policy_group_label),
             selectedOption = selectedPolicyGroup,
             optionList = listOf<ClipboardGroup?>(null) + policyGroupList,
             optionText = { policyGroup ->
-                policyGroup?.groupName ?: "None"
+                policyGroup?.groupName ?: noGroupText
             },
             onOptionSelected = { policyGroup ->
                 selectedPolicyGroup = policyGroup
@@ -86,7 +89,7 @@ fun PolicyBottomSheetContent(
         Spacer(modifier = Modifier.height(2.dp))
 
         Text(
-            text = "Content",
+            text = stringResource(R.string.clipboard_pilot_policy_bottom_sheet_content_title),
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary,
         )
@@ -94,7 +97,7 @@ fun PolicyBottomSheetContent(
         OutlinedTextField(
             state = policyContentState,
             label = {
-                Text("匹配正文")
+                Text(stringResource(R.string.clipboard_pilot_policy_bottom_sheet_content_label))
             },
             placeholder = {
                 Text(selectedPolicyType.toPlaceholder())
@@ -112,7 +115,7 @@ fun PolicyBottomSheetContent(
             TextButton(
                 onClick = onDismiss
             ) {
-                Text("Cancel")
+                Text(stringResource(R.string.clipboard_pilot_policy_bottom_sheet_cancel_button))
             }
 
             Button(
@@ -130,7 +133,7 @@ fun PolicyBottomSheetContent(
                     onConfirm(clipboardPolicy)
                 }
             ) {
-                Text("Confirm")
+                Text(stringResource(R.string.clipboard_pilot_policy_bottom_sheet_confirm_button))
             }
         }
     }

@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.ui.R
@@ -54,17 +55,17 @@ fun NavigationDrawerItemList(
 private fun _preview_() {
     val navigationList = listOf(
         NavigationConfig(
-            destinationName = "Any Cloud",
+            destinationName = stringResource(R.string.navigation_drawer_any_cloud),
             destinationIcon = R.drawable.material_symbols_cloud,
             destinationNavKey = HomeScreenNavKey
         ),
         NavigationConfig(
-            destinationName = "Power",
+            destinationName = stringResource(R.string.navigation_drawer_power),
             destinationIcon = R.drawable.material_symbols_cable,
             destinationNavKey = PowerCloudNavKey
         ),
         NavigationConfig(
-            destinationName = "Upload",
+            destinationName = stringResource(R.string.navigation_drawer_upload),
             destinationIcon = R.drawable.material_symbols_arrow_upward,
             destinationNavKey = HomeScreenNavKey
         )

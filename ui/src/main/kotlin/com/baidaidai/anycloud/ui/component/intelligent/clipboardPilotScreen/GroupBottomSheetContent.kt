@@ -18,8 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.baidaidai.anycloud.ui.R
 
 @Composable
 fun GroupBottomSheetContent(
@@ -49,7 +51,7 @@ fun GroupBottomSheetContent(
             )
     ) {
         Text(
-            text = "Group",
+            text = stringResource(R.string.clipboard_pilot_group_bottom_sheet_title),
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary,
         )
@@ -57,10 +59,10 @@ fun GroupBottomSheetContent(
         OutlinedTextField(
             state = groupNameState,
             label = {
-                Text("GroupName")
+                Text(stringResource(R.string.clipboard_pilot_group_bottom_sheet_name_label))
             },
             placeholder = {
-                Text("Default")
+                Text(stringResource(R.string.clipboard_pilot_group_bottom_sheet_name_placeholder))
             },
             lineLimits = TextFieldLineLimits.SingleLine,
             modifier = Modifier.fillMaxWidth()
@@ -69,7 +71,7 @@ fun GroupBottomSheetContent(
         OutlinedTextField(
             state = targetPackageNameState,
             label = {
-                Text("Target Package Name")
+                Text(stringResource(R.string.clipboard_pilot_group_bottom_sheet_package_name_label))
             },
             placeholder = {
                 Text("com.example.app")
@@ -87,7 +89,7 @@ fun GroupBottomSheetContent(
             TextButton(
                 onClick = onDismiss
             ) {
-                Text("Cancel")
+                Text(stringResource(R.string.clipboard_pilot_group_bottom_sheet_cancel_button))
             }
 
             Button(
@@ -99,7 +101,7 @@ fun GroupBottomSheetContent(
                     )
                 }
             ) {
-                Text("Confirm")
+                Text(stringResource(R.string.clipboard_pilot_group_bottom_sheet_confirm_button))
             }
         }
     }

@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.ui.R
 import com.baidaidai.anycloud.ui.theme.getPrimaryIconButtonColors
@@ -40,7 +41,7 @@ object PolicyManagerScreenNecessaryComponents {
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.material_symbols_menu),
-                        contentDescription = "Menu",
+                        contentDescription = stringResource(R.string.clipboard_pilot_screen_top_app_bar_menu_content_description),
                     )
                 }
             },
@@ -66,7 +67,7 @@ object PolicyManagerScreenNecessaryComponents {
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.material_symbols_sync_alt),
-                            contentDescription = "Change to Policy group"
+                            contentDescription = stringResource(R.string.clipboard_pilot_screen_top_app_bar_switch_content_description)
                         )
                     }
                 }

@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.ui.R
@@ -26,11 +27,11 @@ fun ClipboardListeningRow(
         leadingContent = {
             Icon(
                 painter = painterResource(R.drawable.material_symbols_visibility),
-                contentDescription = "Clipboard Listening"
+                contentDescription = stringResource(R.string.clipboard_pilot_screen_clipboard_listening_content_description)
             )
         },
         headlineContent = {
-            Text("Enable Clipboard Listening")
+            Text(stringResource(R.string.clipboard_pilot_screen_clipboard_listening_title))
         },
         trailingContent = {
             Switch(

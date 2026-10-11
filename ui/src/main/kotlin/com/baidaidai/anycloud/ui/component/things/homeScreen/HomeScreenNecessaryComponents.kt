@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.baidaidai.anycloud.ui.R
 import com.baidaidai.anycloud.ui.theme.getTopAppBarIconButtonColors
@@ -27,13 +28,13 @@ object HomeScreenNecessaryComponents {
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.material_symbols_menu),
-                        contentDescription = "Menu",
+                        contentDescription = stringResource(R.string.home_screen_top_app_bar_menu_content_description),
                     )
                 }
             },
             title = {
                 Text(
-                    text = "Any Cloud",
+                    text = stringResource(R.string.home_screen_top_app_bar_title),
                     style = MaterialTheme.typography.displaySmall
                 )
             },

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -23,7 +24,7 @@ fun HomeScreenCenterLogo(
 ){
     Icon(
         painter = painterResource(R.drawable.material_symbols_cloud),
-        contentDescription = "AnyCloud's Logo",
+        contentDescription = stringResource(R.string.home_screen_center_logo_content_description),
         tint = tint,
         modifier = modifier
     )

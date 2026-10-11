@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.baidaidai.anycloud.ui.R
 import com.baidaidai.anycloud.ui.theme.getTopAppBarIconButtonColors
 
@@ -26,13 +27,13 @@ object SettingScreenNecessaryComponents {
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.material_symbols_menu),
-                        contentDescription = "Menu",
+                        contentDescription = stringResource(R.string.setting_screen_top_app_bar_menu_content_description),
                     )
                 }
             },
             title = {
                 Text(
-                    text = "Setting",
+                    text = stringResource(R.string.setting_screen_top_app_bar_title),
                     style = MaterialTheme.typography.displaySmall
                 )
             },

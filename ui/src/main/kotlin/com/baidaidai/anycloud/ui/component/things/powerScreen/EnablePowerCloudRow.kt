@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.ui.R
 
@@ -26,11 +27,11 @@ fun EnablePowerCloudRow(
         leadingContent = {
             Icon(
                 painter = painterResource(R.drawable.material_symbols_outline_cloud),
-                contentDescription = "Cloud Pattern"
+                contentDescription = stringResource(R.string.power_screen_power_cloud_row_content_description)
             )
         },
         headlineContent = {
-            Text("Enable Power Cloud")
+            Text(stringResource(R.string.power_screen_power_cloud_row_title))
         },
         trailingContent = {
             Switch(

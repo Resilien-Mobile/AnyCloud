@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.ui.R
 import com.baidaidai.anycloud.ui.navigation.things.ClipBoardPilotNavKey
@@ -46,29 +47,29 @@ fun NavigationDrawer(
 
     val thingsNavigationList = listOf(
         NavigationConfig(
-            destinationName = "Any Cloud",
+            destinationName = stringResource(R.string.navigation_drawer_any_cloud),
             destinationIcon = R.drawable.material_symbols_cloud,
             destinationNavKey = HomeScreenNavKey
         ),
         NavigationConfig(
-            destinationName = "Task Cloud",
+            destinationName = stringResource(R.string.navigation_drawer_task_cloud),
             destinationIcon = R.drawable.material_symbols_task,
             destinationNavKey = TaskCloudNavKey
         ),
         NavigationConfig(
-            destinationName = "Power Cloud",
+            destinationName = stringResource(R.string.navigation_drawer_power_cloud),
             destinationIcon = R.drawable.material_symbols_bolt_boost,
             destinationNavKey = PowerCloudNavKey
         ),
         NavigationConfig(
-            destinationName = "Setting",
+            destinationName = stringResource(R.string.navigation_drawer_setting),
             destinationIcon = R.drawable.material_symbols_settings,
             destinationNavKey = SettingScreenNavKey
         ),
     )
     val intelligentNavigationList = listOf(
         NavigationConfig(
-            destinationName = "ClipBoard Pilot",
+            destinationName = stringResource(R.string.navigation_drawer_clipboard_pilot),
             destinationIcon = R.drawable.material_symbols_assistant_navigation,
             destinationNavKey = ClipBoardPilotNavKey
         ),
@@ -85,7 +86,7 @@ fun NavigationDrawer(
 
                 // 软件标题
                 Text(
-                    text = "AnyCloud",
+                    text = stringResource(R.string.navigation_drawer_title),
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -116,7 +117,7 @@ fun NavigationDrawer(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(Modifier.width(8.dp))
-                        Text("天")
+                        Text(stringResource(R.string.navigation_drawer_total_day_unit))
                     }
                     Row(
                         horizontalArrangement = Arrangement.Center
@@ -127,7 +128,7 @@ fun NavigationDrawer(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(Modifier.width(8.dp))
-                        Text("次规划")
+                        Text(stringResource(R.string.navigation_drawer_total_plan_unit))
                     }
                 }
 
@@ -149,7 +150,7 @@ fun NavigationDrawer(
                     // Things Navigation Area
                     item {
                         Text(
-                            text = "Things",
+                            text = stringResource(R.string.navigation_drawer_things_section_title),
                             style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
@@ -175,7 +176,7 @@ fun NavigationDrawer(
                     // Intelligent Navigation Area
                     item {
                         Text(
-                            text = "Intelligent",
+                            text = stringResource(R.string.navigation_drawer_intelligent_section_title),
                             style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier

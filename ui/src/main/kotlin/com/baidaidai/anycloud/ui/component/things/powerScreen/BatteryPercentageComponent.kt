@@ -22,8 +22,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
+import com.baidaidai.anycloud.ui.R
 
 @Composable
 fun BatteryPercentageComponent(
@@ -84,12 +86,12 @@ fun BatteryPercentageComponent(
                 .padding(16.dp)
         ) {
             Text(
-                text = "Battery",
+                text = stringResource(R.string.power_screen_battery_title),
                 style = MaterialTheme.typography.titleLargeEmphasized,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
             )
             Text(
-                text = "Charging",
+                text = stringResource(R.string.power_screen_battery_charging_status),
                 style = MaterialTheme.typography.bodyMediumEmphasized,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
             )

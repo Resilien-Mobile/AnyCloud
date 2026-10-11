@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.ui.R
@@ -53,7 +54,7 @@ fun PolicyGroupScreen(
                 tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.6f)
             )
             Text(
-                text = "No Groups",
+                text = stringResource(R.string.policy_manager_screen_no_groups),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.6f)
             )

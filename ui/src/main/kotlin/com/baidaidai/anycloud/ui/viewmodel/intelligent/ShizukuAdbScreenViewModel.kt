@@ -1,10 +1,13 @@
 package com.baidaidai.anycloud.ui.viewmodel.intelligent
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.baidaidai.anycloud.application.shizuku.EnsureShizukuPermissionUseCase
 import com.baidaidai.anycloud.application.shizuku.StartShizukuUserServiceUseCase
+import com.baidaidai.anycloud.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -14,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShizukuAdbScreenViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val ensureShizukuPermissionUseCase: EnsureShizukuPermissionUseCase,
     private val startShizukuUserServiceUseCase: StartShizukuUserServiceUseCase
 ) : ViewModel() {
@@ -43,8 +47,8 @@ class ShizukuAdbScreenViewModel @Inject constructor(
                 if (!isShizukuActive) {
                     _shizukuError.emit(
                         ShizukuAdbScreenError(
-                            errorMessage = "Shizuku permission is not granted",
-                            errorCause = "Please check Shizuku installation, running state, and authorization status."
+                            errorMessage = context.getString(R.string.shizuku_screen_error_permission_not_granted),
+                            errorCause = context.getString(R.string.shizuku_screen_error_permission_not_granted_cause)
                         )
                     )
                 }
@@ -64,8 +68,8 @@ class ShizukuAdbScreenViewModel @Inject constructor(
                 if (!isUserServiceActive) {
                     _shizukuError.emit(
                         ShizukuAdbScreenError(
-                            errorMessage = "Shizuku user service is not started",
-                            errorCause = "Please check Shizuku installation, running state, and authorization status."
+                            errorMessage = context.getString(R.string.shizuku_screen_error_user_service_not_started),
+                            errorCause = context.getString(R.string.shizuku_screen_error_user_service_not_started_cause)
                         )
                     )
                 }
@@ -77,7 +81,7 @@ class ShizukuAdbScreenViewModel @Inject constructor(
 
     private fun Throwable.toShizukuAdbScreenError(): ShizukuAdbScreenError {
         val error = ShizukuAdbScreenError(
-            errorMessage = message ?: "Unknown Shizuku error",
+            errorMessage = message ?: context.getString(R.string.shizuku_screen_error_unknown),
             errorCause = stackTraceToString()
         )
 

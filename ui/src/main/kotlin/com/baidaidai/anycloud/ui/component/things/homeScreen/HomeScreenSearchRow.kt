@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -85,7 +86,7 @@ fun HomeScreenSearchRow(
                 state = state,
                 placeholder = {
                     Text(
-                        text = "what to do today?",
+                        text = stringResource(R.string.home_screen_search_row_placeholder),
                         color = MaterialTheme.colorScheme.primary,
                     )
                 },

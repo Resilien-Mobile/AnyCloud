@@ -34,9 +34,14 @@ class PilotNotificationGatewayImpl @Inject constructor(
      */
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     fun pushPilotNotification(
-        notificationTitle: String = "Clipboard Pilot",
+        notificationTitle: String = context.getString(R.string.pilot_notification_title),
         clipboardPolicy: ClipboardPolicy,
     ) {
+
+        val matchedContent = context.getString(
+            R.string.pilot_notification_matched_content,
+            clipboardPolicy.policyContent
+        )
 
         val notificationBuilder = NotificationCompat.Builder(
             context,
@@ -49,17 +54,17 @@ class PilotNotificationGatewayImpl @Inject constructor(
         val notification = notificationBuilder
             .setSmallIcon(R.drawable.material_symbols_safari)
             .setContentTitle(notificationTitle)
-            .setContentText("Matched ${clipboardPolicy.policyContent}")
+            .setContentText(matchedContent)
             .setStyle(
                 NotificationCompat
                     .BigTextStyle()
-                    .bigText("Matched ${clipboardPolicy.policyContent}")
+                    .bigText(matchedContent)
             )
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .addAction(
                 R.drawable.material_symbols_safari,
-                "Navigate",
+                context.getString(R.string.pilot_notification_navigate_action),
                 pendingIntent
             )
             .build()
