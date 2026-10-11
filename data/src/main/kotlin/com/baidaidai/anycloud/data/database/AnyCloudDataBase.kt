@@ -31,7 +31,7 @@ import com.baidaidai.anycloud.data.notification.ongoing.database.OngoingNotifica
 
         // 其他表
     ],
-    version = 1
+    version = 2
 )
 abstract class AnyCloudDataBase: RoomDatabase() {
     abstract fun ongoingNotificationDao(): OngoingNotificationDAO
