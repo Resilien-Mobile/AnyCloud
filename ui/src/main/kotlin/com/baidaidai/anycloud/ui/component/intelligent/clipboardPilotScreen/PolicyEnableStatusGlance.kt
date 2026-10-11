@@ -14,10 +14,12 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.baidaidai.anycloud.ui.R
 
 @Composable
 fun PolicyEnableStatusGlance(
@@ -34,7 +36,7 @@ fun PolicyEnableStatusGlance(
             .padding(top = 18.dp)
     ) {
         PolicyEnableStatusGlanceSlot(
-            label = "策略组数",
+            label = stringResource(R.string.clipboard_pilot_screen_policy_status_enabled_groups),
             value = enabledPolicyCount,
             modifier = Modifier.weight(1f)
         )
@@ -45,7 +47,7 @@ fun PolicyEnableStatusGlance(
         )
 
         PolicyEnableStatusGlanceSlot(
-            label = "策略总数",
+            label = stringResource(R.string.clipboard_pilot_screen_policy_status_total_policies),
             value = totalPolicyCount,
             modifier = Modifier.weight(1f)
         )
@@ -56,7 +58,7 @@ fun PolicyEnableStatusGlance(
         )
 
         PolicyEnableStatusGlanceSlot(
-            label = "内置策略",
+            label = stringResource(R.string.clipboard_pilot_screen_policy_status_built_in_policies),
             value = builtInPolicyEnabledCount,
             modifier = Modifier.weight(1f)
         )

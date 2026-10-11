@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -57,13 +58,13 @@ object ShizukuAdbScreenNecessaryComponents {
                         shizukuAdbScreenViewModel.dismissShizukuError()
                     }
                 ) {
-                    Text("Ok")
+                    Text(stringResource(R.string.shizuku_screen_error_dialog_confirm_button))
                 }
             },
             icon = {
                 Icon(
                     painter = painterResource(R.drawable.material_symbols_error),
-                    contentDescription = "Dialog Warning Logo"
+                    contentDescription = stringResource(R.string.shizuku_screen_error_dialog_warning_content_description)
                 )
             },
             title = {
@@ -119,7 +120,7 @@ object ShizukuAdbScreenNecessaryComponents {
                 Spacer(Modifier.height(16.dp))
 
                 Text(
-                    text = "Shizuku is ready",
+                    text = stringResource(R.string.shizuku_screen_completion_title),
                     style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center
@@ -128,7 +129,7 @@ object ShizukuAdbScreenNecessaryComponents {
                 Spacer(Modifier.height(8.dp))
 
                 Text(
-                    text = "Returning to AnyCloud in $remainingSeconds seconds.",
+                    text = stringResource(R.string.shizuku_screen_completion_returning, remainingSeconds),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
@@ -144,14 +145,14 @@ object ShizukuAdbScreenNecessaryComponents {
                         onClick = onDismissCompletion,
                         modifier = Modifier.weight(1f)
                     ) {
-                        Text("Close")
+                        Text(stringResource(R.string.shizuku_screen_completion_close_button))
                     }
 
                     Button(
                         onClick = onReturnToApp,
                         modifier = Modifier.weight(1f)
                     ) {
-                        Text("Return")
+                        Text(stringResource(R.string.shizuku_screen_completion_return_button))
                     }
                 }
             }
@@ -209,7 +210,7 @@ object ShizukuAdbScreenNecessaryComponents {
                             } else {
                                 painterResource(R.drawable.material_symbols_play_arrow)
                             },
-                            contentDescription = "Start",
+                            contentDescription = stringResource(R.string.shizuku_screen_action_card_start_content_description),
                             modifier = Modifier.size(24.dp)
                         )
                     }
@@ -246,19 +247,19 @@ object ShizukuAdbScreenNecessaryComponents {
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = "Shizuku ADB",
+                        text = stringResource(R.string.shizuku_screen_overview_card_title),
                         style = MaterialTheme.typography.titleLargeEmphasized
                     )
 
                     Icon(
                         painter = painterResource(R.drawable.material_shizuku_icon),
-                        contentDescription = "Shizuku",
+                        contentDescription = stringResource(R.string.shizuku_screen_overview_card_icon_content_description),
                         tint = MaterialTheme.colorScheme.primary,
                     )
                 }
 
                 Text(
-                    text = "Use Shizuku to prepare the clipboard pilot service.",
+                    text = stringResource(R.string.shizuku_screen_overview_card_description),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -276,9 +277,9 @@ private fun _preview_() {
         ) {
             ShizukuAdbScreenNecessaryComponents.ShizukuAdbScreenOverviewCard()
             ShizukuAdbScreenNecessaryComponents.ShizukuAdbScreenActionCard(
-                step = "STEP 1",
-                title = "Authorize Shizuku",
-                description = "Grant AnyCloud permission to use Shizuku.",
+                step = stringResource(R.string.shizuku_screen_action_card_step_1),
+                title = stringResource(R.string.shizuku_screen_action_card_authorize_title),
+                description = stringResource(R.string.shizuku_screen_action_card_authorize_description),
                 isTargetActive = false
             ) { }
         }

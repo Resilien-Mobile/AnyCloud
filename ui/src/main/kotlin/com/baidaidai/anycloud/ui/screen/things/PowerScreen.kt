@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.ui.R
@@ -45,7 +46,7 @@ fun PowerScreen(
             .padding(16.dp),
     ){
         EnergyGlanceRow(
-            firstTileHeadlineContent = "Adapter",
+            firstTileHeadlineContent = stringResource(R.string.power_screen_energy_glance_adapter_title),
             firstTileContent = {
                 Row(
                     modifier = Modifier.fillMaxSize(),
@@ -54,7 +55,7 @@ fun PowerScreen(
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.material_symbols_cable),
-                        contentDescription = "Power Type"
+                        contentDescription = stringResource(R.string.power_screen_energy_glance_power_type_content_description)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
@@ -63,7 +64,7 @@ fun PowerScreen(
                     )
                 }
             },
-            secondTileHeadlineContent = "Watt",
+            secondTileHeadlineContent = stringResource(R.string.power_screen_energy_glance_watt_title),
             secondTileContent = {
                 Row(
                     modifier = Modifier.fillMaxSize(),

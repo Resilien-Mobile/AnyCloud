@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.anycloud.domain.clipboard.ClipboardLog
@@ -64,15 +65,15 @@ fun ClipboardLog(
                     },
                     headlineContent = {
                         Text(
-                            text = clipboardLog.host.ifBlank { "Unknown Host" }
+                            text = clipboardLog.host.ifBlank { stringResource(R.string.clipboard_pilot_screen_clipboard_log_unknown_host) }
                         )
                     },
                     supportingContent = {
                         Text(
                             text = if (clipboardLog.isMatchedResult) {
-                                "Matched"
+                                stringResource(R.string.clipboard_pilot_screen_clipboard_log_matched)
                             } else {
-                                "Not Matched"
+                                stringResource(R.string.clipboard_pilot_screen_clipboard_log_not_matched)
                             }
                         )
                     }

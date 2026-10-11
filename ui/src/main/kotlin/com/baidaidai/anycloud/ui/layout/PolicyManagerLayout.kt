@@ -24,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -98,7 +99,7 @@ fun PolicyManagerLayout() {
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.material_symbols_edit),
-                        contentDescription = "edit"
+                        contentDescription = stringResource(R.string.policy_manager_screen_edit_content_description)
                     )
                 }
             },
@@ -114,8 +115,8 @@ fun PolicyManagerLayout() {
                         },
                         titleContent = {
                             when (currentDestination) {
-                                is PolicyGroupKey -> Text("Policy Group")
-                                is PolicyManagerKey -> Text("Policy Manager")
+                                is PolicyGroupKey -> Text(stringResource(R.string.policy_manager_screen_policy_group_title))
+                                is PolicyManagerKey -> Text(stringResource(R.string.policy_manager_screen_policy_manager_title))
                             }
                         }
                     )

@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -41,14 +42,14 @@ fun TwoLineTextWithTrailingButton(
             modifier = Modifier.weight(1f)
         ) {
             Text(
-                text = "Policy Manager",
+                text = stringResource(R.string.clipboard_pilot_screen_policy_manager_title),
                 style = MaterialTheme.typography.titleMedium,
                 fontSize = 24.sp,
                 lineHeight = 16.sp,
                 fontWeight = FontWeight.W600
             )
             Text(
-                text = "配置 Pilot 规则与默认规则集",
+                text = stringResource(R.string.clipboard_pilot_screen_policy_manager_description),
                 style = MaterialTheme.typography.bodySmall,
                 fontSize = 14.sp,
                 lineHeight = 16.sp,

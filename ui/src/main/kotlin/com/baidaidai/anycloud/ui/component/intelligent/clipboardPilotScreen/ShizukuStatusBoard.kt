@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -47,15 +48,15 @@ fun ShizukuStatusDashBoard(
     }
 
     val title = when(shizukuStatus){
-        ShizukuStatus.UNAUTHORIZED -> "Shizuku is not authorized"
-        ShizukuStatus.UNAVAILABLE -> "Shizuku is unavailable"
-        ShizukuStatus.AUTHORIZED -> "Shizuku is connected"
+        ShizukuStatus.UNAUTHORIZED -> stringResource(R.string.clipboard_pilot_screen_shizuku_status_unauthorized_title)
+        ShizukuStatus.UNAVAILABLE -> stringResource(R.string.clipboard_pilot_screen_shizuku_status_unavailable_title)
+        ShizukuStatus.AUTHORIZED -> stringResource(R.string.clipboard_pilot_screen_shizuku_status_authorized_title)
     }
 
     val supporting = when(shizukuStatus){
-        ShizukuStatus.UNAUTHORIZED -> "Please check the Shizuku authorization status."
-        ShizukuStatus.UNAVAILABLE -> "Please check whether Shizuku is installed and running."
-        ShizukuStatus.AUTHORIZED -> "Shizuku status is working normally."
+        ShizukuStatus.UNAUTHORIZED -> stringResource(R.string.clipboard_pilot_screen_shizuku_status_unauthorized_description)
+        ShizukuStatus.UNAVAILABLE -> stringResource(R.string.clipboard_pilot_screen_shizuku_status_unavailable_description)
+        ShizukuStatus.AUTHORIZED -> stringResource(R.string.clipboard_pilot_screen_shizuku_status_authorized_description)
     }
 
     val titleColor = when(shizukuStatus){

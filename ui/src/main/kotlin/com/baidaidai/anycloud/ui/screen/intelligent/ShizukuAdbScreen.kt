@@ -22,9 +22,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.ui.component.intelligent.shizukuAdbScreen.ShizukuAdbScreenNecessaryComponents
+import com.baidaidai.anycloud.ui.R
 import com.baidaidai.anycloud.ui.viewmodel.intelligent.ShizukuAdbScreenViewModel
 import kotlinx.coroutines.delay
 
@@ -107,9 +109,9 @@ fun ShizukuAdbScreen(
 
             item {
                 ShizukuAdbScreenNecessaryComponents.ShizukuAdbScreenActionCard(
-                    step = "STEP 1",
-                    title = "Authorize Shizuku",
-                    description = "Grant AnyCloud permission to use Shizuku before starting the user service.",
+                    step = stringResource(R.string.shizuku_screen_action_card_step_1),
+                    title = stringResource(R.string.shizuku_screen_action_card_authorize_title),
+                    description = stringResource(R.string.shizuku_screen_action_card_authorize_description),
                     isTargetActive = isShizukuActive,
                     onClick = {
                         shizukuAdbScreenViewModel.ensureShizukuPermission()
@@ -119,9 +121,9 @@ fun ShizukuAdbScreen(
 
             item {
                 ShizukuAdbScreenNecessaryComponents.ShizukuAdbScreenActionCard(
-                    step = "STEP 2",
-                    title = "Start User Service",
-                    description = "Start the Shizuku user service that powers clipboard access.",
+                    step = stringResource(R.string.shizuku_screen_action_card_step_2),
+                    title = stringResource(R.string.shizuku_screen_action_card_start_service_title),
+                    description = stringResource(R.string.shizuku_screen_action_card_start_service_description),
                     isTargetActive = isUserServiceActive,
                     onClick = {
                         shizukuAdbScreenViewModel.startShizukuUserService()
