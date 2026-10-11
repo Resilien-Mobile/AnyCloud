@@ -3,6 +3,7 @@ package com.baidaidai.anycloud.data.hilt
 import android.content.Context
 import androidx.room.Room
 import com.baidaidai.anycloud.data.database.AnyCloudDataBase
+import com.baidaidai.anycloud.data.database.migration.Migration1To2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +25,7 @@ object AnyCloudDataBaseProvider {
             context = context,
             klass = AnyCloudDataBase::class.java,
             name = "AnyCloudDataBase"
-        ).build()
+        ).addMigrations(Migration1To2).build()
     }
 
 }
