@@ -1,19 +1,183 @@
 <resources>
-    <!-- Application Meta Infos  -->
+    <!-- Shared / System -->
+
+    <!-- Application Metadata -->
     <string name="app_name">AnyCloud</string>
 
-    <!-- Power Cloud Live Update Notification  -->
+    <!-- Notification Channels -->
     <string name="powercloud_liveupdate_notification_channel_name">PowerCloud LiveUpdate</string>
     <string name="powercloud_liveupdate_notification_channel_id">10000</string>
-
-    <!-- Any Cloud Ongoing Notification  -->
     <string name="anycloud_ongoing_notification_channel_name">AnyCloud Ongoing</string>
     <string name="anycloud_ongoing_notification_channel_id">1000</string>
-    <!-- Any Cloud LiveUpdate Notification  -->
     <string name="anycloud_liveupdate_notification_channel_name">TaskCloud LiveUpdate</string>
     <string name="anycloud_liveupdate_notification_channel_id">6000</string>
 
-    <!-- Application Notification Property  -->
+    <!-- Notification Properties -->
     <string name="power_cloud_notification_id">54321</string>
 
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_title">AnyCloud</string>
+    <string name="navigation_drawer_any_cloud">Any Cloud</string>
+    <string name="navigation_drawer_task_cloud">Task Cloud</string>
+    <string name="navigation_drawer_power_cloud">Power Cloud</string>
+    <string name="navigation_drawer_setting">Setting</string>
+    <string name="navigation_drawer_clipboard_pilot">ClipBoard Pilot</string>
+    <string name="navigation_drawer_power">Power</string>
+    <string name="navigation_drawer_upload">Upload</string>
+    <string name="navigation_drawer_total_day_unit">天</string>
+    <string name="navigation_drawer_total_plan_unit">次规划</string>
+    <string name="navigation_drawer_things_section_title">Things</string>
+    <string name="navigation_drawer_intelligent_section_title">Intelligent</string>
+
+    <!-- Home Screen -->
+
+    <!-- Top App Bar -->
+    <string name="home_screen_top_app_bar_menu_content_description">Menu</string>
+    <string name="home_screen_top_app_bar_title">Any Cloud</string>
+
+    <!-- Search Row -->
+    <string name="home_screen_search_row_placeholder">what to do today?</string>
+
+    <!-- Center Logo -->
+    <string name="home_screen_center_logo_content_description">AnyCloud\'s Logo</string>
+
+    <!-- Notification -->
+    <string name="home_screen_notification_default_title">Any Cloud</string>
+
+    <!-- Task Screen -->
+
+    <!-- Top App Bar -->
+    <string name="task_screen_top_app_bar_menu_content_description">Menu</string>
+    <string name="task_screen_top_app_bar_title">Task Cloud</string>
+
+    <!-- Notification -->
+    <string name="task_screen_notification_default_title">Task Cloud</string>
+
+    <!-- Power Screen -->
+
+    <!-- Top App Bar -->
+    <string name="power_screen_top_app_bar_menu_content_description">Menu</string>
+    <string name="power_screen_top_app_bar_title">Power Cloud</string>
+
+    <!-- Energy Glance -->
+    <string name="power_screen_energy_glance_adapter_title">Adapter</string>
+    <string name="power_screen_energy_glance_power_type_content_description">Power Type</string>
+    <string name="power_screen_energy_glance_watt_title">Watt</string>
+
+    <!-- Power Cloud Row -->
+    <string name="power_screen_power_cloud_row_content_description">Cloud Pattern</string>
+    <string name="power_screen_power_cloud_row_title">Enable Power Cloud</string>
+
+    <!-- Battery -->
+    <string name="power_screen_battery_title">Battery</string>
+    <string name="power_screen_battery_charging_status">Charging</string>
+
+    <!-- Notification -->
+    <string name="power_screen_notification_current_watt_title">Current Watt</string>
+
+    <!-- Setting Screen -->
+
+    <!-- Top App Bar -->
+    <string name="setting_screen_top_app_bar_menu_content_description">Menu</string>
+    <string name="setting_screen_top_app_bar_title">Setting</string>
+
+    <!-- Cloud Display Setting -->
+    <string name="setting_screen_cloud_display_setting_title">Switch Ongoing Style</string>
+    <string name="setting_screen_cloud_display_setting_description">Avoid having the OEM display the App Name, but instead show the remaining task quantity</string>
+
+    <!-- Clipboard Pilot Screen -->
+
+    <!-- Top App Bar -->
+    <string name="clipboard_pilot_screen_top_app_bar_menu_content_description">Menu</string>
+    <string name="clipboard_pilot_screen_top_app_bar_switch_content_description">Change to Policy group</string>
+    <string name="clipboard_pilot_screen_top_app_bar_title">Clipboard Pilot</string>
+
+    <!-- Clipboard Listening Row -->
+    <string name="clipboard_pilot_screen_clipboard_listening_content_description">Clipboard Listening</string>
+    <string name="clipboard_pilot_screen_clipboard_listening_title">Enable Clipboard Listening</string>
+
+    <!-- Policy Status -->
+    <string name="clipboard_pilot_screen_policy_status_enabled_groups">策略组数</string>
+    <string name="clipboard_pilot_screen_policy_status_total_policies">策略总数</string>
+    <string name="clipboard_pilot_screen_policy_status_built_in_policies">内置策略</string>
+
+    <!-- Shizuku Status -->
+    <string name="clipboard_pilot_screen_shizuku_status_unauthorized_title">Shizuku is not authorized</string>
+    <string name="clipboard_pilot_screen_shizuku_status_unavailable_title">Shizuku is unavailable</string>
+    <string name="clipboard_pilot_screen_shizuku_status_authorized_title">Shizuku is connected</string>
+    <string name="clipboard_pilot_screen_shizuku_status_unauthorized_description">Please check the Shizuku authorization status.</string>
+    <string name="clipboard_pilot_screen_shizuku_status_unavailable_description">Please check whether Shizuku is installed and running.</string>
+    <string name="clipboard_pilot_screen_shizuku_status_authorized_description">Shizuku status is working normally.</string>
+
+    <!-- Clipboard Log -->
+    <string name="clipboard_pilot_screen_clipboard_log_unknown_host">Unknown Host</string>
+    <string name="clipboard_pilot_screen_clipboard_log_matched">Matched</string>
+    <string name="clipboard_pilot_screen_clipboard_log_not_matched">Not Matched</string>
+
+    <!-- Policy Manager Entry -->
+    <string name="clipboard_pilot_screen_policy_manager_title">Policy Manager</string>
+    <string name="clipboard_pilot_screen_policy_manager_description">配置 Pilot 规则与默认规则集</string>
+
+    <!-- Policy Manager Screen -->
+
+    <!-- Top App Bar -->
+    <string name="policy_manager_screen_edit_content_description">edit</string>
+    <string name="policy_manager_screen_policy_group_title">Policy Group</string>
+    <string name="policy_manager_screen_policy_manager_title">Policy Manager</string>
+
+    <!-- Empty State -->
+    <string name="policy_manager_screen_no_policies">No Policies</string>
+    <string name="policy_manager_screen_no_groups">No Groups</string>
+
+    <!-- Policy Bottom Sheet -->
+    <string name="clipboard_pilot_policy_bottom_sheet_title">Policy</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_policy_type_label">分流规则</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_policy_group_label">分流策略</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_no_group">None</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_content_title">Content</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_content_label">匹配正文</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_cancel_button">Cancel</string>
+    <string name="clipboard_pilot_policy_bottom_sheet_confirm_button">Confirm</string>
+
+    <!-- Group Bottom Sheet -->
+    <string name="clipboard_pilot_group_bottom_sheet_title">Group</string>
+    <string name="clipboard_pilot_group_bottom_sheet_name_label">GroupName</string>
+    <string name="clipboard_pilot_group_bottom_sheet_name_placeholder">Default</string>
+    <string name="clipboard_pilot_group_bottom_sheet_package_name_label">Target Package Name</string>
+    <string name="clipboard_pilot_group_bottom_sheet_cancel_button">Cancel</string>
+    <string name="clipboard_pilot_group_bottom_sheet_confirm_button">Confirm</string>
+
+    <!-- Shizuku Screen -->
+
+    <!-- Top App Bar -->
+    <string name="shizuku_screen_top_app_bar_title">Shizuku</string>
+
+    <!-- Error Dialog -->
+    <string name="shizuku_screen_error_dialog_confirm_button">Ok</string>
+    <string name="shizuku_screen_error_dialog_warning_content_description">Dialog Warning Logo</string>
+    <string name="shizuku_screen_error_permission_not_granted">Shizuku permission is not granted</string>
+    <string name="shizuku_screen_error_permission_not_granted_cause">Please check Shizuku installation, running state, and authorization status.</string>
+    <string name="shizuku_screen_error_user_service_not_started">Shizuku user service is not started</string>
+    <string name="shizuku_screen_error_user_service_not_started_cause">Please check Shizuku installation, running state, and authorization status.</string>
+    <string name="shizuku_screen_error_unknown">Unknown Shizuku error</string>
+
+    <!-- Completion Bottom Sheet -->
+    <string name="shizuku_screen_completion_title">Shizuku is ready</string>
+    <string name="shizuku_screen_completion_returning">Returning to AnyCloud in %1$d seconds.</string>
+    <string name="shizuku_screen_completion_close_button">Close</string>
+    <string name="shizuku_screen_completion_return_button">Return</string>
+
+    <!-- Action Card -->
+    <string name="shizuku_screen_action_card_step_1">STEP 1</string>
+    <string name="shizuku_screen_action_card_step_2">STEP 2</string>
+    <string name="shizuku_screen_action_card_authorize_title">Authorize Shizuku</string>
+    <string name="shizuku_screen_action_card_authorize_description">Grant AnyCloud permission to use Shizuku before starting the user service.</string>
+    <string name="shizuku_screen_action_card_start_service_title">Start User Service</string>
+    <string name="shizuku_screen_action_card_start_service_description">Start the Shizuku user service that powers clipboard access.</string>
+    <string name="shizuku_screen_action_card_start_content_description">Start</string>
+
+    <!-- Overview Card -->
+    <string name="shizuku_screen_overview_card_title">Shizuku ADB</string>
+    <string name="shizuku_screen_overview_card_icon_content_description">Shizuku</string>
+    <string name="shizuku_screen_overview_card_description">Use Shizuku to prepare the clipboard pilot service.</string>
 </resources>

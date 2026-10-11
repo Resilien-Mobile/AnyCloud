@@ -1,0 +1,19 @@
+<resources>
+    <!-- Shared / System -->
+
+    <!-- Notification Channels -->
+    <string name="powercloud_liveupdate_notification_channel_name">PowerCloud 实时更新</string>
+    <string name="powercloud_liveupdate_notification_channel_id">10000</string>
+    <string name="anycloud_ongoing_notification_channel_name">AnyCloud 持续通知</string>
+    <string name="anycloud_ongoing_notification_channel_id">1000</string>
+    <string name="anycloud_liveupdate_notification_channel_name">TaskCloud 实时更新</string>
+    <string name="anycloud_liveupdate_notification_channel_id">6000</string>
+
+    <!-- Notification Properties -->
+    <string name="power_cloud_notification_id">54321</string>
+
+    <!-- Pilot Notification -->
+    <string name="pilot_notification_title">ClipBoard Pilot</string>
+    <string name="pilot_notification_matched_content">已匹配 %1$s</string>
+    <string name="pilot_notification_navigate_action">跳转</string>
+</resources>
