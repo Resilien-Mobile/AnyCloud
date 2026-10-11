@@ -21,10 +21,13 @@ An Android notification-first companion for reminders, live task progress, and d
 * [x] Complete Live Update task progress notifications for Task Cloud
 * [x] Complete battery and charging status display for Power Cloud
 * [x] Add local persistence and cumulative statistics
-* [ ] Improve settings and notification display options
+* [x] Improve settings and notification display options
 * [ ] Refine animations, haptic feedback, and interaction details
 * [ ] Add a built-in local LLM and bring pickup codes onto the live island
-* [ ] Add clipboard follow-up, understanding where users may want to go
+* [x] Add clipboard follow-up, understanding where users may want to go
+* [ ] Built-in App Picker: Select installed apps directly and capture their package names without manual input.
+* [ ] Local Config Import: Import local configuration files with support for the upstream Mihomo format.
+* [ ] Smart Extraction & Suggestions: Extract navigation destinations and personal information from relevant content, then provide contextual follow-up suggestions.
 * [ ] Publish to F-Droid and Google Play
 
 ## Why I Built AnyCloud
