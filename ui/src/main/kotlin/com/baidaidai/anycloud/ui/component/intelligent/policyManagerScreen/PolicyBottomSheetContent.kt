@@ -58,6 +58,12 @@ fun PolicyBottomSheetContent(
                 bottom = contentPaddingValues.calculateBottomPadding()
             )
     ) {
+
+        ImportMethodButtonGroup(
+            currentSelectedIndex = currentSelectedIndex,
+            onSelectedChange = onSelectedChange
+        )
+
         Text(
             text = stringResource(R.string.clipboard_pilot_policy_bottom_sheet_title),
             style = MaterialTheme.typography.labelLarge,

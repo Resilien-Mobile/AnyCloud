@@ -1,6 +1,8 @@
 package com.baidaidai.anycloud.ui.theme
 
 import androidx.compose.foundation.text.selection.TextSelectionColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.MaterialTheme
@@ -76,6 +78,30 @@ fun getPrimaryIconButtonColors(): IconButtonColors  {
         contentColor = MaterialTheme.colorScheme.onPrimary,
         disabledContainerColor = MaterialTheme.colorScheme.primary,
         disabledContentColor = MaterialTheme.colorScheme.onPrimary
+    )
+}
+
+@Composable
+fun getSelectedPrimaryButtonColors(): ButtonColors {
+    val defaultButtonColors = ButtonDefaults.buttonColors()
+
+    return ButtonColors(
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary,
+        disabledContainerColor = defaultButtonColors.disabledContainerColor,
+        disabledContentColor = defaultButtonColors.disabledContentColor
+    )
+}
+
+@Composable
+fun getReadyPrimaryButtonColors(): ButtonColors {
+    val defaultButtonColors = ButtonDefaults.buttonColors()
+
+    return ButtonColors(
+        containerColor = defaultButtonColors.disabledContainerColor,
+        contentColor = defaultButtonColors.disabledContentColor,
+        disabledContainerColor = defaultButtonColors.disabledContainerColor,
+        disabledContentColor = defaultButtonColors.disabledContentColor
     )
 }
 
