@@ -7,10 +7,17 @@ import com.baidaidai.anycloud.application.clipboard.CreateClipboardPolicyUseCase
 import com.baidaidai.anycloud.application.clipboard.ObserveClipboardPoliciesUseCase
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicy
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+data class PolicyManagerScreenUiState(
+    val currentSelectedIndex: Int = 0
+)
 
 @HiltViewModel
 class PolicyManagerScreenViewModel @Inject constructor(
@@ -18,6 +25,9 @@ class PolicyManagerScreenViewModel @Inject constructor(
     private val deleteClipboardPolicyUseCase: DeleteClipboardPolicyUseCase,
     observeClipboardPoliciesUseCase: ObserveClipboardPoliciesUseCase
 ) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(PolicyManagerScreenUiState())
+    val uiState: StateFlow<PolicyManagerScreenUiState> = _uiState.asStateFlow()
 
     val clipboardPolicyList = observeClipboardPoliciesUseCase()
         .stateIn(
@@ -40,5 +50,13 @@ class PolicyManagerScreenViewModel @Inject constructor(
         viewModelScope.launch {
             deleteClipboardPolicyUseCase(clipboardPolicy)
         }
+    }
+
+    fun updateCurrentSelectedIndex(
+        index: Int
+    ) {
+        _uiState.value = _uiState.value.copy(
+            currentSelectedIndex = index
+        )
     }
 }

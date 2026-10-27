@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen
+package com.baidaidai.anycloud.ui.component.intelligent.policyManagerScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +33,8 @@ import androidx.compose.ui.res.stringResource
 @Composable
 fun PolicyBottomSheetContent(
     modifier: Modifier = Modifier,
+    currentSelectedIndex: Int = 0,
+    onSelectedChange: (index: Int) -> Unit = {},
     policyGroupList: List<ClipboardGroup> = emptyList(),
     contentPaddingValues: PaddingValues,
     onDismiss: () -> Unit = {},
@@ -56,6 +58,12 @@ fun PolicyBottomSheetContent(
                 bottom = contentPaddingValues.calculateBottomPadding()
             )
     ) {
+
+        ImportMethodButtonGroup(
+            currentSelectedIndex = currentSelectedIndex,
+            onSelectedChange = onSelectedChange
+        )
+
         Text(
             text = stringResource(R.string.clipboard_pilot_policy_bottom_sheet_title),
             style = MaterialTheme.typography.labelLarge,

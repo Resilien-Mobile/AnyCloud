@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen
+package com.baidaidai.anycloud.ui.component.intelligent.policyManagerScreen
 
 import androidx.collection.intListOf
 import androidx.compose.foundation.layout.Box
