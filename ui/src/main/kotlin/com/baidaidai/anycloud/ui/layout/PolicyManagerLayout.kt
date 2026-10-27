@@ -79,6 +79,7 @@ fun PolicyManagerLayout() {
 
     // Values
     val clipboardGroupList by policyGroupScreenViewModel.clipboardGroupList.collectAsState()
+    val policyManagerUiState by policyManagerScreenViewModel.uiState.collectAsState()
 
     // Launched
     LaunchedEffect(isImeVisible, shouldShowBottomSheet) {
@@ -159,6 +160,8 @@ fun PolicyManagerLayout() {
                         is PolicyManagerKey -> {
                             PolicyBottomSheetContent(
                                 contentPaddingValues = contentPadding,
+                                currentSelectedIndex = policyManagerUiState.currentSelectedIndex,
+                                onSelectedChange = policyManagerScreenViewModel::updateCurrentSelectedIndex,
                                 policyGroupList = clipboardGroupList,
                                 onDismiss = {
                                     hideBottomSheet()

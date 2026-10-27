@@ -33,6 +33,8 @@ import androidx.compose.ui.res.stringResource
 @Composable
 fun PolicyBottomSheetContent(
     modifier: Modifier = Modifier,
+    currentSelectedIndex: Int = 0,
+    onSelectedChange: (index: Int) -> Unit = {},
     policyGroupList: List<ClipboardGroup> = emptyList(),
     contentPaddingValues: PaddingValues,
     onDismiss: () -> Unit = {},
