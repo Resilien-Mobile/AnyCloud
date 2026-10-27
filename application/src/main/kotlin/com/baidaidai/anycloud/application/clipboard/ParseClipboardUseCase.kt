@@ -62,7 +62,7 @@ class ParseClipboardUseCase @Inject constructor(
             PolicyType.DOMAIN_SUFFIX -> {
                 clipboardHost == policyContent || clipboardHost.endsWith(".$policyContent")
             }
-            PolicyType.IP_CIDR -> false
+            PolicyType.IP_CIDR -> clipboardHost == policyContent
         }
 
         if (isClipboardPolicyMatched) {
