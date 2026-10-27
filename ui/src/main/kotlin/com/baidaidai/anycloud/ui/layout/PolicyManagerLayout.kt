@@ -31,8 +31,8 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.baidaidai.anycloud.domain.clipboard.ClipboardGroup
 import com.baidaidai.anycloud.ui.R
-import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.GroupBottomSheetContent
-import com.baidaidai.anycloud.ui.component.intelligent.clipboardPilotScreen.PolicyBottomSheetContent
+import com.baidaidai.anycloud.ui.component.intelligent.policyManagerScreen.GroupBottomSheetContent
+import com.baidaidai.anycloud.ui.component.intelligent.policyManagerScreen.PolicyBottomSheetContent
 import com.baidaidai.anycloud.ui.component.intelligent.policyManagerScreen.PolicyManagerScreenNecessaryComponents
 import com.baidaidai.anycloud.ui.navigation.intelligent.PolicyGroupKey
 import com.baidaidai.anycloud.ui.navigation.intelligent.PolicyManagerKey
