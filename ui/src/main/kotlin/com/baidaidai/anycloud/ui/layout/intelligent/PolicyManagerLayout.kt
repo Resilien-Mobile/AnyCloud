@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.layout
+package com.baidaidai.anycloud.ui.layout.intelligent
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
