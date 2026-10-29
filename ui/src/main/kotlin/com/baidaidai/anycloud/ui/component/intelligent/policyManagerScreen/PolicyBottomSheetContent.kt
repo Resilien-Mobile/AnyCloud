@@ -74,8 +74,9 @@ fun PolicyBottomSheetContent(
                         uriState = uriState,
                         canConfirm = { uriState.text.isNotBlank() },
                         onDismiss = onDismiss,
-                        onConfirm = {
-
+                        onConfirm = { uri ->
+                            policyManagerScreenViewModel.addClipboardPolicyBundle(uri)
+                            onDismiss()
                         }
                     )
                 }
