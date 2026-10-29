@@ -1,4 +1,4 @@
-package com.baidaidai.anycloud.ui.layout
+package com.baidaidai.anycloud.ui.layout.intelligent
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
@@ -76,10 +76,6 @@ fun PolicyManagerLayout() {
             }
         }
     }
-
-    // Values
-    val clipboardGroupList by policyGroupScreenViewModel.clipboardGroupList.collectAsState()
-    val policyManagerUiState by policyManagerScreenViewModel.uiState.collectAsState()
 
     // Launched
     LaunchedEffect(isImeVisible, shouldShowBottomSheet) {
@@ -160,16 +156,9 @@ fun PolicyManagerLayout() {
                         is PolicyManagerKey -> {
                             PolicyBottomSheetContent(
                                 contentPaddingValues = contentPadding,
-                                currentSelectedIndex = policyManagerUiState.currentSelectedIndex,
-                                onSelectedChange = policyManagerScreenViewModel::updateCurrentSelectedIndex,
-                                policyGroupList = clipboardGroupList,
+                                policyGroupScreenViewModel = policyGroupScreenViewModel,
+                                policyManagerScreenViewModel = policyManagerScreenViewModel,
                                 onDismiss = {
-                                    hideBottomSheet()
-                                },
-                                onConfirm = { clipboardPolicy ->
-                                    policyManagerScreenViewModel.createClipboardPolicy(
-                                        clipboardPolicy = clipboardPolicy
-                                    )
                                     hideBottomSheet()
                                 }
                             )

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -49,5 +50,12 @@ dependencies {
     // Test
     testImplementation("io.mockk:mockk:1.14.11")
 
+    // Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.content.negotiation)
+
+    // Kotaml
+    implementation(libs.kotaml)
 
 }

@@ -1,12 +1,15 @@
 package com.baidaidai.anycloud.ui.viewmodel.intelligent
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.baidaidai.anycloud.application.clipboard.DeleteClipboardPolicyUseCase
+import com.baidaidai.anycloud.application.clipboard.AddClipboardPolicyBundleUseCase
 import com.baidaidai.anycloud.application.clipboard.CreateClipboardPolicyUseCase
+import com.baidaidai.anycloud.application.clipboard.DeleteClipboardPolicyUseCase
 import com.baidaidai.anycloud.application.clipboard.ObserveClipboardPoliciesUseCase
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicy
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +24,7 @@ data class PolicyManagerScreenUiState(
 
 @HiltViewModel
 class PolicyManagerScreenViewModel @Inject constructor(
+    private val addClipboardPolicyBundleUseCase: AddClipboardPolicyBundleUseCase,
     private val createClipboardPolicyUseCase: CreateClipboardPolicyUseCase,
     private val deleteClipboardPolicyUseCase: DeleteClipboardPolicyUseCase,
     observeClipboardPoliciesUseCase: ObserveClipboardPoliciesUseCase
@@ -35,6 +39,24 @@ class PolicyManagerScreenViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = emptyList()
         )
+
+    fun addClipboardPolicyBundle(
+        uri: String
+    ) {
+        viewModelScope.launch {
+            try {
+                addClipboardPolicyBundleUseCase(uri)
+            } catch (cancellationException: CancellationException) {
+                throw cancellationException
+            } catch (exception: Exception) {
+                Log.e(
+                    "PolicyManagerScreenViewModel",
+                    "Failed to add clipboard policy bundle",
+                    exception
+                )
+            }
+        }
+    }
 
     fun createClipboardPolicy(
         clipboardPolicy: ClipboardPolicy
