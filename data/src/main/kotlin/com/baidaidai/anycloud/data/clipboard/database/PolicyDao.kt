@@ -20,8 +20,23 @@ interface PolicyDao {
     )
 
     // Update
+    @Query("UPDATE PolicyEntity SET targetPackageName = :targetPackageName WHERE policyGroup = :policyGroup")
+    suspend fun updatePolicyTargetPackageName(
+        policyGroup: Long,
+        targetPackageName: String
+    )
 
     // Read
+    @Query("SELECT EXISTS(SELECT 1 FROM PolicyEntity WHERE policyGroup = :policyGroup AND policyType = :policyType AND policyContent = :policyContent)")
+    suspend fun hasPolicyEntity(
+        policyGroup: Long,
+        policyType: String,
+        policyContent: String
+    ): Boolean
+
+    @Query("SELECT MAX(unixTimeStamp) FROM PolicyEntity")
+    suspend fun getMaxPolicyUnixTimeStamp(): Long?
+
     @Query("SELECT * FROM PolicyEntity")
     fun observePolicyEntities(): Flow<List<PolicyEntity>>
 
