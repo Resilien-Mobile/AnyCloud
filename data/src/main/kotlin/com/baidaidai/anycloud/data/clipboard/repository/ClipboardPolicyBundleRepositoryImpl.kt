@@ -1,10 +1,15 @@
 package com.baidaidai.anycloud.data.clipboard.repository
 
 import androidx.room.withTransaction
+import com.baidaidai.anycloud.core.array.formatAsMultilineString
 import com.baidaidai.anycloud.data.clipboard.database.GroupEntity
 import com.baidaidai.anycloud.data.clipboard.database.PolicyEntity
 import com.baidaidai.anycloud.data.database.AnyCloudDataBase
+import com.baidaidai.anycloud.domain.clipboard.ClipboardError
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicyBundle
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.runCatching
 import javax.inject.Inject
 
 class ClipboardPolicyBundleRepositoryImpl @Inject constructor(
@@ -20,7 +25,7 @@ class ClipboardPolicyBundleRepositoryImpl @Inject constructor(
     // Create
     suspend fun addClipboardPolicyBundle(
         clipboardPolicyBundle: ClipboardPolicyBundle
-    ) {
+    ): Result<Unit, ClipboardError> = runCatching {
         anyCloudDataBase.withTransaction {
             val currentUnixTimeStamp = System.currentTimeMillis()
             val maxGroupUnixTimeStamp = groupDao.getMaxGroupUnixTimeStamp() ?: 0L
@@ -99,5 +104,16 @@ class ClipboardPolicyBundleRepositoryImpl @Inject constructor(
                 }
             }
         }
+    }.mapError { throwable ->
+
+        ClipboardError(
+            errorMessage = "Policy import failed",
+            errorCause = throwable.stackTrace.formatAsMultilineString(),
+            errorCompanion = when (throwable) {
+                is IllegalArgumentException -> throwable.message ?: "A policy references an unknown group."
+                else -> "The local database could not save the imported policy groups and rules."
+            }
+        )
+
     }
 }

@@ -1,17 +1,23 @@
 package com.baidaidai.anycloud.data.clipboard.api
 
+import com.baidaidai.anycloud.core.array.formatAsMultilineString
 import com.baidaidai.anycloud.data.clipboard.api.dto.ClipboardPolicyBundleDto
+import com.baidaidai.anycloud.domain.clipboard.ClipboardError
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicyBundle
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicyBundleGroup
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicyBundleRule
 import com.baidaidai.anycloud.domain.clipboard.PolicyType
 import com.charleskorn.kaml.Yaml
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.runCatching
+import kotlinx.serialization.SerializationException
 
 object ClipboardPolicyParser {
 
     fun parse(
         yamlContent: String
-    ): ClipboardPolicyBundle {
+    ): Result<ClipboardPolicyBundle, ClipboardError> = runCatching {
 
         val clipboardPolicyBundleDto = Yaml.default.decodeFromString(
             ClipboardPolicyBundleDto.serializer(),
@@ -62,7 +68,19 @@ object ClipboardPolicyParser {
             policies = clipboardPolicyBundleRuleList
         )
 
-        return clipboardPolicyBundle
+        clipboardPolicyBundle
+
+    }.mapError { throwable ->
+
+        ClipboardError(
+            errorMessage = "Invalid policy file",
+            errorCause = throwable.stackTrace.formatAsMultilineString(),
+            errorCompanion = when (throwable) {
+                is SerializationException -> "The downloaded file is not valid policy YAML or is missing required fields."
+                is IllegalArgumentException -> throwable.message ?: "A policy group or rule is invalid."
+                else -> "The downloaded file could not be read as a policy bundle."
+            }
+        )
 
     }
 
