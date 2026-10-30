@@ -14,6 +14,7 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":core"))
 
     implementation("javax.inject:javax.inject:1")
 
@@ -22,6 +23,9 @@ dependencies {
 
     // Url detector
     implementation("io.github.url-detector:url-detector:0.1.24")
+
+    // Result
+    implementation("com.michael-bull.kotlin-result:kotlin-result:2.3.1")
 
     testImplementation(libs.junit)
 }

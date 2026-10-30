@@ -46,6 +46,7 @@ dependencies {
 
     // Locally
     implementation(project(":domain"))
+    implementation(project(":core"))
 
     // Test
     testImplementation("io.mockk:mockk:1.14.11")
@@ -57,5 +58,8 @@ dependencies {
 
     // Kotaml
     implementation(libs.kotaml)
+
+    // Result
+    implementation("com.michael-bull.kotlin-result:kotlin-result:2.3.1")
 
 }
