@@ -4,8 +4,8 @@ import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicyBundle
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicyBundleGroup
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicyBundleRule
 import com.baidaidai.anycloud.domain.clipboard.PolicyType
+import com.github.michaelbull.result.fold
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
 import org.junit.Test
 
 class ClipboardPolicyParserTest {
@@ -21,7 +21,10 @@ class ClipboardPolicyParserTest {
               - DOMAIN,mzstatic.com,🔍Bing
         """.trimIndent()
 
-        val clipboardPolicyBundle = ClipboardPolicyParser.parse(yamlContent)
+        val clipboardPolicyBundle = ClipboardPolicyParser.parse(yamlContent).fold(
+            success = { it },
+            failure = { throw AssertionError(it.errorMessage) }
+        )
 
         assertEquals(
             ClipboardPolicyBundle(
@@ -56,7 +59,10 @@ class ClipboardPolicyParserTest {
                 package: com.example.app
         """.trimIndent()
 
-        val clipboardPolicyBundle = ClipboardPolicyParser.parse(yamlContent)
+        val clipboardPolicyBundle = ClipboardPolicyParser.parse(yamlContent).fold(
+            success = { it },
+            failure = { throw AssertionError(it.errorMessage) }
+        )
 
         assertEquals(1, clipboardPolicyBundle.groups.size)
         assertEquals(emptyList<ClipboardPolicyBundleRule>(), clipboardPolicyBundle.policies)
@@ -72,9 +78,13 @@ class ClipboardPolicyParserTest {
               - DOMAIN,example.com,Unknown
         """.trimIndent()
 
-        assertThrows(IllegalArgumentException::class.java) {
-            ClipboardPolicyParser.parse(yamlContent)
-        }
+        val clipboardError = ClipboardPolicyParser.parse(yamlContent).fold(
+            success = { throw AssertionError("Expected parsing to fail") },
+            failure = { it }
+        )
+
+        assertEquals("Invalid policy file", clipboardError.errorMessage)
+        assertEquals("Policy group does not exist: Unknown", clipboardError.errorCompanion)
     }
 
     @Test
@@ -87,8 +97,12 @@ class ClipboardPolicyParserTest {
               - GEOIP,CN,Known
         """.trimIndent()
 
-        assertThrows(IllegalArgumentException::class.java) {
-            ClipboardPolicyParser.parse(yamlContent)
-        }
+        val clipboardError = ClipboardPolicyParser.parse(yamlContent).fold(
+            success = { throw AssertionError("Expected parsing to fail") },
+            failure = { it }
+        )
+
+        assertEquals("Invalid policy file", clipboardError.errorMessage)
+        assertEquals("Unsupported policy type: GEOIP", clipboardError.errorCompanion)
     }
 }
