@@ -1,18 +1,21 @@
 package com.baidaidai.anycloud.ui.viewmodel.intelligent
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.baidaidai.anycloud.application.clipboard.AddClipboardPolicyBundleUseCase
 import com.baidaidai.anycloud.application.clipboard.CreateClipboardPolicyUseCase
 import com.baidaidai.anycloud.application.clipboard.DeleteClipboardPolicyUseCase
 import com.baidaidai.anycloud.application.clipboard.ObserveClipboardPoliciesUseCase
+import com.baidaidai.anycloud.domain.clipboard.ClipboardError
 import com.baidaidai.anycloud.domain.clipboard.ClipboardPolicy
+import com.github.michaelbull.result.onErr
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -33,6 +36,9 @@ class PolicyManagerScreenViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(PolicyManagerScreenUiState())
     val uiState: StateFlow<PolicyManagerScreenUiState> = _uiState.asStateFlow()
 
+    private val _clipboardPolicyBundleError = MutableSharedFlow<ClipboardError?>()
+    val clipboardPolicyBundleError: SharedFlow<ClipboardError?> = _clipboardPolicyBundleError.asSharedFlow()
+
     val clipboardPolicyList = observeClipboardPoliciesUseCase()
         .stateIn(
             scope = viewModelScope,
@@ -44,17 +50,16 @@ class PolicyManagerScreenViewModel @Inject constructor(
         uri: String
     ) {
         viewModelScope.launch {
-            try {
-                addClipboardPolicyBundleUseCase(uri)
-            } catch (cancellationException: CancellationException) {
-                throw cancellationException
-            } catch (exception: Exception) {
-                Log.e(
-                    "PolicyManagerScreenViewModel",
-                    "Failed to add clipboard policy bundle",
-                    exception
-                )
-            }
+            addClipboardPolicyBundleUseCase(uri)
+                .onErr { clipboardError ->
+                    _clipboardPolicyBundleError.emit(clipboardError)
+                }
+        }
+    }
+
+    fun dismissClipboardPolicyBundleError() {
+        viewModelScope.launch {
+            _clipboardPolicyBundleError.emit(null)
         }
     }
 

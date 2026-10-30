@@ -67,4 +67,7 @@ dependencies {
     implementation(project(":application"))
     implementation(project(":domain"))
 
+    // Result
+    implementation("com.michael-bull.kotlin-result:kotlin-result:2.3.1")
+
 }
