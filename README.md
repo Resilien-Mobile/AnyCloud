@@ -25,6 +25,7 @@ An Android notification-first companion for reminders, live task progress, and d
 * [ ] Refine animations, haptic feedback, and interaction details
 * [ ] Add a built-in local LLM and bring pickup codes onto the live island
 * [x] Add clipboard follow-up, understanding where users may want to go
+* [x] Get Mihomo-Like subscription link for strategies
 * [ ] Built-in App Picker: Select installed apps directly and capture their package names without manual input.
 * [ ] Local Config Import: Import local configuration files with support for the upstream Mihomo format.
 * [ ] Smart Extraction & Suggestions: Extract navigation destinations and personal information from relevant content, then provide contextual follow-up suggestions.
