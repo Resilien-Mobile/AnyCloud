@@ -1,0 +1,33 @@
+policy-groups:
+
+  - name: "🛒淘宝"
+    package: "com.taobao.taobao"
+
+  - name: "📕小红书"
+    package: "com.xingin.xhs"
+
+  - name: "📱酷安"
+    package: "com.coolapk.market"
+
+policies:
+
+  # 淘宝
+  - DOMAIN-SUFFIX,taobao.com,🛒淘宝
+  - DOMAIN-SUFFIX,tmall.com,🛒淘宝
+  - DOMAIN-SUFFIX,tb.cn,🛒淘宝
+  - DOMAIN-SUFFIX,taobaocdn.com,🛒淘宝
+  - DOMAIN-SUFFIX,tbcdn.cn,🛒淘宝
+  - DOMAIN-SUFFIX,alicdn.com,🛒淘宝
+  - DOMAIN-SUFFIX,aliimg.com,🛒淘宝
+
+  # 小红书
+  - DOMAIN-SUFFIX,xiaohongshu.com,📕小红书
+  - DOMAIN-SUFFIX,xiaohongshu.cn,📕小红书
+  - DOMAIN-SUFFIX,xhscdn.cn,📕小红书
+  - DOMAIN-SUFFIX,xhscdn.com,📕小红书
+  - DOMAIN-SUFFIX,xhslink.com,📕小红书
+
+  # 酷安
+  - DOMAIN-SUFFIX,coolapk.com,📱酷安
+  - DOMAIN-SUFFIX,coolapkmarket.com,📱酷安
+  - DOMAIN-SUFFIX,coolapkmarket.net,📱酷安
