@@ -128,6 +128,7 @@
     <!-- Empty State -->
     <string name="policy_manager_screen_no_policies">No Policies</string>
     <string name="policy_manager_screen_no_groups">No Groups</string>
+    <string name="policy_manager_error_dialog_confirm_button">OK</string>
 
     <!-- Policy Bottom Sheet -->
     <string name="clipboard_pilot_policy_bottom_sheet_title">Policy</string>
