@@ -37,6 +37,8 @@
 
     <!-- Search Row -->
     <string name="home_screen_search_row_placeholder">今天要做什么？</string>
+    <string name="home_screen_search_row_start_voice_input">开始语音输入</string>
+    <string name="home_screen_search_row_stop_voice_input">停止语音输入</string>
 
     <!-- Center Logo -->
     <string name="home_screen_center_logo_content_description">AnyCloud 的徽标</string>
