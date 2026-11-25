@@ -62,4 +62,9 @@ dependencies {
     // Result
     implementation("com.michael-bull.kotlin-result:kotlin-result:2.3.1")
 
+    // Sherpa
+    implementation(
+        files("libs/Sherpa.aar")
+    )
+
 }

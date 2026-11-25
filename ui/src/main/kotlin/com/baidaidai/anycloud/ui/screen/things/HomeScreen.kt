@@ -1,5 +1,9 @@
 package com.baidaidai.anycloud.ui.screen.things
 
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Box
@@ -26,8 +30,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.baidaidai.anycloud.ui.component.things.homeScreen.HomeScreenCenterLogo
@@ -43,11 +49,50 @@ fun HomeScreen(
     innerPadding: PaddingValues,
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
+
+    // States
+    val context = LocalContext.current
     val density = LocalDensity.current
     val layoutDirection = LocalLayoutDirection.current
     val inputContentState = rememberTextFieldState()
-    val notificationConfigList by homeScreenViewModel.notificationConfigList.collectAsState()
     val sky = rememberSky()
+
+    // Values
+    val notificationConfigList by homeScreenViewModel.notificationConfigList.collectAsState()
+    val homeScreenUiState by homeScreenViewModel.uiState.collectAsState()
+
+    LaunchedEffect(homeScreenUiState.conversationContent) {
+
+        val voiceRecordingText = homeScreenUiState.conversationContent
+        if (voiceRecordingText.isEmpty()) return@LaunchedEffect
+
+        inputContentState.edit {
+
+            val currentSelection = selection
+            replace(
+                start = currentSelection.min,
+                end = currentSelection.max,
+                text = voiceRecordingText
+            )
+            selection = TextRange(currentSelection.min + voiceRecordingText.length)
+
+        }
+
+        homeScreenViewModel.clearConversationContent()
+
+    }
+
+    val requestRecordAudioPermission = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+
+        if (isGranted) {
+
+            homeScreenViewModel.switchVoiceRecordStatus()
+
+        }
+
+    }
 
     val isImeVisible = WindowInsets
         .ime
@@ -125,8 +170,22 @@ fun HomeScreen(
         HomeScreenSearchRow(
             state = inputContentState,
             sky = sky,
+            isVoiceRecording = homeScreenUiState.isVoiceRecording,
             onSearchRowSizeChange = { maxHeight, _ ->
                 searchRowHeight = maxHeight
+            },
+            onMicButtonClick = {
+
+                if (context.checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+
+                    homeScreenViewModel.switchVoiceRecordStatus()
+
+                } else {
+
+                    requestRecordAudioPermission.launch(Manifest.permission.RECORD_AUDIO)
+
+                }
+
             },
             onSendButtonClick = {
                 if (inputContentState.text.isNotEmpty()){

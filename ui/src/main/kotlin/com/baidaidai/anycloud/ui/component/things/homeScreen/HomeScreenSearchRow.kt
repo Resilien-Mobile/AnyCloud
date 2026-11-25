@@ -44,7 +44,9 @@ fun HomeScreenSearchRow(
     modifier: Modifier = Modifier,
     state: TextFieldState,
     sky: Sky,
+    isVoiceRecording: Boolean = false,
     onSearchRowSizeChange: (maxHeight: Dp, maxWidth: Dp) -> Unit = { _, _ ->},
+    onMicButtonClick: () -> Unit = {},
     onSendButtonClick: ()->Unit = {},
 ){
 
@@ -90,9 +92,27 @@ fun HomeScreenSearchRow(
                         color = MaterialTheme.colorScheme.primary,
                     )
                 },
+                trailingIcon = {
+                    IconButton(
+                        shape = CircleShape,
+                        onClick = onMicButtonClick
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.material_symbols_mic),
+                            tint = MaterialTheme.colorScheme.primary,
+                            contentDescription = stringResource(
+                                id = if (isVoiceRecording) {
+                                    R.string.home_screen_search_row_stop_voice_input
+                                } else {
+                                    R.string.home_screen_search_row_start_voice_input
+                                }
+                            )
+                        )
+                    }
+                },
                 lineLimits = TextFieldLineLimits.SingleLine,
                 shape = CircleShape,
-                contentPadding = PaddingValues(horizontal = 24.dp),
+                contentPadding = PaddingValues(horizontal = 20.dp),
                 colors = getTextFieldColors(),
                 modifier = Modifier
                     .fillMaxWidth()
