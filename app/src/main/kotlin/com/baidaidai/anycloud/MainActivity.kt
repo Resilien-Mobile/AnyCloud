@@ -9,9 +9,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.baidaidai.anycloud.application.clipboard.ObserveClipboardContentUseCase
 import com.baidaidai.anycloud.application.clipboard.ParseClipboardUseCase
+import com.baidaidai.anycloud.application.intelligentlife.SyncIntelligentPromptUseCase
 import com.baidaidai.anycloud.application.setting.SyncClipboardListeningEnabledUseCase
 import com.baidaidai.anycloud.ui.screen.StartScreenContainer
 import com.baidaidai.anycloud.ui.theme.AnyCloudTheme
+import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
@@ -30,6 +32,8 @@ class AnyCloudApplication : Application() {
     lateinit var parseClipboardUseCase: ParseClipboardUseCase
     @Inject
     lateinit var syncClipboardListeningEnabledUseCase: SyncClipboardListeningEnabledUseCase
+    @Inject
+    lateinit var syncIntelligentPromptUseCase: Lazy<SyncIntelligentPromptUseCase>
 
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -41,6 +45,12 @@ class AnyCloudApplication : Application() {
             observeClipboardContentUseCase().collectLatest { clipboardContent ->
                 parseClipboardUseCase(clipboardContent)
             }
+        }
+
+        applicationScope.launch {
+            // 触发依赖链构造：AssistantApiLocally.init { initializeLlmEngine() }
+            // 会在 IO 线程上预加载引擎，并顺带确保 files/models 模型目录存在。
+            syncIntelligentPromptUseCase.get()
         }
     }
 }
