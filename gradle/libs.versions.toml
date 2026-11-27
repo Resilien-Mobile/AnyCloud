@@ -23,6 +23,9 @@ material3AdaptiveNav3 = "1.3.0-rc01"
 ktor = "3.6.0"
 kotaml = "0.107.0"
 
+kotlinxSerializationJson = "1.11.0"
+litertLm = "0.19.1"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -68,6 +71,12 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 
 # Kotaml
 kotaml = { module = "io.heapy.kotaml:kotaml", version.ref = "kotaml" }
+
+# litertlm-android
+litertlm-android = { group = "com.google.ai.edge.litertlm", name = "litertlm-android", version.ref = "litertLm" }
+
+#
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

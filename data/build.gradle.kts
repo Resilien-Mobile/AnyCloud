@@ -62,9 +62,32 @@ dependencies {
     // Result
     implementation("com.michael-bull.kotlin-result:kotlin-result:2.3.1")
 
-    // Sherpa
+    // ONNX Runtime 由 Sherpa.aar 内置提供（1.28.2），无需 maven 依赖。
+    // 待 PP-OCR adapter 回归（ppocr.aar 需要 ai.onnxruntime Java API）时再补：
+    // implementation("com.microsoft.onnxruntime:onnxruntime-android:<与 Sherpa 内置同版>")
+
+    // Sherpa（自带 ONNX Runtime .so）
     implementation(
         files("libs/Sherpa.aar")
     )
+
+    // Google MLKit OCR
+    implementation("com.google.mlkit:text-recognition-chinese:16.0.1")
+    implementation("com.quickbirdstudios:opencv:4.5.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+
+    // LiteRT LLM
+    implementation(libs.litertlm.android)
+
+    // Json serialization
+    api(libs.kotlinx.serialization.json)
+
+    // Json chema - ktor
+    // 排除传递引入的旧版 kaml：项目统一使用 kotaml（kaml 的 fork，同名包），
+    // 否则 assemble 时 kaml-jvm 0.79 与 kotaml-jvm 0.107 会出现重复类。
+    implementation("io.ktor:ktor-openapi-schema:3.6.1") {
+        exclude(group = "com.charleskorn.kaml")
+    }
+
 
 }
