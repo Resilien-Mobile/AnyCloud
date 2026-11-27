@@ -69,6 +69,9 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(project(":data"))
+    androidTestImplementation(project(":domain"))
+    androidTestImplementation("com.michael-bull.kotlin-result:kotlin-result:2.3.1")
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
